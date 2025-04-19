@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mechae263C_helpers"
+version = "1.0.0"
+dependencies = [
+    "numpy==1.26.4",  # For multi-dimensional array support
+    "matplotlib",  # For plotting data
+]
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = [
+    "mechae263C_helpers",
+    "mechae263C_helpers.minilabs"
+]
+package-dir = {"" = "src"}

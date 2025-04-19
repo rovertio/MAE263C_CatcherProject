@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dynamixel-controller"
+license = { file = "LICENSE" }
+description = "README.md"
+version = "1.0.0"
+dependencies = [
+    "pyserial==3.5",
+    "dynamixel-sdk==3.7.31"
+]
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = [
+    "dxl",
+    "dxl.DynamixelJSON"
+]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["*.json"]
