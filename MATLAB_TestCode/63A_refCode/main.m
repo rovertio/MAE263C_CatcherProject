@@ -7,12 +7,12 @@ clear all;
 initialize();
 
 % Main
-
-% Initialized arduino related variables
-global arduino; % Declare as global to be used in the callback
-arduino = serialport('COM4', 9600);
-configureTerminator(arduino, "CR/LF");
-flush(arduino);
+% 
+% % Initialized arduino related variables
+% global arduino; % Declare as global to be used in the callback
+% arduino = serialport('COM4', 9600);
+% configureTerminator(arduino, "CR/LF");
+% flush(arduino);
 
 % Keyboard Mapping for manual control
 % A/D: rotate robot CCW/CW (+/- theta1)
@@ -39,8 +39,8 @@ c = [0.06 0.1086 0.1086 0.1086 0.2005];
 q = proj_IK([x,y,z], orient_ref, c);
 q = [q, 0];  % initialize prismatic to 0 position
 offset = [2048, 2151, 1952, 2239, 2389];
-
-for i = 1:5
+MX28_ID = [3,5];
+for i = 1:2
     % Write speed constraint for the motors last input: [0 is no speed 
     % control, 1 is lowest speed], [1 1000] is slowest to fastest mapping 
     % for values other than [0, 1]

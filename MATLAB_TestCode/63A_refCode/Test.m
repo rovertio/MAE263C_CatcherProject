@@ -1,0 +1,55 @@
+clear all
+global port_num PROTOCOL_VERSION
+
+%— your constants —
+MX28_ID            = [4, 1];
+OPER_MODE_ADDR     = 11;   % EEPROM
+TORQUE_ENABLE_ADDR = 64;   % RAM
+GOAL_POS_ADDR      = 116;  % RAM
+
+initialize();        % open port, set baud, load lib, etc.
+
+% 1) Make sure torque is OFF so we can change EEPROM
+for id = MX28_ID
+  write1ByteTxRx(port_num, PROTOCOL_VERSION, id, TORQUE_ENABLE_ADDR, 0);
+  checkCommErr(id);
+end
+
+% 2) Set Position Control mode (EEPROM write)
+for id = MX28_ID
+  write1ByteTxRx(port_num, PROTOCOL_VERSION, id, OPER_MODE_ADDR, 3);
+  checkCommErr(id);
+end
+
+% 3) Turn torque back ON
+for id = MX28_ID
+  write1ByteTxRx(port_num, PROTOCOL_VERSION, id, TORQUE_ENABLE_ADDR, 1);
+  checkCommErr(id);
+end
+
+% 4) Now send your 45° goals
+ticks = round(deg2rad([225 0]) * 4096/(2*pi)) + 2048;
+for i = 1:2
+  write4ByteTxRx( ...
+    port_num, PROTOCOL_VERSION, ...
+    MX28_ID(i), GOAL_POS_ADDR, ...
+    typecast(int32(ticks(i)), 'uint32') ...
+  );
+  checkCommErr(MX28_ID(i));
+end
+
+%— helper —
+function checkCommErr(id)
+  global port_num PROTOCOL_VERSION
+  cr = getLastTxRxResult(port_num, PROTOCOL_VERSION);
+  er = getLastRxPacketError(port_num, PROTOCOL_VERSION);
+  if cr~=0 || er~=0
+    error("ID %d comm/packet error: %s%s", ...
+      id, ...
+      getTxRxResult(PROTOCOL_VERSION,cr), ...
+      getRxPacketError(PROTOCOL_VERSION,er));
+  end
+end
+
+
+
