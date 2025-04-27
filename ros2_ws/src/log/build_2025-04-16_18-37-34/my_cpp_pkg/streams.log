@@ -1,0 +1,47 @@
+[0.049s] Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/my_cpp_pkg
+[1.193s] -- The C compiler identification is GNU 11.4.0
+[1.934s] -- The CXX compiler identification is GNU 11.4.0
+[1.985s] -- Detecting C compiler ABI info
+[2.390s] -- Detecting C compiler ABI info - done
+[2.416s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.418s] -- Detecting C compile features
+[2.421s] -- Detecting C compile features - done
+[2.436s] -- Detecting CXX compiler ABI info
+[2.835s] -- Detecting CXX compiler ABI info - done
+[2.864s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.865s] -- Detecting CXX compile features
+[2.866s] -- Detecting CXX compile features - done
+[2.916s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.693s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[4.331s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[4.802s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[4.803s] -- Configured cppcheck include dirs: 
+[4.803s] -- Configured cppcheck exclude dirs and/or files: 
+[4.808s] -- Added test 'lint_cmake' to check CMake code style
+[4.816s] -- Added test 'uncrustify' to check C / C++ code style
+[4.816s] -- Configured uncrustify additional arguments: 
+[4.819s] -- Added test 'xmllint' to check XML markup files
+[4.827s] -- Configuring done
+[4.849s] -- Generating done
+[4.857s] -- Build files have been written to: /home/manuel/ros2_ws/src/build/my_cpp_pkg
+[4.875s] Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/my_cpp_pkg
+[4.889s] Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/src/build/my_cpp_pkg -- -j4 -l4
+[5.039s] Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/src/build/my_cpp_pkg -- -j4 -l4
+[5.089s] Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/src/build/my_cpp_pkg
+[5.117s] -- Install configuration: ""
+[5.118s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/ament_index/resource_index/package_run_dependencies/my_cpp_pkg
+[5.119s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/ament_index/resource_index/parent_prefix_path/my_cpp_pkg
+[5.121s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/environment/ament_prefix_path.sh
+[5.122s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/environment/ament_prefix_path.dsv
+[5.123s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/environment/path.sh
+[5.124s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/environment/path.dsv
+[5.125s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.bash
+[5.126s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.sh
+[5.128s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.zsh
+[5.129s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.dsv
+[5.130s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/package.dsv
+[5.131s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/ament_index/resource_index/packages/my_cpp_pkg
+[5.133s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/cmake/my_cpp_pkgConfig.cmake
+[5.133s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/cmake/my_cpp_pkgConfig-version.cmake
+[5.135s] -- Installing: /home/manuel/ros2_ws/src/install/my_cpp_pkg/share/my_cpp_pkg/package.xml
+[5.141s] Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/src/build/my_cpp_pkg

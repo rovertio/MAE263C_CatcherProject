@@ -1,0 +1,6 @@
+Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/my_cpp_pkg
+Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/my_cpp_pkg
+Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/src/build/my_cpp_pkg -- -j4 -l4
+Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/src/build/my_cpp_pkg -- -j4 -l4
+Invoking command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/src/build/my_cpp_pkg
+Invoked command in '/home/manuel/ros2_ws/src/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/src/build/my_cpp_pkg
