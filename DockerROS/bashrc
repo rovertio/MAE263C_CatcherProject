@@ -1,0 +1,5 @@
+source /opt/ros/humble/setup.bash
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# export XDG_RUNTIME_DIR=/home/Catcher/src/robot_desc/robot
+# export RUNLEVEL=3
