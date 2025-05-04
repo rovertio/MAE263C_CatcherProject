@@ -3,6 +3,7 @@
 #include "sensor_msgs/msg/image.hpp"
 #include "cv_bridge/cv_bridge.h"
 #include <opencv2/imgproc.hpp>
+#include "geometry_msgs/msg/point.hpp"
 
 class BallCentroidDetector : public rclcpp::Node
 {
@@ -14,6 +15,8 @@ public:
 				"/ball_image", 
 				10,
 				std::bind(&BallCentroidDetector::image_cb, this, std::placeholders::_1));
+		pub_ = this->create_publisher<geometry_msgs::msg::Point>(
+				"/ball_centroid", 10);
 	}
 
 private:
@@ -38,6 +41,11 @@ private:
 			RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(),
 						33,
 						"Centroid pixel: (%.1f, %.1f)", cx, cy);
+			geometry_msgs::msg::Point p;
+			p.x = cx;
+			p.y = cy;
+			p.z = 0.0;
+			pub_->publish(p);
 		} else {
 			RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(),
 					2000, "Ball not found");
@@ -45,6 +53,7 @@ private:
 	}
 
 	rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub_;
+	rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_;
 };
 
 int main(int argc, char **argv)
