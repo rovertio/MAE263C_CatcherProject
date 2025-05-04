@@ -9,7 +9,6 @@
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/dynamixelmotor_withhorn.stl
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.part
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.stl
-/home/Catcher/install/robot_desc/share/robot_desc//robot/config.json
 /home/Catcher/install/robot_desc/share/robot_desc//robot/robot.urdf
 /home/Catcher/install/robot_desc/share/robot_desc/environment/robot_desc.dsv
 /home/Catcher/install/robot_desc/share/ament_index/resource_index/package_run_dependencies/robot_desc
