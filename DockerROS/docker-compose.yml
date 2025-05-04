@@ -8,6 +8,7 @@ services:
     volumes:
       - ./SimulationFiles:/home/Catcher
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev:/dev
     tty: true
 
 volumes:

@@ -1,2 +1,6 @@
 DockerROS/SimulationFiles/log/
+DockerROS/SimulationFiles/src/robot_desc/log/
+DockerROS/SimulationFiles/build/
+DockerROS/SimulationFiles/install/
+
 ros2_ws/src/log/

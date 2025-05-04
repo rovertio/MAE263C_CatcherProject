@@ -7,10 +7,10 @@ ARG GZ_VERSION=fortress
 
 # Example of installing programs
 RUN apt-get update \
-    && apt-get install -y \
-    nano \
-    vim \
-    && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y \
+  nano \
+  vim \
+  && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user
 ARG USERNAME=Catcher
@@ -30,13 +30,19 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 
+# Install sdk for dynamixel
+RUN apt-get update  && \
+  sudo apt-get install ros-$ROS_DISTRO-dynamixel-sdk -y && \
+  rm -rf /var/lib/apt/lists/*
+
+
 ## Install Gazebo
 RUN apt-get update  && \
-    wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
-    apt-get update && \
-    apt-get install -y gz-$GZ_VERSION ros-$ROS_DISTRO-ros-gz && \
-    rm -rf /var/lib/apt/lists/* 
+  wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
+  apt-get update && \
+  apt-get install -y gz-$GZ_VERSION ros-$ROS_DISTRO-ros-gz && \
+  rm -rf /var/lib/apt/lists/* 
 
 
 ## Install files for the creation of URDF files within the workspace from Onshape
