@@ -1,0 +1,5 @@
+PID controllers that will output values for PWM targets for the DYNAMIXEL motors. They need to be passed state vectors containing arm position and target position, as well as a time value and a vector of the running errors.
+
+To best use this, our MAIN function should read the inverse kinematics of the camera results, and concatonate those values with the positions of the motors from the getpositions call. Every time we do this we should record the time since last. then we can pass all these to the function to spit out PWM values.
+
+These PIDs have identity K values for now, we can adjust them accordingly.
