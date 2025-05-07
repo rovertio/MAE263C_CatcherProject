@@ -54,8 +54,8 @@
   <link name="combinedshoulder">
     <inertial>
       <origin xyz="0.116229 1.86113e-07 -0.0231002" rpy="0 0 0"/>
-      <mass value="0.0159914"/>
-      <inertia ixx="1.32041e-05" ixy="-5.74409e-10" ixz="-2.07746e-06" iyy="0.000109933" iyz="-7.32156e-11" izz="0.000101656"/>
+      <mass value="0.0366356"/>
+      <inertia ixx="3.025e-05" ixy="-1.31594e-09" ixz="-4.75937e-06" iyy="0.000251851" iyz="-1.67733e-10" izz="0.00023289"/>
     </inertial>
     <!-- Part combinedshoulder -->
     <visual>
@@ -102,8 +102,8 @@
   <link name="hooplink">
     <inertial>
       <origin xyz="0.13582 -2.36422e-05 0.00482647" rpy="0 0 0"/>
-      <mass value="0.0174"/>
-      <inertia ixx="4.93554e-06" ixy="6.81023e-08" ixz="1.73507e-06" iyy="0.000152572" iyz="-1.36842e-09" izz="0.000156908"/>
+      <mass value="0.0174423"/>
+      <inertia ixx="4.94754e-06" ixy="6.82679e-08" ixz="1.73928e-06" iyy="0.000152943" iyz="-1.37175e-09" izz="0.000157289"/>
     </inertial>
     <!-- Part hooplink -->
     <visual>
