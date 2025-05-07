@@ -16,8 +16,8 @@ using GetJointDegrees = joint_positions_node::srv::GetJointDegrees;
 constexpr uint8_t  ID_1 = 4;
 constexpr uint8_t  ID_2 = 1;
 
-constexpr double   ZERO_TICK_1 = 100.0;
-constexpr double   ZERO_TICK_2 = 2550.0;
+constexpr double   ZERO_TICK_1 = 691.0;
+constexpr double   ZERO_TICK_2 = 2530.0;
 constexpr double   TICKS_PER_DEG = 4096.0 / 360.0;
 
 constexpr double   MIN_DEG_1 = 0, MAX_DEG_1 = 70;

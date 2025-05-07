@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ball_centroid_detector)
+project(ball_arm_tracker)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -8,19 +8,15 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(cv_bridge REQUIRED)
-find_package(image_transport REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(inverse_kinematics_node REQUIRED)
 
-add_executable(ball_detector src/detector.cpp)
-ament_target_dependencies(ball_detector
-	rclcpp sensor_msgs geometry_msgs cv_bridge image_transport std_msgs)
-target_link_libraries(ball_detector ${OpenCV_LIBRARRIES})
+add_executable(pixel_to_xy_bridge src/pixel_to_xy_bridge.cpp)
+ament_target_dependencies(pixel_to_xy_bridge
+	rclcpp geometry_msgs inverse_kinematics_node)
 
-install(TARGETS ball_detector DESTINATION lib/${PROJECT_NAME})
-
+install(TARGETS pixel_to_xy_bridge DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

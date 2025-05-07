@@ -12,8 +12,8 @@ using GetXY = inverse_kinematics_node::srv::GetXY;
 /*----------------------- hardware constants (from joint_positions_node) ----*/
 constexpr uint8_t  ID_1 = 4;           // shoulder
 constexpr uint8_t  ID_2 = 1;           // elbow
-constexpr double   ZERO_TICK_1 = 100;
-constexpr double   ZERO_TICK_2 = 2550;
+constexpr double   ZERO_TICK_1 = 691;
+constexpr double   ZERO_TICK_2 = 2530;
 constexpr double   TICKS_PER_DEG = 4096.0/360.0;
 
 inline uint32_t deg_to_tick_1(double d){return uint32_t(ZERO_TICK_1+d*TICKS_PER_DEG);}
