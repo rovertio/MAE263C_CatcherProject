@@ -1,5 +1,6 @@
 /home/Catcher/install/robot_desc/share/robot_desc//rviz/robot.rviz
 /home/Catcher/install/robot_desc/share/robot_desc//launch/robot.launch.py
+/home/Catcher/install/robot_desc/share/robot_desc//launch/sim.launch.py
 /home/Catcher/install/robot_desc/share/robot_desc//launch/start_rviz.launch.py
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/armbasemount.part
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/armbasemount.stl
@@ -9,7 +10,10 @@
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/dynamixelmotor_withhorn.stl
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.part
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.stl
+/home/Catcher/install/robot_desc/share/robot_desc//robot/config.json
 /home/Catcher/install/robot_desc/share/robot_desc//robot/robot.urdf
+/home/Catcher/install/robot_desc/share/robot_desc//robot/simRobot.sdf
+/home/Catcher/install/robot_desc/share/robot_desc//simWorld/simset.sdf
 /home/Catcher/install/robot_desc/share/robot_desc/environment/robot_desc.dsv
 /home/Catcher/install/robot_desc/share/ament_index/resource_index/package_run_dependencies/robot_desc
 /home/Catcher/install/robot_desc/share/ament_index/resource_index/parent_prefix_path/robot_desc

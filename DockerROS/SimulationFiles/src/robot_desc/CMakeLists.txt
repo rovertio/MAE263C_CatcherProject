@@ -19,7 +19,8 @@ install(
   DIRECTORY
     rviz
     launch
-        robot
+    robot
+    simWorld
   DESTINATION
     share/${PROJECT_NAME}/
 )
