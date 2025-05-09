@@ -30,16 +30,16 @@ def generate_launch_description():
 
     print("Fetching URDF ==>")
 
-    # sdf_file_name = 'simRobot.sdf'   
-    # sdf = os.path.join(
-    #     get_package_share_directory(package_description),
-    #     'robot',
-    #     sdf_file_name)
-    sdf_file_name = 'robot.urdf'   
+    sdf_file_name = 'simRobot.sdf'   
     sdf = os.path.join(
         get_package_share_directory(package_description),
         'robot',
         sdf_file_name)
+    # sdf_file_name = 'robot.urdf'   
+    # sdf = os.path.join(
+    #     get_package_share_directory(package_description),
+    #     'robot',
+    #     sdf_file_name)
     
     world_file_name = 'simset.sdf'
     world_sdf = os.path.join(
@@ -91,7 +91,7 @@ def generate_launch_description():
         rviz_node,
         gazebo,
         robot_state_publisher,
-        spawn_entity
+        # spawn_entity
     ])
 
 

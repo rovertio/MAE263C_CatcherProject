@@ -1,13 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version='1.9'>
   <model name='project_robot'>
-    <link name="ground"></link>
-    <joint name='world_fixed' type='fixed'>
-      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
-      <parent>ground</parent>
-      <child>armbasemount</child>
-    </joint>
-
     <link name='armbasemount'>
       <inertial>
         <pose>1.263539951021668e-05 0.07419523813516601 0.05700630658454012 0 0 0</pose>
@@ -26,7 +19,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/armbasemount.stl</uri>
+            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -35,7 +28,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -44,7 +37,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/armbasemount.stl</uri>
+            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -57,7 +50,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -103,7 +96,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -112,7 +105,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -121,7 +114,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -134,7 +127,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -180,7 +173,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/hooplink.stl</uri>
+            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
           </mesh>
         </geometry>
       </collision>
@@ -189,7 +182,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file://home/Catcher/src/robot_desc/robot/assets/hooplink.stl</uri>
+            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -211,5 +204,18 @@
     </frame>
     <frame name='EEframe' attached_to='EEframe_frame'/>
 
+    <!-- <link name="world"></link> -->
+    <!-- <joint name='world_fixed' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>armbasemount</child>
+    </joint> -->
+
   </model>
+  <!-- <link name="world"></link>
+    <joint name='world_fixed' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>armbasemount</child>
+    </joint> -->
 </sdf>
