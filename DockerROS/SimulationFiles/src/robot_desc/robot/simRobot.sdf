@@ -1,0 +1,221 @@
+<?xml version="1.0" ?>
+<sdf version='1.9'>
+  <model name='project_robot'>
+    <link name='armbasemount'>
+      <inertial>
+        <pose>1.263539951021668e-05 0.07419523813516601 0.05700630658454012 0 0 0</pose>
+        <mass>0.14381869999999999</mass>
+        <inertia>
+          <ixx>0.00025720488617902358</ixx>
+          <ixy>-1.165396593119921e-08</ixy>
+          <ixz>-4.7448122466882087e-08</ixz>
+          <iyy>0.00025936768677669512</iyy>
+          <iyz>-9.7920085590639323e-05</iyz>
+          <izz>0.00022214033384382301</izz>
+        </inertia>
+      </inertial>
+      <collision name='armbasemount_collision'>
+        <pose>0 0.1156 0.06 1.5708 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='armbasemount_fixed_joint_lump__dynamixelmotor_withhorn_collision_1'>
+        <pose>0 0.1036 0.07803 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='armbasemount_visual'>
+        <pose>0 0.1156 0.06 1.5708 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='armbasemount_fixed_joint_lump__dynamixelmotor_withhorn_visual_1'>
+        <pose>0 0.1036 0.07803 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='shoulder' type='revolute'>
+      <pose relative_to='armbasemount'>-2.16027e-17 0.1036000000000005 0.09853000000000001 1.71531e-32 2.46519e-32 1.5708</pose>
+      <parent>armbasemount</parent>
+      <child>combinedshoulder</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.5708</lower>
+          <upper>1.5708</upper>
+          <effort>10</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='combinedshoulder'>
+      <pose relative_to='shoulder'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.2342869078594548 -1.523538012067885e-05 -0.0175232967030221 0 0 0</pose>
+        <mass>0.1188543</mass>
+        <inertia>
+          <ixx>4.6814265169462813e-05</ixx>
+          <ixy>7.3497799931415666e-08</ixy>
+          <ixz>-4.006092638310653e-05</ixz>
+          <iyy>0.0010155294978120141</iyy>
+          <iyz>1.370196421991926e-08</iyz>
+          <izz>0.00099044285783268359</izz>
+        </inertia>
+      </inertial>
+      <collision name='combinedshoulder_collision'>
+        <pose>0.169838 -0.0002 0 -2.73691e-48 0 4.22857e-64</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='combinedshoulder_fixed_joint_lump__dynamixelmotor_withhorn_2_collision_1'>
+        <pose>0.298 -9.33476e-18 -0.015 -5.47466e-32 1.038760000000001e-32 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='combinedshoulder_visual'>
+        <pose>0.169838 -0.0002 0 -2.73691e-48 0 4.22857e-64</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='combinedshoulder_fixed_joint_lump__dynamixelmotor_withhorn_2_visual_1'>
+        <pose>0.298 -9.33476e-18 -0.015 -5.47466e-32 1.038760000000001e-32 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='elbow' type='revolute'>
+      <pose relative_to='combinedshoulder'>0.298 -7.17848e-17 0.0055 -1.932110000000001e-32 -1.45615e-32 -0.009927090000000001</pose>
+      <parent>combinedshoulder</parent>
+      <child>hooplink</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.2939099999999999</lower>
+          <upper>2.3137599999999998</upper>
+          <effort>10</effort>
+          <velocity>10</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='hooplink'>
+      <pose relative_to='elbow'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.1358200094127489 -2.364221011092516e-05 0.004826469895285032 0 0 0</pose>
+        <mass>0.017442301</mass>
+        <inertia>
+          <ixx>4.9475400033670939e-06</ixx>
+          <ixy>6.8267928954421945e-08</ixy>
+          <ixz>1.739280299869829e-06</ixz>
+          <iyy>0.00015294302695840689</iyy>
+          <iyz>-1.371750322112212e-09</iyz>
+          <izz>0.00015728902695510199</izz>
+        </inertia>
+      </inertial>
+      <collision name='hooplink_collision'>
+        <pose>0.169838 0.1698 0 3.42114e-49 0 2.47619e-65</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='hooplink_visual'>
+        <pose>0.169838 0.1698 0 3.42114e-49 0 2.47619e-65</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='shouldermotor' attached_to='armbasemount'>
+      <pose>0 0.1036 0.10388 0 -0 0</pose>
+    </frame>
+    <frame name='dynamixelmotor_withhorn' attached_to='shouldermotor'/>
+    <frame name='elbowmotor' attached_to='combinedshoulder'>
+      <pose>0 0 0.003 -0 -0 0</pose>
+    </frame>
+    <frame name='dynamixelmotor_withhorn_2' attached_to='elbowmotor'/>
+    <frame name='EEframe_frame' attached_to='hooplink'>
+      <pose>0.3 -0.0002 0.003 0 -0 0</pose>
+    </frame>
+    <frame name='EEframe' attached_to='EEframe_frame'/>
+
+    <!-- <link name="world"></link> -->
+    <!-- <joint name='world_fixed' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>armbasemount</child>
+    </joint> -->
+
+  </model>
+  <!-- <link name="world"></link>
+    <joint name='world_fixed' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>armbasemount</child>
+    </joint> -->
+</sdf>

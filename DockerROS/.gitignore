@@ -1,0 +1,8 @@
+SimulationFiles/src/robot_desc/robot/config.json
+SimulationFiles/log/
+SimulationFiles/src/robot_desc/log/
+
+
+SimulationFiles/build/
+SimulationFiles/install/
+SimulationFiles/keys.sh

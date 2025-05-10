@@ -2,6 +2,21 @@
 <!-- Generated using onshape-to-robot -->
 <!-- Onshape document_id: af0115e61c5582d0fb054981 -->
 <robot name="project_robot">
+
+
+  <!-- This first link called "world" is empty -->
+  <!-- <link name="world"></link> -->
+
+
+  <!-- A simple fixed joint from our empty world link, to our base. -->
+  <!-- The base origin is offset from the world origin. -->
+  <!-- <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="world"/>
+      <child link="armbasemount"/>        
+  </joint> -->
+
+
   <!-- Link armbasemount -->
   <link name="armbasemount">
     <inertial>
@@ -13,7 +28,7 @@
     <visual>
       <origin xyz="0 0.1156 0.06" rpy="1.5708 -0 -1.5708"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/armbasemount.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/armbasemount.stl"/>
       </geometry>
       <material name="armbasemount_material">
         <color rgba="0.615686 0.811765 0.929412 1.0"/>
@@ -22,7 +37,7 @@
     <collision>
       <origin xyz="0 0.1156 0.06" rpy="1.5708 -0 -1.5708"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/armbasemount.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/armbasemount.stl"/>
       </geometry>
     </collision>
   </link>
@@ -37,7 +52,7 @@
     <visual>
       <origin xyz="0 0 -0.02585" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
       </geometry>
       <material name="dynamixelmotor_withhorn_material">
         <color rgba="0.647059 0.647059 0.647059 1.0"/>
@@ -46,7 +61,7 @@
     <collision>
       <origin xyz="0 0 -0.02585" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
       </geometry>
     </collision>
   </link>
@@ -54,14 +69,14 @@
   <link name="combinedshoulder">
     <inertial>
       <origin xyz="0.116229 1.86113e-07 -0.0231002" rpy="0 0 0"/>
-      <mass value="0.0159914"/>
-      <inertia ixx="1.32041e-05" ixy="-5.74409e-10" ixz="-2.07746e-06" iyy="0.000109933" iyz="-7.32156e-11" izz="0.000101656"/>
+      <mass value="0.0366356"/>
+      <inertia ixx="3.025e-05" ixy="-1.31594e-09" ixz="-4.75937e-06" iyy="0.000251851" iyz="-1.67733e-10" izz="0.00023289"/>
     </inertial>
     <!-- Part combinedshoulder -->
     <visual>
       <origin xyz="0.169838 -0.0002 0" rpy="-2.73691e-48 -0 4.22857e-64"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/combinedshoulder.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/combinedshoulder.stl"/>
       </geometry>
       <material name="combinedshoulder_material">
         <color rgba="0.615686 0.811765 0.929412 1.0"/>
@@ -70,7 +85,7 @@
     <collision>
       <origin xyz="0.169838 -0.0002 0" rpy="-2.73691e-48 -0 4.22857e-64"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/combinedshoulder.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/combinedshoulder.stl"/>
       </geometry>
     </collision>
   </link>
@@ -85,7 +100,7 @@
     <visual>
       <origin xyz="0.298 -9.33476e-18 -0.018" rpy="-5.47466e-32 1.03876e-32 -1.5708"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
       </geometry>
       <material name="dynamixelmotor_withhorn_2_material">
         <color rgba="0.647059 0.647059 0.647059 1.0"/>
@@ -94,7 +109,7 @@
     <collision>
       <origin xyz="0.298 -9.33476e-18 -0.018" rpy="-5.47466e-32 1.03876e-32 -1.5708"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/dynamixelmotor_withhorn.stl"/>
       </geometry>
     </collision>
   </link>
@@ -102,14 +117,14 @@
   <link name="hooplink">
     <inertial>
       <origin xyz="0.13582 -2.36422e-05 0.00482647" rpy="0 0 0"/>
-      <mass value="0.0174"/>
-      <inertia ixx="4.93554e-06" ixy="6.81023e-08" ixz="1.73507e-06" iyy="0.000152572" iyz="-1.36842e-09" izz="0.000156908"/>
+      <mass value="0.0174423"/>
+      <inertia ixx="4.94754e-06" ixy="6.82679e-08" ixz="1.73928e-06" iyy="0.000152943" iyz="-1.37175e-09" izz="0.000157289"/>
     </inertial>
     <!-- Part hooplink -->
     <visual>
       <origin xyz="0.169838 0.1698 0" rpy="3.42114e-49 -0 2.47619e-65"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/hooplink.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/hooplink.stl"/>
       </geometry>
       <material name="hooplink_material">
         <color rgba="0.615686 0.811765 0.929412 1.0"/>
@@ -118,7 +133,7 @@
     <collision>
       <origin xyz="0.169838 0.1698 0" rpy="3.42114e-49 -0 2.47619e-65"/>
       <geometry>
-        <mesh filename="package://robot_desc/robot/assets/hooplink.stl"/>
+        <mesh filename="file://home/Catcher/install/robot_desc/share/robot_desc/robot/assets/hooplink.stl"/>
       </geometry>
     </collision>
   </link>

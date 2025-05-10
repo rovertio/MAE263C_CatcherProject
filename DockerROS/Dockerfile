@@ -1,16 +1,9 @@
 ARG ROS_DISTRO=humble
 FROM gezp/ubuntu-desktop-ros:$ROS_DISTRO
 
+# Distro of ROS and gazebo
 ARG ROS_DISTRO=humble
 ARG GZ_VERSION=fortress
-
-
-# Example of installing programs
-RUN apt-get update \
-  && apt-get install -y \
-  nano \
-  vim \
-  && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user
 ARG USERNAME=Catcher
@@ -30,30 +23,47 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 
-# Install sdk for dynamixel
-RUN apt-get update  && \
-  sudo apt-get install ros-$ROS_DISTRO-dynamixel-sdk -y && \
+# Installing utilities
+RUN apt-get update && \
+  # Installing text editors
+  apt-get install nano -y && \
+  apt-get install vim -y && \
+  # Installing OpenCV
+  sudo apt-get install libopencv-dev -y && \
+  # Installing python dependencies
+  sudo apt install python3-numpy -y && \
+  sudo apt install libboost-python-dev -y && \
+  # Installing cpp compiler (if want to use instead of deault g++)
+  sudo apt install clang -y && \
   rm -rf /var/lib/apt/lists/*
 
 
-## Install Gazebo
+## Install ROS2 related items
 RUN apt-get update  && \
+  # Install Gazebo
   wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
   apt-get update && \
   apt-get install -y gz-$GZ_VERSION ros-$ROS_DISTRO-ros-gz && \
+  sudo apt-get install ros-${ROS_DISTRO}-ros-ign-bridge -y && \
+  # Install package for joint control in rviz
+  sudo apt-get install ros-${ROS_DISTRO}-joint-state-publisher -y && \
+  sudo apt-get install ros-${ROS_DISTRO}-joint-state-publisher-gui -y && \
+  # Install cv_bridge
+  sudo apt-get install ros-${ROS_DISTRO}-cv-bridge && \
+  sudo apt-get install ros-${ROS_DISTRO}-vision-opencv && \
+  # Install package for dynamixel
+  sudo apt-get install ros-$ROS_DISTRO-dynamixel-sdk -y && \
   rm -rf /var/lib/apt/lists/* 
 
 
 ## Install files for the creation of URDF files within the workspace from Onshape
-RUN apt-get update \
-  && pip install onshape-to-robot \
-  && sudo add-apt-repository ppa:openscad/releases \
-  && sudo apt-get install openscad -y \
-  && sudo apt-get install meshlab -y \
-  && sudo apt-get install ros-humble-joint-state-publisher -y \
-  && sudo apt-get install ros-humble-joint-state-publisher-gui -y \
-  && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && \
+  pip install onshape-to-robot && \
+  sudo add-apt-repository ppa:openscad/releases && \
+  sudo apt-get install openscad -y && \
+  sudo apt-get install meshlab -y && \
+  rm -rf /var/lib/apt/lists/* 
 
 
 # Copy the entrypoint and bashrc scripts so we have 
