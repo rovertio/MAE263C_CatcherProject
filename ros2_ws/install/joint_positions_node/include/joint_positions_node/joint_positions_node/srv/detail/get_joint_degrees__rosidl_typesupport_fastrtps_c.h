@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/joint_positions_node/rosidl_typesupport_fastrtps_c/joint_positions_node/srv/detail/get_joint_degrees__rosidl_typesupport_fastrtps_c.h

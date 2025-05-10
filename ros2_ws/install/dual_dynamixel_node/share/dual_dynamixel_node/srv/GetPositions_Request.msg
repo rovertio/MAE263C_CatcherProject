@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_cmake/srv/GetPositions_Request.msg

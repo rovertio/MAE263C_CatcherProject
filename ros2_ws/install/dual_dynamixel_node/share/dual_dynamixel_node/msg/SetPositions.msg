@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/src/dual_dynamixel_node/msg/SetPositions.msg

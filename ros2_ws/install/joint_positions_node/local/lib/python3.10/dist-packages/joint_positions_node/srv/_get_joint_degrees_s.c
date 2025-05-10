@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/joint_positions_node/rosidl_generator_py/joint_positions_node/srv/_get_joint_degrees_s.c

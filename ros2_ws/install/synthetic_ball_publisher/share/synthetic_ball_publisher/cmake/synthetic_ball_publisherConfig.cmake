@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/synthetic_ball_publisher/ament_cmake_core/synthetic_ball_publisherConfig.cmake

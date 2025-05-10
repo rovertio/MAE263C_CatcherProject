@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/joint_positions_node/rosidl_cmake/srv/GetJointDegrees_Request.msg

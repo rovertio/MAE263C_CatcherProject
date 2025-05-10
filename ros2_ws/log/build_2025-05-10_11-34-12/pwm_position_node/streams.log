@@ -1,0 +1,28 @@
+[0.012s] Invoking command in '/home/manuel/ros2_ws/build/pwm_position_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12
+[0.049s] [35m[1mConsolidate compiler generated dependencies of target pwm_position_node[0m
+[0.062s] [ 50%] [32mBuilding CXX object CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o[0m
+[2.005s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:[m[K In constructor ‘[01m[KPWMPosNode::PWMPosNode()[m[K’:
+[2.005s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:93:55:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass rclcpp::Parameter[m[K’ has no member named ‘[01m[Kas_int64[m[K’; did you mean ‘[01m[Kas_int[m[K’?
+[2.005s]    93 |     if(!port_->setBaudRate( get_parameter("baudrate").[01;31m[Kas_int64[m[K() )){ // Use as_int64() for clarity with %ld
+[2.005s]       |                                                       [01;31m[K^~~~~~~~[m[K
+[2.005s]       |                                                       [32m[Kas_int[m[K
+[2.005s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[2.005s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[2.005s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[2.006s]                  from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:6[m[K:
+[2.006s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:94:92:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass rclcpp::Parameter[m[K’ has no member named ‘[01m[Kas_int64[m[K’; did you mean ‘[01m[Kas_int[m[K’?
+[2.006s]    94 | PP_FATAL(get_logger(),"Failed to set baudrate to %ld", get_parameter("baudrate").[01;31m[Kas_int64[m[K());
+[2.006s]       |                                                                                  [01;31m[K^~~~~~~~[m[K
+[2.006s] 
+[4.073s] gmake[2]: *** [CMakeFiles/pwm_position_node.dir/build.make:76: CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o] Error 1
+[4.073s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/pwm_position_node.dir/all] Error 2
+[4.073s] gmake: *** [Makefile:146: all] Error 2
+[4.075s] Invoked command in '/home/manuel/ros2_ws/build/pwm_position_node' returned '2': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12

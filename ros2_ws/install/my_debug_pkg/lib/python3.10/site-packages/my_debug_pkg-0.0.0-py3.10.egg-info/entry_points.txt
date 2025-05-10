@@ -1,0 +1,3 @@
+[console_scripts]
+env_checker = my_debug_pkg.env_check_node:main
+

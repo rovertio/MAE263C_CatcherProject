@@ -1,0 +1,15 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from joint_positions_node/msg/SetJointDegrees.msg
+// generated code does not contain a copyright notice
+
+
+module joint_positions_node {
+  module msg {
+    typedef double double__2[2];
+    @verbatim (language="comment", text=
+      "Desired joint angles in degrees")
+    struct SetJointDegrees {
+      double__2 degrees;
+    };
+  };
+};

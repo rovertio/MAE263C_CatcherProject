@@ -1,0 +1,24 @@
+[0.020s] Invoking command in '/home/manuel/ros2_ws/build/ball_centroid_detector': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/build/ball_centroid_detector -- -j12 -l12
+[0.309s] [35m[1mConsolidate compiler generated dependencies of target ball_detector[0m
+[0.309s] [100%] Built target ball_detector
+[0.313s] Invoked command in '/home/manuel/ros2_ws/build/ball_centroid_detector' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/build/ball_centroid_detector -- -j12 -l12
+[0.323s] Invoking command in '/home/manuel/ros2_ws/build/ball_centroid_detector': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/build/ball_centroid_detector
+[0.329s] -- Install configuration: ""
+[0.329s] -- Execute custom install script
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/lib/ball_centroid_detector/ball_detector
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/package_run_dependencies/ball_centroid_detector
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/parent_prefix_path/ball_centroid_detector
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/ament_prefix_path.sh
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/ament_prefix_path.dsv
+[0.330s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/path.sh
+[0.331s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/path.dsv
+[0.331s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.bash
+[0.331s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.sh
+[0.331s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.zsh
+[0.331s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.dsv
+[0.331s] -- Symlinking: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/package.dsv
+[0.342s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/packages/ball_centroid_detector
+[0.343s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/cmake/ball_centroid_detectorConfig.cmake
+[0.343s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/cmake/ball_centroid_detectorConfig-version.cmake
+[0.343s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/package.xml
+[0.367s] Invoked command in '/home/manuel/ros2_ws/build/ball_centroid_detector' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/build/ball_centroid_detector

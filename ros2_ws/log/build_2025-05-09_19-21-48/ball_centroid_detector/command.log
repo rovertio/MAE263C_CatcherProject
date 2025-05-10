@@ -1,0 +1,6 @@
+Invoking command in '/home/manuel/ros2_ws/build/ball_centroid_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/ball_centroid_detector -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/ball_centroid_detector
+Invoked command in '/home/manuel/ros2_ws/build/ball_centroid_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/ball_centroid_detector -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/ball_centroid_detector
+Invoking command in '/home/manuel/ros2_ws/build/ball_centroid_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/build/ball_centroid_detector -- -j12 -l12
+Invoked command in '/home/manuel/ros2_ws/build/ball_centroid_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/manuel/ros2_ws/build/ball_centroid_detector -- -j12 -l12
+Invoking command in '/home/manuel/ros2_ws/build/ball_centroid_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/build/ball_centroid_detector
+Invoked command in '/home/manuel/ros2_ws/build/ball_centroid_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/manuel/ros2_ws/build/ball_centroid_detector

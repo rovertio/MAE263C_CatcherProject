@@ -1,0 +1,63 @@
+[0.273s] Invoking command in '/home/manuel/ros2_ws/build/pwm_position_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake /home/manuel/ros2_ws/src/pwm_position_node -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/pwm_position_node
+[0.373s] -- The C compiler identification is GNU 11.4.0
+[0.465s] -- The CXX compiler identification is GNU 11.4.0
+[0.474s] -- Detecting C compiler ABI info
+[0.580s] -- Detecting C compiler ABI info - done
+[0.589s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.589s] -- Detecting C compile features
+[0.590s] -- Detecting C compile features - done
+[0.595s] -- Detecting CXX compiler ABI info
+[0.688s] -- Detecting CXX compiler ABI info - done
+[0.702s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.702s] -- Detecting CXX compile features
+[0.703s] -- Detecting CXX compile features - done
+[0.707s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.864s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.925s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.950s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.988s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.994s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.002s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.015s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.031s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.074s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.076s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.147s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.169s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.205s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.214s] -- Looking for pthread.h
+[1.273s] -- Looking for pthread.h - found
+[1.273s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.334s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.335s] -- Found Threads: TRUE  
+[1.381s] -- Found dynamixel_sdk: 3.8.3 (/home/manuel/ros2_ws/install/dynamixel_sdk/share/dynamixel_sdk/cmake)
+[1.382s] -- Found inverse_kinematics_node: 0.0.0 (/home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake)
+[1.453s] -- Configuring done
+[1.459s] -- Generating done
+[1.462s] -- Build files have been written to: /home/manuel/ros2_ws/build/pwm_position_node
+[1.469s] Invoked command in '/home/manuel/ros2_ws/build/pwm_position_node' returned '0': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake /home/manuel/ros2_ws/src/pwm_position_node -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/pwm_position_node
+[1.470s] Invoking command in '/home/manuel/ros2_ws/build/pwm_position_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12
+[1.511s] [ 50%] [32mBuilding CXX object CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o[0m
+[8.928s] [100%] [32m[1mLinking CXX executable pwm_position_node[0m
+[9.256s] [100%] Built target pwm_position_node
+[9.264s] Invoked command in '/home/manuel/ros2_ws/build/pwm_position_node' returned '0': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12
+[9.266s] Invoking command in '/home/manuel/ros2_ws/build/pwm_position_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/manuel/ros2_ws/build/pwm_position_node
+[9.271s] -- Install configuration: ""
+[9.272s] -- Execute custom install script
+[9.272s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/lib/pwm_position_node/pwm_position_node
+[9.279s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/ament_index/resource_index/package_run_dependencies/pwm_position_node
+[9.285s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/ament_index/resource_index/parent_prefix_path/pwm_position_node
+[9.292s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/environment/ament_prefix_path.sh
+[9.298s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/environment/ament_prefix_path.dsv
+[9.305s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/environment/path.sh
+[9.311s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/environment/path.dsv
+[9.318s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/local_setup.bash
+[9.325s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/local_setup.sh
+[9.333s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/local_setup.zsh
+[9.339s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/local_setup.dsv
+[9.346s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/package.dsv
+[9.352s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/ament_index/resource_index/packages/pwm_position_node
+[9.358s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/cmake/pwm_position_nodeConfig.cmake
+[9.365s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/cmake/pwm_position_nodeConfig-version.cmake
+[9.371s] -- Symlinking: /home/manuel/ros2_ws/install/pwm_position_node/share/pwm_position_node/package.xml
+[9.379s] Invoked command in '/home/manuel/ros2_ws/build/pwm_position_node' returned '0': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/manuel/ros2_ws/build/pwm_position_node

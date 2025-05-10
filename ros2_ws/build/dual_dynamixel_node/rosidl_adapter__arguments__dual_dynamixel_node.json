@@ -1,0 +1,7 @@
+{
+  "package_name": "dual_dynamixel_node",
+  "non_idl_tuples": [
+    "/home/manuel/ros2_ws/src/dual_dynamixel_node:msg/SetPositions.msg",
+    "/home/manuel/ros2_ws/src/dual_dynamixel_node:srv/GetPositions.srv"
+  ]
+}

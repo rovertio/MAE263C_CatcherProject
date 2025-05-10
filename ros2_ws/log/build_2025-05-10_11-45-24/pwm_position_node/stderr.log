@@ -1,0 +1,40 @@
+In file included from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/group_bulk_read.h:27[m[K,
+                 from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/dynamixel_sdk.h:26[m[K,
+                 from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:9[m[K:
+[01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/packet_handler.h:38:29:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+   38 | #define BROADCAST_ID        [01;31m[K0xFE[m[K    // 254
+      |                             [01;31m[K^~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:44:19:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KBROADCAST_ID[m[K’
+   44 | constexpr uint8_t [01;36m[KBROADCAST_ID[m[K          = 0xFE; // For disabling torque on all servos
+      |                   [01;36m[K^~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+                 from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:8[m[K:
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:[m[K In member function ‘[01m[Kvoid PWMPosNode::control_loop(double)[m[K’:
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:241:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+  241 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "SyncRead for Present Position failed: %s", packet_->getTxRxResult(dxl_comm_result));
+      |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:249:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+  249 |         [01;31m[KRCLCPP_WARN_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "Failed to get data for one or both servos in SyncRead.");
+      |         [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:328:5:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+  328 |     [01;31m[KRCLCPP_DEBUG_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(100), // Log every 100ms
+      |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:341:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+  341 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "Failed to add all params to GroupSyncWrite for PWM.");
+      |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:350:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+  350 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "SyncWrite for Goal PWM failed: %s", packet_->getTxRxResult(dxl_comm_result));
+      |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/pwm_position_node.dir/build.make:76: CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/pwm_position_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

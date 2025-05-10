@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/joint_positions_node/rosidl_generator_c/joint_positions_node/srv/detail/get_joint_degrees__type_support.h

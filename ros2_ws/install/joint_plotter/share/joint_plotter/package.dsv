@@ -1,0 +1,6 @@
+source;share/joint_plotter/hook/pythonpath.ps1
+source;share/joint_plotter/hook/pythonpath.dsv
+source;share/joint_plotter/hook/pythonpath.sh
+source;share/joint_plotter/hook/ament_prefix_path.ps1
+source;share/joint_plotter/hook/ament_prefix_path.dsv
+source;share/joint_plotter/hook/ament_prefix_path.sh

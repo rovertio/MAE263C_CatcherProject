@@ -1,0 +1,119 @@
+[0.000000] (-) TimerEvent: {}
+[0.000089] (-) JobUnselected: {'identifier': 'ball_arm_tracker'}
+[0.000110] (-) JobUnselected: {'identifier': 'ball_centroid_detector'}
+[0.000125] (-) JobUnselected: {'identifier': 'dual_dynamixel_node'}
+[0.000145] (-) JobUnselected: {'identifier': 'dynamixel_sdk'}
+[0.000158] (-) JobUnselected: {'identifier': 'dynamixel_sdk_custom_interfaces'}
+[0.000170] (-) JobUnselected: {'identifier': 'dynamixel_sdk_examples'}
+[0.000215] (-) JobUnselected: {'identifier': 'inverse_kinematics_node'}
+[0.000243] (-) JobUnselected: {'identifier': 'joint_plotter'}
+[0.000255] (-) JobUnselected: {'identifier': 'joint_positions_node'}
+[0.000267] (-) JobUnselected: {'identifier': 'my_cpp_pkg'}
+[0.000279] (-) JobUnselected: {'identifier': 'my_debug_pkg'}
+[0.000291] (-) JobUnselected: {'identifier': 'synthetic_ball_publisher'}
+[0.000305] (pwm_position_node) JobQueued: {'identifier': 'pwm_position_node', 'dependencies': OrderedDict([('dynamixel_sdk', '/home/manuel/ros2_ws/install/dynamixel_sdk'), ('inverse_kinematics_node', '/home/manuel/ros2_ws/install/inverse_kinematics_node')])}
+[0.000325] (pwm_position_node) JobStarted: {'identifier': 'pwm_position_node'}
+[0.009979] (pwm_position_node) JobProgress: {'identifier': 'pwm_position_node', 'progress': 'cmake'}
+[0.010971] (pwm_position_node) JobProgress: {'identifier': 'pwm_position_node', 'progress': 'build'}
+[0.011362] (pwm_position_node) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/manuel/ros2_ws/build/pwm_position_node', '--', '-j12', '-l12'], 'cwd': '/home/manuel/ros2_ws/build/pwm_position_node', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'manuel'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/manuel'), ('OLDPWD', '/home/manuel/ros2_ws/src/DynamixelSDK/ros/dynamixel_sdk/src/dynamixel_sdk'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2256'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/manuel/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'manuel'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'manuel'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/manuel-ThinkPad-P1-Gen-2:@/tmp/.ICE-unix/1661,unix/manuel-ThinkPad-P1-Gen-2:/tmp/.ICE-unix/1661'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/0ff1b6a7_9d90_4194_ac1e_0149815bd2a2'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.IF6352'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.95'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/joint_plotter:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/manuel/ros2_ws/build/pwm_position_node'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/joint_positions_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble')]), 'shell': False}
+[0.047172] (pwm_position_node) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target pwm_position_node\x1b[0m\n'}
+[0.059752] (pwm_position_node) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o\x1b[0m\n'}
+[0.099473] (-) TimerEvent: {}
+[0.199730] (-) TimerEvent: {}
+[0.299976] (-) TimerEvent: {}
+[0.400279] (-) TimerEvent: {}
+[0.500533] (-) TimerEvent: {}
+[0.600808] (-) TimerEvent: {}
+[0.701050] (-) TimerEvent: {}
+[0.801268] (-) TimerEvent: {}
+[0.901512] (-) TimerEvent: {}
+[1.001781] (-) TimerEvent: {}
+[1.102093] (-) TimerEvent: {}
+[1.202384] (-) TimerEvent: {}
+[1.302652] (-) TimerEvent: {}
+[1.402904] (-) TimerEvent: {}
+[1.503205] (-) TimerEvent: {}
+[1.603422] (-) TimerEvent: {}
+[1.703678] (-) TimerEvent: {}
+[1.803939] (-) TimerEvent: {}
+[1.904174] (-) TimerEvent: {}
+[2.004426] (-) TimerEvent: {}
+[2.027863] (pwm_position_node) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24\x1b[m\x1b[K,\n'}
+[2.028027] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40\x1b[m\x1b[K,\n'}
+[2.028085] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24\x1b[m\x1b[K,\n'}
+[2.028131] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20\x1b[m\x1b[K,\n'}
+[2.028176] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25\x1b[m\x1b[K,\n'}
+[2.028221] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18\x1b[m\x1b[K,\n'}
+[2.028264] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20\x1b[m\x1b[K,\n'}
+[2.028307] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37\x1b[m\x1b[K,\n'}
+[2.028349] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25\x1b[m\x1b[K,\n'}
+[2.028396] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21\x1b[m\x1b[K,\n'}
+[2.028439] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155\x1b[m\x1b[K,\n'}
+[2.028480] (pwm_position_node) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:5\x1b[m\x1b[K:\n'}
+[2.028522] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[KPWMPosNode::PWMPosNode()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.028581] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:121:33:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kformat \xe2\x80\x98\x1b[01m\x1b[K%d\x1b[m\x1b[K\xe2\x80\x99 expects argument of type \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99, but argument 5 has type \xe2\x80\x98\x1b[01m\x1b[Kint64_t\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Klong int\x1b[m\x1b[K\xe2\x80\x99} [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat=\x07-Wformat=\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[2.028629] (pwm_position_node) StderrLine: {'line': b'  121 |       RCLCPP_FATAL(get_logger(),\x1b[01;35m\x1b[K"Failed to set baudrate to %d"\x1b[m\x1b[K, \x1b[32m\x1b[Kget_parameter("baudrate").as_int()\x1b[m\x1b[K);\n'}
+[2.028673] (pwm_position_node) StderrLine: {'line': b'      |                                 \x1b[01;35m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K  \x1b[32m\x1b[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.028715] (pwm_position_node) StderrLine: {'line': b'      |                                                                                                 \x1b[32m\x1b[K|\x1b[m\x1b[K\n'}
+[2.028757] (pwm_position_node) StderrLine: {'line': b'      |                                                                                                 \x1b[32m\x1b[Kint64_t {aka long int}\x1b[m\x1b[K\n'}
+[2.028800] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:121:61:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Kformat string is defined here\n'}
+[2.028848] (pwm_position_node) StderrLine: {'line': b'  121 |       RCLCPP_FATAL(get_logger(),"Failed to set baudrate to \x1b[01;36m\x1b[K%d\x1b[m\x1b[K", get_parameter("baudrate").as_int());\n'}
+[2.028890] (pwm_position_node) StderrLine: {'line': b'      |                                                            \x1b[01;36m\x1b[K~^\x1b[m\x1b[K\n'}
+[2.028936] (pwm_position_node) StderrLine: {'line': b'      |                                                             \x1b[01;36m\x1b[K|\x1b[m\x1b[K\n'}
+[2.028979] (pwm_position_node) StderrLine: {'line': b'      |                                                             \x1b[01;36m\x1b[Kint\x1b[m\x1b[K\n'}
+[2.029029] (pwm_position_node) StderrLine: {'line': b'      |                                                            \x1b[32m\x1b[K%ld\x1b[m\x1b[K\n'}
+[2.050600] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid PWMPosNode::initialize_goals_to_current_positions()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.050731] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:196:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kbool_t\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kbool\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[2.050787] (pwm_position_node) StderrLine: {'line': b'  196 |         \x1b[01;31m\x1b[Kbool_t\x1b[m\x1b[K is_available_1 = group_sync_read.isAvailable(ID_1, ADDR_PRESENT_POSITION, 4);\n'}
+[2.050836] (pwm_position_node) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[2.050880] (pwm_position_node) StderrLine: {'line': b'      |         \x1b[32m\x1b[Kbool\x1b[m\x1b[K\n'}
+[2.050922] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:197:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected \xe2\x80\x98\x1b[01m\x1b[K;\x1b[m\x1b[K\xe2\x80\x99 before \xe2\x80\x98\x1b[01m\x1b[Kis_available_2\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.050967] (pwm_position_node) StderrLine: {'line': b'  197 |         bool_t \x1b[01;31m\x1b[Kis_available_2\x1b[m\x1b[K = group_sync_read.isAvailable(ID_2, ADDR_PRESENT_POSITION, 4);\n'}
+[2.051022] (pwm_position_node) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.058326] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:199:13:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kis_available_1\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.058479] (pwm_position_node) StderrLine: {'line': b'  199 |         if (\x1b[01;31m\x1b[Kis_available_1\x1b[m\x1b[K) {\n'}
+[2.058531] (pwm_position_node) StderrLine: {'line': b'      |             \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.065879] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:206:13:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kis_available_2\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.065987] (pwm_position_node) StderrLine: {'line': b'  206 |         if (\x1b[01;31m\x1b[Kis_available_2\x1b[m\x1b[K) {\n'}
+[2.066045] (pwm_position_node) StderrLine: {'line': b'      |             \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.075058] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid PWMPosNode::control_loop(double)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.075184] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:260:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kbool_t\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kbool\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[2.075248] (pwm_position_node) StderrLine: {'line': b'  260 |     \x1b[01;31m\x1b[Kbool_t\x1b[m\x1b[K is_available_1 = group_sync_read.isAvailable(ID_1, ADDR_PRESENT_POSITION, 4);\n'}
+[2.075299] (pwm_position_node) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[2.075345] (pwm_position_node) StderrLine: {'line': b'      |     \x1b[32m\x1b[Kbool\x1b[m\x1b[K\n'}
+[2.075388] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:261:12:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected \xe2\x80\x98\x1b[01m\x1b[K;\x1b[m\x1b[K\xe2\x80\x99 before \xe2\x80\x98\x1b[01m\x1b[Kis_available_2\x1b[m\x1b[K\xe2\x80\x99\n'}
+[2.075433] (pwm_position_node) StderrLine: {'line': b'  261 |     bool_t \x1b[01;31m\x1b[Kis_available_2\x1b[m\x1b[K = group_sync_read.isAvailable(ID_2, ADDR_PRESENT_POSITION, 4);\n'}
+[2.075476] (pwm_position_node) StderrLine: {'line': b'      |            \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.081884] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:263:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kis_available_1\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.081969] (pwm_position_node) StderrLine: {'line': b'  263 |     if (!\x1b[01;31m\x1b[Kis_available_1\x1b[m\x1b[K || !is_available_2) {\n'}
+[2.082038] (pwm_position_node) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.088743] (pwm_position_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:263:29:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kis_available_2\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[2.088857] (pwm_position_node) StderrLine: {'line': b'  263 |     if (!is_available_1 || !\x1b[01;31m\x1b[Kis_available_2\x1b[m\x1b[K) {\n'}
+[2.088911] (pwm_position_node) StderrLine: {'line': b'      |                             \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[2.104546] (-) TimerEvent: {}
+[2.204771] (-) TimerEvent: {}
+[2.305025] (-) TimerEvent: {}
+[2.405245] (-) TimerEvent: {}
+[2.505472] (-) TimerEvent: {}
+[2.605735] (-) TimerEvent: {}
+[2.705998] (-) TimerEvent: {}
+[2.806238] (-) TimerEvent: {}
+[2.906490] (-) TimerEvent: {}
+[3.006747] (-) TimerEvent: {}
+[3.107030] (-) TimerEvent: {}
+[3.207255] (-) TimerEvent: {}
+[3.307481] (-) TimerEvent: {}
+[3.407735] (-) TimerEvent: {}
+[3.508011] (-) TimerEvent: {}
+[3.608234] (-) TimerEvent: {}
+[3.708489] (-) TimerEvent: {}
+[3.808713] (-) TimerEvent: {}
+[3.908974] (-) TimerEvent: {}
+[4.009192] (-) TimerEvent: {}
+[4.109432] (-) TimerEvent: {}
+[4.176071] (pwm_position_node) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/pwm_position_node.dir/build.make:76: CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o] Error 1\n'}
+[4.176310] (pwm_position_node) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/pwm_position_node.dir/all] Error 2\n'}
+[4.176495] (pwm_position_node) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[4.178313] (pwm_position_node) CommandEnded: {'returncode': 2}
+[4.187256] (pwm_position_node) JobEnded: {'identifier': 'pwm_position_node', 'rc': 2}
+[4.197537] (-) EventReactorShutdown: {}

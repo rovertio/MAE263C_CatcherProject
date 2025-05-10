@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_py/dual_dynamixel_node/srv/_get_positions.py

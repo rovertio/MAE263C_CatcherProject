@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "inverse_kinematics_node__py",
+		"source" : "/home/manuel/ros2_ws/build/inverse_kinematics_node/inverse_kinematics_node__py"
+	}
+}

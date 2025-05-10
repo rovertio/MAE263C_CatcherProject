@@ -1,0 +1,36 @@
+[0.559s] Invoking command in '/home/manuel/ros2_ws/build/my_debug_pkg': PYTHONPATH=/home/manuel/ros2_ws/build/my_debug_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/manuel/ros2_ws/build/my_debug_pkg/build
+[0.805s] running develop
+[0.965s] Removing /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my-debug-pkg.egg-link (link to .)
+[0.991s] Invoked command in '/home/manuel/ros2_ws/build/my_debug_pkg' returned '0': PYTHONPATH=/home/manuel/ros2_ws/build/my_debug_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/manuel/ros2_ws/build/my_debug_pkg/build
+[0.992s] Invoking command in '/home/manuel/ros2_ws/src/my_debug_pkg': PYTHONPATH=/home/manuel/ros2_ws/build/my_debug_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_debug_pkg build --build-base /home/manuel/ros2_ws/build/my_debug_pkg/build install --record /home/manuel/ros2_ws/build/my_debug_pkg/install.log --single-version-externally-managed install_data --force
+[1.238s] running egg_info
+[1.239s] writing ../../build/my_debug_pkg/my_debug_pkg.egg-info/PKG-INFO
+[1.240s] writing dependency_links to ../../build/my_debug_pkg/my_debug_pkg.egg-info/dependency_links.txt
+[1.240s] writing entry points to ../../build/my_debug_pkg/my_debug_pkg.egg-info/entry_points.txt
+[1.240s] writing requirements to ../../build/my_debug_pkg/my_debug_pkg.egg-info/requires.txt
+[1.240s] writing top-level names to ../../build/my_debug_pkg/my_debug_pkg.egg-info/top_level.txt
+[1.242s] reading manifest file '../../build/my_debug_pkg/my_debug_pkg.egg-info/SOURCES.txt'
+[1.242s] writing manifest file '../../build/my_debug_pkg/my_debug_pkg.egg-info/SOURCES.txt'
+[1.242s] running build
+[1.243s] running build_py
+[1.243s] creating /home/manuel/ros2_ws/build/my_debug_pkg/build
+[1.243s] creating /home/manuel/ros2_ws/build/my_debug_pkg/build/lib
+[1.243s] creating /home/manuel/ros2_ws/build/my_debug_pkg/build/lib/my_debug_pkg
+[1.243s] copying my_debug_pkg/__init__.py -> /home/manuel/ros2_ws/build/my_debug_pkg/build/lib/my_debug_pkg
+[1.243s] copying my_debug_pkg/env_check_node.py -> /home/manuel/ros2_ws/build/my_debug_pkg/build/lib/my_debug_pkg
+[1.244s] running install
+[1.244s] running install_lib
+[1.244s] creating /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+[1.244s] copying /home/manuel/ros2_ws/build/my_debug_pkg/build/lib/my_debug_pkg/__init__.py -> /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+[1.245s] copying /home/manuel/ros2_ws/build/my_debug_pkg/build/lib/my_debug_pkg/env_check_node.py -> /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+[1.245s] byte-compiling /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg/__init__.py to __init__.cpython-310.pyc
+[1.245s] byte-compiling /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg/env_check_node.py to env_check_node.cpython-310.pyc
+[1.245s] running install_data
+[1.245s] copying resource/my_debug_pkg -> /home/manuel/ros2_ws/install/my_debug_pkg/share/ament_index/resource_index/packages
+[1.246s] copying package.xml -> /home/manuel/ros2_ws/install/my_debug_pkg/share/my_debug_pkg
+[1.246s] running install_egg_info
+[1.247s] Copying ../../build/my_debug_pkg/my_debug_pkg.egg-info to /home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg-0.0.0-py3.10.egg-info
+[1.248s] running install_scripts
+[1.267s] Installing env_checker script to /home/manuel/ros2_ws/install/my_debug_pkg/lib/my_debug_pkg
+[1.267s] writing list of installed files to '/home/manuel/ros2_ws/build/my_debug_pkg/install.log'
+[1.293s] Invoked command in '/home/manuel/ros2_ws/src/my_debug_pkg' returned '0': PYTHONPATH=/home/manuel/ros2_ws/build/my_debug_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_debug_pkg build --build-base /home/manuel/ros2_ws/build/my_debug_pkg/build install --record /home/manuel/ros2_ws/build/my_debug_pkg/install.log --single-version-externally-managed install_data --force

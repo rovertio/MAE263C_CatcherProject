@@ -12,8 +12,8 @@ using GetXY = inverse_kinematics_node::srv::GetXY;
 /*----------------------- hardware constants (from joint_positions_node) ----*/
 constexpr uint8_t  ID_1 = 4;           // shoulder
 constexpr uint8_t  ID_2 = 1;           // elbow
-constexpr double   ZERO_TICK_1 = 691;
-constexpr double   ZERO_TICK_2 = 2530;
+constexpr double   ZERO_TICK_1 = 2048;
+constexpr double   ZERO_TICK_2 = 2048;
 constexpr double   TICKS_PER_DEG = 4096.0/360.0;
 
 inline uint32_t deg_to_tick_1(double d){return uint32_t(ZERO_TICK_1+d*TICKS_PER_DEG);}
@@ -25,11 +25,11 @@ inline double tick_to_deg_2(uint32_t tick)
 
 /*----------------------- kinematic constants --------------------------------*/
 constexpr double L1 = 30.0, L2 = 30.0;       // link lengths
-constexpr double BASE_X = -42.0, BASE_Y = 0; // base in world
+constexpr double BASE_X = -41.0, BASE_Y = -1.0; // base in world
 
 /* limits */
-constexpr double MIN_J1 = 0.0 , MAX_J1 = 70.0;
-constexpr double MIN_J2 = 0.0 , MAX_J2 = 135.0;
+constexpr double MIN_J1 = -90.0 , MAX_J1 = 20.0;
+constexpr double MIN_J2 =  0.0 , MAX_J2 = 140.0;
 
 /* Dynamixel addresses */
 constexpr uint8_t ADDR_GOAL_POSITION    = 116;
@@ -59,8 +59,8 @@ bool cartesian_to_joint(double x, double y,
   double theta1 = std::atan2(yr, xr) - std::atan2(k2, k1);
 
   /* convert to motor conventions */
-  j1_deg = -theta1 * 180.0/M_PI;    // motor positive CW
-  j2_deg =  theta2 * 180.0/M_PI;    // motor positive CCW
+  j1_deg = theta1 * 180.0/M_PI;    // motor positive CW
+  j2_deg = theta2 * 180.0/M_PI;    // motor positive CCW
 
   /* limits */
   if(j1_deg < MIN_J1 || j1_deg > MAX_J1) return false;
@@ -108,24 +108,69 @@ private:
     packet_->write1ByteTxRx(port_,id,ADDR_TORQUE_ENABLE,1,&dxl_err_);
   }
 
-  void handle_set(SetXY::SharedPtr msg)
-  {
-    double j1,j2;
-    if(!cartesian_to_joint(msg->x,msg->y,j1,j2)){
-      RCLCPP_ERROR(get_logger(),"Target (%.1f,%.1f) unreachable",msg->x,msg->y);
-      return;
-    }
-    uint32_t t1=deg_to_tick_1(j1), t2=deg_to_tick_2(j2);
 
-    dynamixel::GroupSyncWrite sw(port_,packet_,ADDR_GOAL_POSITION,4);
-    uint8_t buf1[4]={uint8_t(t1),uint8_t(t1>>8),uint8_t(t1>>16),uint8_t(t1>>24)};
-    uint8_t buf2[4]={uint8_t(t2),uint8_t(t2>>8),uint8_t(t2>>16),uint8_t(t2>>24)};
-    sw.addParam(ID_1,buf1); sw.addParam(ID_2,buf2);
+void handle_set(SetXY::SharedPtr msg)
+{
+  // 1) compute distance from arm base → target (in world coords)
+  double xr = msg->x - BASE_X;
+  double yr = msg->y - BASE_Y;
+  double dist = std::hypot(xr, yr);
 
-    std::lock_guard<std::mutex> lk(mx_);
-    if(sw.txPacket()!=COMM_SUCCESS)
-      RCLCPP_ERROR(get_logger(),"SyncWrite failed");
+  // 2) geometric reach check
+  if (dist > (L1 + L2)) {
+    RCLCPP_WARN(get_logger(),
+      "Target (%.2f, %.2f) at distance %.2f exceeds kinematic reach %.2f → unreachable",
+      msg->x, msg->y, dist, L1 + L2);
+    return;
   }
+
+  // 3) full IK (including joint limits)
+  double j1, j2;
+  bool ok = cartesian_to_joint(msg->x, msg->y, j1, j2);
+  if (!ok) {
+    RCLCPP_WARN(get_logger(),
+      "Within reach at distance %.2f, but IK failed due to joint limits or sign conventions, joint angles attempted were %.2f and %.2f",
+      dist, j1, j2);
+    return;
+  }
+
+  // 4) log the successful solution
+  RCLCPP_INFO(get_logger(),
+    "Target (%.2f, %.2f): distance = %.2f → j1 = %.2f°, j2 = %.2f°",
+    msg->x, msg->y, dist, j1, j2);
+
+  // 5) convert degrees to raw tick values
+  uint32_t t1 = deg_to_tick_1(j1);
+  uint32_t t2 = deg_to_tick_2(j2);
+
+  // 6) pack the 32-bit tick values into byte arrays
+  uint8_t buf1[4] = {
+    static_cast<uint8_t>(t1 & 0xFF),
+    static_cast<uint8_t>((t1 >> 8) & 0xFF),
+    static_cast<uint8_t>((t1 >> 16) & 0xFF),
+    static_cast<uint8_t>((t1 >> 24) & 0xFF)
+  };
+  uint8_t buf2[4] = {
+    static_cast<uint8_t>(t2 & 0xFF),
+    static_cast<uint8_t>((t2 >> 8) & 0xFF),
+    static_cast<uint8_t>((t2 >> 16) & 0xFF),
+    static_cast<uint8_t>((t2 >> 24) & 0xFF)
+  };
+
+  // 7) send both parameters in one sync write
+  dynamixel::GroupSyncWrite sw(port_, packet_, ADDR_GOAL_POSITION, 4);
+  sw.addParam(ID_1, buf1);
+  sw.addParam(ID_2, buf2);
+
+  // 8) lock and transmit
+  {
+    std::lock_guard<std::mutex> lk(mx_);
+    if (sw.txPacket() != COMM_SUCCESS) {
+      RCLCPP_ERROR(get_logger(), "SyncWrite failed");
+    }
+  }
+}
+
 
   void handle_get(GetXY::Response::SharedPtr res)
   {

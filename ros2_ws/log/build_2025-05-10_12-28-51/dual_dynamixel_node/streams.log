@@ -1,0 +1,143 @@
+[0.017s] Invoking command in '/home/manuel/ros2_ws/build/dual_dynamixel_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/dual_dynamixel_node -- -j12 -l12
+[0.072s] [  4%] Built target dual_dynamixel_node__cpp
+[0.072s] [ 12%] Built target dual_dynamixel_node__rosidl_generator_c
+[0.086s] [ 12%] Built target ament_cmake_python_symlink_dual_dynamixel_node
+[0.115s] [ 21%] Built target dual_dynamixel_node__rosidl_typesupport_cpp
+[0.117s] [ 31%] Built target dual_dynamixel_node__rosidl_typesupport_introspection_c
+[0.118s] [ 41%] Built target dual_dynamixel_node__rosidl_typesupport_fastrtps_cpp
+[0.127s] [ 51%] Built target dual_dynamixel_node__rosidl_typesupport_c
+[0.127s] [ 60%] Built target dual_dynamixel_node__rosidl_typesupport_fastrtps_c
+[0.133s] [ 70%] Built target dual_dynamixel_node__rosidl_typesupport_introspection_cpp
+[0.160s] [ 70%] Built target dual_dynamixel_node
+[0.182s] [ 73%] Built target dual_dynamixel_node__py
+[0.194s] [ 78%] Built target dual_read_write_node
+[0.215s] [ 85%] Built target dual_dynamixel_node__rosidl_generator_py
+[0.249s] [ 90%] Built target dual_dynamixel_node__rosidl_typesupport_fastrtps_c__pyext
+[0.253s] [ 95%] Built target dual_dynamixel_node__rosidl_typesupport_introspection_c__pyext
+[0.257s] [100%] Built target dual_dynamixel_node__rosidl_typesupport_c__pyext
+[0.399s] running egg_info
+[0.400s] writing dual_dynamixel_node.egg-info/PKG-INFO
+[0.400s] writing dependency_links to dual_dynamixel_node.egg-info/dependency_links.txt
+[0.400s] writing top-level names to dual_dynamixel_node.egg-info/top_level.txt
+[0.402s] reading manifest file 'dual_dynamixel_node.egg-info/SOURCES.txt'
+[0.403s] writing manifest file 'dual_dynamixel_node.egg-info/SOURCES.txt'
+[0.428s] [100%] Built target ament_cmake_python_build_dual_dynamixel_node_egg
+[0.439s] Invoked command in '/home/manuel/ros2_ws/build/dual_dynamixel_node' returned '0': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/dual_dynamixel_node -- -j12 -l12
+[0.441s] Invoking command in '/home/manuel/ros2_ws/build/dual_dynamixel_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/manuel/ros2_ws/build/dual_dynamixel_node
+[0.447s] -- Install configuration: ""
+[0.448s] -- Execute custom install script
+[0.448s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/ament_index/resource_index/rosidl_interfaces/dual_dynamixel_node
+[0.448s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__functions.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__struct.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__type_support.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/rosidl_generator_c__visibility_control.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/set_positions.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__functions.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__struct.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__type_support.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/get_positions.h
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/library_path.sh
+[0.449s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/library_path.dsv
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__rosidl_typesupport_fastrtps_c.h
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__rosidl_typesupport_fastrtps_c.h
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__builder.hpp
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__struct.hpp
+[0.450s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__traits.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__type_support.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/rosidl_generator_cpp__visibility_control.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/set_positions.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__builder.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__struct.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__traits.hpp
+[0.451s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__type_support.hpp
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/get_positions.hpp
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__rosidl_typesupport_fastrtps_cpp.hpp
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__rosidl_typesupport_fastrtps_cpp.hpp
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__rosidl_typesupport_introspection_c.h
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[0.452s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__rosidl_typesupport_introspection_c.h
+[0.453s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/msg/detail/set_positions__rosidl_typesupport_introspection_cpp.hpp
+[0.453s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/include/dual_dynamixel_node/dual_dynamixel_node/srv/detail/get_positions__rosidl_typesupport_introspection_cpp.hpp
+[0.453s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/pythonpath.sh
+[0.453s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/pythonpath.dsv
+[0.454s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node-0.0.0-py3.10.egg-info/PKG-INFO
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node-0.0.0-py3.10.egg-info/SOURCES.txt
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node-0.0.0-py3.10.egg-info/dependency_links.txt
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node-0.0.0-py3.10.egg-info/top_level.txt
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/__init__.py
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/_dual_dynamixel_node_s.ep.rosidl_typesupport_c.c
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/_dual_dynamixel_node_s.ep.rosidl_typesupport_fastrtps_c.c
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/_dual_dynamixel_node_s.ep.rosidl_typesupport_introspection_c.c
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/libdual_dynamixel_node__rosidl_generator_py.so
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/msg/__init__.py
+[0.455s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/msg/_set_positions.py
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/msg/_set_positions_s.c
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/srv/__init__.py
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/srv/_get_positions.py
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/srv/_get_positions_s.c
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/msg/SetPositions.idl
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/srv/GetPositions.idl
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/msg/SetPositions.msg
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/srv/GetPositions.srv
+[0.456s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/srv/GetPositions_Request.msg
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/srv/GetPositions_Response.msg
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/dual_dynamixel_node/dual_read_write_node
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/ament_index/resource_index/package_run_dependencies/dual_dynamixel_node
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/ament_index/resource_index/parent_prefix_path/dual_dynamixel_node
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/ament_prefix_path.sh
+[0.457s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/ament_prefix_path.dsv
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/path.sh
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/environment/path.dsv
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/local_setup.bash
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/local_setup.sh
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/local_setup.zsh
+[0.458s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/local_setup.dsv
+[0.458s] -- Symlinking: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/package.dsv
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/ament_index/resource_index/packages/dual_dynamixel_node
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/rosidl_cmake-extras.cmake
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/ament_cmake_export_libraries-extras.cmake
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/ament_cmake_export_targets-extras.cmake
+[0.467s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[0.468s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[0.468s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_nodeConfig.cmake
+[0.468s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_nodeConfig-version.cmake
+[0.468s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/package.xml
+[0.468s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_generator_c.so
+[0.468s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_fastrtps_c.so
+[0.468s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_fastrtps_cpp.so
+[0.469s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_introspection_c.so
+[0.469s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_c.so
+[0.469s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_introspection_cpp.so
+[0.469s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_typesupport_cpp.so
+[0.502s] Listing '/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node'...
+[0.502s] Listing '/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/msg'...
+[0.502s] Listing '/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages/dual_dynamixel_node/srv'...
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/lib/libdual_dynamixel_node__rosidl_generator_py.so
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_generator_cExport.cmake
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_generator_cExport-noconfig.cmake
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_typesupport_fastrtps_cExport.cmake
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[0.507s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_generator_cppExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_typesupport_fastrtps_cppExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_introspection_cExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_cExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_cExport-noconfig.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_introspection_cppExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_cppExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/dual_dynamixel_node__rosidl_typesupport_cppExport-noconfig.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_generator_pyExport.cmake
+[0.508s] -- Up-to-date: /home/manuel/ros2_ws/install/dual_dynamixel_node/share/dual_dynamixel_node/cmake/export_dual_dynamixel_node__rosidl_generator_pyExport-noconfig.cmake
+[0.526s] Invoked command in '/home/manuel/ros2_ws/build/dual_dynamixel_node' returned '0': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/manuel/ros2_ws/build/dual_dynamixel_node

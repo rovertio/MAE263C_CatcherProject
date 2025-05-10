@@ -1,0 +1,14 @@
+[35m[1mConsolidate compiler generated dependencies of target pwm_position_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o[0m
+In file included from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/group_bulk_read.h:27[m[K,
+                 from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/dynamixel_sdk.h:26[m[K,
+                 from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:10[m[K:
+[01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/packet_handler.h:38:29:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+   38 | #define BROADCAST_ID        [01;31m[K0xFE[m[K    // 254
+      |                             [01;31m[K^~~~[m[K
+[01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:40:19:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KBROADCAST_ID[m[K’
+   40 | constexpr uint8_t [01;36m[KBROADCAST_ID[m[K          = 0xFE;
+      |                   [01;36m[K^~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/pwm_position_node.dir/build.make:76: CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/pwm_position_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
