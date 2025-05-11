@@ -204,18 +204,54 @@
     </frame>
     <frame name='EEframe' attached_to='EEframe_frame'/>
 
-    <!-- <link name="world"></link> -->
-    <!-- <joint name='world_fixed' type='fixed'>
-      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
-      <parent>world</parent>
-      <child>armbasemount</child>
-    </joint> -->
+    <!-- Plug-in for position control -->
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>shoulder</joint_name>
+      <topic>posS</topic>
+      <initial_position>0.7</initial_position>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>1000</cmd_max>
+      <cmd_min>-1000</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>elbow</joint_name>
+      <topic>posE</topic>
+      <initial_position>-0.7</initial_position>
+      <p_gain>1</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.01</d_gain>
+      <i_max>1</i_max>
+      <i_min>-1</i_min>
+      <cmd_max>1000</cmd_max>
+      <cmd_min>-1000</cmd_min>
+    </plugin>
+
+    <!-- Plug-in for velocity control -->
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>shoulder</joint_name>
+      <topic>velS</topic>
+      <initial_velocity>0</initial_velocity>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>elbow</joint_name>
+      <topic>velE</topic>
+      <initial_velocity>0</initial_velocity>
+    </plugin>
 
   </model>
-  <!-- <link name="world"></link>
-    <joint name='world_fixed' type='fixed'>
-      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
-      <parent>world</parent>
-      <child>armbasemount</child>
-    </joint> -->
+
 </sdf>

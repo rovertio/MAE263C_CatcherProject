@@ -20,6 +20,7 @@ install(
     rviz
     launch
     robot
+    TrueRobot
     simWorld
   DESTINATION
     share/${PROJECT_NAME}/

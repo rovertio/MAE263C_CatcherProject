@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
   <world name="world_demo">
+
+    <!-- SDF file with model linked to world -->
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -62,12 +64,54 @@
         <child>ground</child>
       </joint>
 
-      <include><uri>package://robot_desc/robot/simRobot.sdf</uri></include>
+      <link name='front_camera'>
+        <pose>0 0.5 1.193 0 0 1.57</pose>
+        <inertial>
+          <mass>1e-10</mass>
+        </inertial>
+        <visual name='front_camera_visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <sensor type="camera" name="front_camera">
+          <update_rate>10</update_rate>
+          <camera>
+            <horizontal_fov>2.00</horizontal_fov>
+            <image>
+              <width>320</width>
+              <height>240</height>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>10.0</far>
+            </clip>
+          </camera>
+        </sensor>
+      </link>
+    
+      <joint name='front_camera_joint' type='fixed'>
+        <parent>ground</parent>
+        <child>front_camera</child>
+      </joint>
+
+
+      <include>
+        <uri>package://robot_desc/robot/simRobot.sdf</uri>
+      </include>
+
       <joint name="base_fixed" type="fixed">
         <parent>ground</parent>
         <child>project_robot::armbasemount</child>
       </joint>
-    </model>
+
+
+      
+
+
+    </model>    
 
   </world>
 </sdf>

@@ -6,6 +6,7 @@ from ament_index_python import get_package_prefix
 from launch import LaunchDescription
 from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch.actions import ExecuteProcess
 
 import xacro
 
@@ -31,7 +32,7 @@ def generate_launch_description():
     urdf_file_name = 'robot.urdf'
     urdf = os.path.join(
         get_package_share_directory(package_description),
-        'robot',
+        'TrueRobot',
         urdf_file_name)
     
     print("Found UDRF")
@@ -51,10 +52,28 @@ def generate_launch_description():
         output="screen"
     )
 
+    rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'TrueRobot.rviz')
+
+
+    rviz_node = Node(
+            package='rviz2',
+            executable='rviz2',
+            output='screen',
+            name='rviz_node',
+            parameters=[{'use_sim_time': True}],
+            arguments=['-d', rviz_config_dir])
+    
+    gui = ExecuteProcess(
+            cmd=['ros2', 'run', 'joint_state_publisher_gui', 'joint_state_publisher_gui'],
+            output='screen'
+        )
+
 
     # create and return launch description object
     return LaunchDescription(
-        [            
+        [          
+            rviz_node,  
             robot_state_publisher_node,
+            gui
         ]
     )
