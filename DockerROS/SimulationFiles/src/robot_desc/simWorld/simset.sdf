@@ -99,7 +99,8 @@
 
 
       <include>
-        <uri>package://robot_desc/robot/simRobot.sdf</uri>
+        <!-- <uri>file://src/robot_desc/robot/simRobot.sdf</uri> -->
+        <uri>file://src/robot_desc/TrueRobot/TrueRobot.sdf</uri>
       </include>
 
       <joint name="base_fixed" type="fixed">

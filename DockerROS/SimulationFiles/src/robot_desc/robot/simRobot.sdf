@@ -19,7 +19,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/armbasemount.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/armbasemount.stl</uri> -->
           </mesh>
         </geometry>
       </collision>
@@ -28,7 +29,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri> -->
           </mesh>
         </geometry>
       </collision>
@@ -37,7 +39,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/armbasemount.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/armbasemount.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/armbasemount.stl</uri> -->
           </mesh>
         </geometry>
         <material>
@@ -50,7 +53,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri> -->
           </mesh>
         </geometry>
         <material>
@@ -96,7 +100,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri> -->
           </mesh>
         </geometry>
       </collision>
@@ -105,7 +110,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri> -->
           </mesh>
         </geometry>
       </collision>
@@ -114,7 +120,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/combinedshoulder.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/combinedshoulder.stl</uri> -->
           </mesh>
         </geometry>
         <material>
@@ -127,7 +134,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/dynamixelmotor_withhorn.stl</uri> -->
           </mesh>
         </geometry>
         <material>
@@ -173,7 +181,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/hooplink.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/hooplink.stl</uri> -->
           </mesh>
         </geometry>
       </collision>
@@ -182,7 +191,8 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>package://robot_desc/robot/assets/hooplink.stl</uri>
+            <uri>file://src/robot_desc/robot/assets/hooplink.stl</uri>
+            <!-- <uri>package://robot_desc/robot/assets/hooplink.stl</uri> -->
           </mesh>
         </geometry>
         <material>

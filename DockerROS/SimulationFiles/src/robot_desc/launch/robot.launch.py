@@ -29,15 +29,15 @@ def generate_launch_description():
     print("Fetching URDF ==>")
     #robot_desc_path = os.path.join(get_package_share_directory(package_description), "robot", urdf_file)
 
-    urdf_file_name = 'robot.urdf'
-    urdf = os.path.join(
+    sdf_file_name = 'TrueRobot.sdf'
+    sdf = os.path.join(
         get_package_share_directory(package_description),
         'TrueRobot',
-        urdf_file_name)
+        sdf_file_name)
     
     print("Found UDRF")
     
-    with open(urdf, 'r') as infp:
+    with open(sdf, 'r') as infp:
         robot_desc = infp.read()
 
 

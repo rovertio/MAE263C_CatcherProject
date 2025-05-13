@@ -20,6 +20,8 @@ def generate_launch_description():
     # xacro_file = os.path.join(get_package_share_directory(pkg_name),file_subpath)
     # robot_description_raw = xacro.process_file(xacro_file).toxml()
 
+    pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
+
     package_description = "robot_desc"
 
     pkg_share_path = os.pathsep + os.path.join(get_package_prefix(package_description), 'share')
@@ -30,19 +32,16 @@ def generate_launch_description():
 
     print("Fetching URDF ==>")
 
-    sdf_file_name = 'simRobot.sdf'   
+
+
+    sdf_file_name = 'TrueRobot.sdf'   
     sdf = os.path.join(
         get_package_share_directory(package_description),
-        'robot',
+        'TrueRobot',
         sdf_file_name)
-    # sdf_file_name = 'robot.urdf'   
-    # sdf = os.path.join(
-    #     get_package_share_directory(package_description),
-    #     'robot',
-    #     sdf_file_name)
+
     
     world_file_name = 'simset.sdf'
-    #world_file_name = 'simRobotWorld.sdf'
     world_sdf = os.path.join(
         get_package_share_directory(package_description),
         'simWorld',
@@ -53,7 +52,7 @@ def generate_launch_description():
     
     print("Found UDRF")
 
-    rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'robot.rviz')
+    rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'TrueRobot.rviz')
 
 
     rviz_node = Node(
@@ -79,19 +78,31 @@ def generate_launch_description():
             cmd=['ign', 'gazebo', world_sdf],
             output='screen'
         )
+    
+    # Gazebo bridge for topics
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        parameters=[{
+            'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_bridge.yaml'),
+            'qos_overrides./tf_static.publisher.durability': 'transient_local',
+        }],
+        output='screen'
+    )
 
-    spawn_entity = Node(package='ros_gz_sim', executable='create',
-                    arguments=['-name', 'robot',
-                               '-topic', 'robot_description',
-                               #'-world', world_sdf
-                               ],
-                    output='screen')
+    # spawn_entity = Node(package='ros_gz_sim', executable='create',
+    #                 arguments=['-name', 'robot',
+    #                            '-topic', 'robot_description',
+    #                            #'-world', world_sdf
+    #                            ],
+    #                 output='screen')
 
     # Run the node
     return LaunchDescription([
         # rviz_node,
         gazebo,
         robot_state_publisher,
+        bridge,
         # spawn_entity
     ])
 

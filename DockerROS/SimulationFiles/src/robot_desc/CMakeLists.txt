@@ -22,6 +22,7 @@ install(
     robot
     TrueRobot
     simWorld
+    config
   DESTINATION
     share/${PROJECT_NAME}/
 )
