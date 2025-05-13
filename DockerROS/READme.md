@@ -21,4 +21,8 @@ source /opt/ros/humble/setup.bash
 ```
 source install/setup.bash
 ```
+- Modifying the environmental variable for gazebo resources (add to bash/run in terminal
+```
+export IGN_GAZEBO_RESOURCE_PATH=src/robot_desc/install/robot_desc/share/
+```
 # Refrence media:
