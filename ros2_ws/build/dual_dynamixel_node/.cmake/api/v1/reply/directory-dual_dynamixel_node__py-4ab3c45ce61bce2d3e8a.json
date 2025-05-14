@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "dual_dynamixel_node__py",
+		"source" : "/home/manuel/ros2_ws/build/dual_dynamixel_node/dual_dynamixel_node__py"
+	}
+}

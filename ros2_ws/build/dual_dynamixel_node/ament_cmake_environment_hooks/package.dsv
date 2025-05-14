@@ -1,0 +1,4 @@
+source;share/dual_dynamixel_node/local_setup.bash
+source;share/dual_dynamixel_node/local_setup.dsv
+source;share/dual_dynamixel_node/local_setup.sh
+source;share/dual_dynamixel_node/local_setup.zsh
