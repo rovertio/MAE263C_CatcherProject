@@ -20,7 +20,7 @@ def generate_launch_description():
     # xacro_file = os.path.join(get_package_share_directory(pkg_name),file_subpath)
     # robot_description_raw = xacro.process_file(xacro_file).toxml()
 
-    pkg_project_bringup = get_package_share_directory('ros_gz_example_bringup')
+    pkg_project_bringup = get_package_share_directory('robot_desc')
 
     package_description = "robot_desc"
 

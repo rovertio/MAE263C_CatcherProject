@@ -169,8 +169,8 @@
       </visual>
     </link>
     <joint name='elbow' type='revolute'>
-      <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 0 -1.5708</pose>
-      <!-- <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 -1.546044239997952e-16 2.955755307179587</pose> -->
+      <!-- <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 0 -1.5708</pose> -->
+      <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 -1.546044239997952e-16 2.955755307179587</pose>
       <parent>shoulderlink</parent>
       <child>hooplink</child>
       <axis>

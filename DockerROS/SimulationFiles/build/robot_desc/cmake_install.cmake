@@ -49,6 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/Catcher/src/robot_desc/robot"
     "/home/Catcher/src/robot_desc/TrueRobot"
     "/home/Catcher/src/robot_desc/simWorld"
+    "/home/Catcher/src/robot_desc/config"
     )
 endif()
 
