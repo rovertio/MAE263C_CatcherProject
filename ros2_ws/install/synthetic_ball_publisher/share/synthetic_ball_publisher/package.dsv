@@ -1,0 +1,8 @@
+source;share/synthetic_ball_publisher/hook/cmake_prefix_path.ps1
+source;share/synthetic_ball_publisher/hook/cmake_prefix_path.dsv
+source;share/synthetic_ball_publisher/hook/cmake_prefix_path.sh
+source;share/synthetic_ball_publisher/local_setup.bash
+source;share/synthetic_ball_publisher/local_setup.dsv
+source;share/synthetic_ball_publisher/local_setup.ps1
+source;share/synthetic_ball_publisher/local_setup.sh
+source;share/synthetic_ball_publisher/local_setup.zsh

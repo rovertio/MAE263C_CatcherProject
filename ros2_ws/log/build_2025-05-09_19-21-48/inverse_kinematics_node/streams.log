@@ -1,0 +1,196 @@
+[0.011s] Invoking command in '/home/manuel/ros2_ws/build/inverse_kinematics_node': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/manuel/ros2_ws/src/inverse_kinematics_node -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/inverse_kinematics_node
+[0.021s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.137s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.147s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.187s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.191s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.199s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.208s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.222s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.254s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.255s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.362s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.434s] -- Found dynamixel_sdk: 3.8.3 (/home/manuel/ros2_ws/install/dynamixel_sdk/share/dynamixel_sdk/cmake)
+[0.435s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[0.701s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[1.025s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.146s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.167s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[1.187s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[1.187s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[1.187s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[1.213s] [0mCMake Deprecation Warning at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_target_interfaces.cmake:32 (message):
+[1.213s]   Use rosidl_get_typesupport_target() and target_link_libraries() instead of
+[1.213s]   rosidl_target_interfaces()
+[1.213s] Call Stack (most recent call first):
+[1.213s]   CMakeLists.txt:28 (rosidl_target_interfaces)
+[1.213s] 
+[1.213s] [0m
+[1.213s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.223s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.223s] -- Configured cppcheck include dirs: 
+[1.223s] -- Configured cppcheck exclude dirs and/or files: 
+[1.224s] -- Added test 'lint_cmake' to check CMake code style
+[1.225s] -- Added test 'uncrustify' to check C / C++ code style
+[1.225s] -- Configured uncrustify additional arguments: 
+[1.225s] -- Added test 'xmllint' to check XML markup files
+[1.227s] -- Configuring done
+[1.261s] -- Generating done
+[1.274s] -- Build files have been written to: /home/manuel/ros2_ws/build/inverse_kinematics_node
+[1.283s] Invoked command in '/home/manuel/ros2_ws/build/inverse_kinematics_node' returned '0': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/manuel/ros2_ws/src/inverse_kinematics_node -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/install/inverse_kinematics_node
+[1.284s] Invoking command in '/home/manuel/ros2_ws/build/inverse_kinematics_node': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/manuel/ros2_ws/build/inverse_kinematics_node -- -j12 -l12
+[1.314s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_generator_c[0m
+[1.322s] [  2%] Built target inverse_kinematics_node__cpp
+[1.323s] [ 12%] Built target inverse_kinematics_node__rosidl_generator_c
+[1.334s] [ 12%] Built target ament_cmake_python_symlink_inverse_kinematics_node
+[1.336s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_cpp[0m
+[1.336s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_introspection_cpp[0m
+[1.337s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_fastrtps_cpp[0m
+[1.337s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_introspection_c[0m
+[1.337s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_c[0m
+[1.339s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_fastrtps_c[0m
+[1.350s] [ 41%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_cpp
+[1.351s] [ 41%] Built target inverse_kinematics_node__rosidl_typesupport_cpp
+[1.351s] [ 41%] Built target inverse_kinematics_node__rosidl_typesupport_c
+[1.352s] [ 51%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_cpp
+[1.357s] [ 60%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_c
+[1.357s] [ 70%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_c
+[1.382s] [ 70%] Built target inverse_kinematics_node
+[1.397s] [35m[1mConsolidate compiler generated dependencies of target ik_driver[0m
+[1.408s] [ 73%] Built target inverse_kinematics_node__py
+[1.413s] [ 78%] Built target ik_driver
+[1.420s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_generator_py[0m
+[1.435s] [ 85%] Built target inverse_kinematics_node__rosidl_generator_py
+[1.447s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_introspection_c__pyext[0m
+[1.447s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_c__pyext[0m
+[1.447s] [35m[1mConsolidate compiler generated dependencies of target inverse_kinematics_node__rosidl_typesupport_fastrtps_c__pyext[0m
+[1.460s] [ 90%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_c__pyext
+[1.460s] [ 95%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_c__pyext
+[1.462s] [100%] Built target inverse_kinematics_node__rosidl_typesupport_c__pyext
+[1.590s] running egg_info
+[1.590s] writing inverse_kinematics_node.egg-info/PKG-INFO
+[1.591s] writing dependency_links to inverse_kinematics_node.egg-info/dependency_links.txt
+[1.591s] writing top-level names to inverse_kinematics_node.egg-info/top_level.txt
+[1.593s] reading manifest file 'inverse_kinematics_node.egg-info/SOURCES.txt'
+[1.593s] writing manifest file 'inverse_kinematics_node.egg-info/SOURCES.txt'
+[1.616s] [100%] Built target ament_cmake_python_build_inverse_kinematics_node_egg
+[1.626s] Invoked command in '/home/manuel/ros2_ws/build/inverse_kinematics_node' returned '0': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/manuel/ros2_ws/build/inverse_kinematics_node -- -j12 -l12
+[1.628s] Invoking command in '/home/manuel/ros2_ws/build/inverse_kinematics_node': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/manuel/ros2_ws/build/inverse_kinematics_node
+[1.635s] -- Install configuration: ""
+[1.635s] -- Execute custom install script
+[1.635s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/rosidl_interfaces/inverse_kinematics_node
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__functions.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__struct.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__type_support.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_generator_c__visibility_control.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/set_xy.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__functions.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__struct.h
+[1.636s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__type_support.h
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/get_xy.h
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/library_path.sh
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/library_path.dsv
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_fastrtps_c.h
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[1.637s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_fastrtps_c.h
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__builder.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__struct.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__traits.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__type_support.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_generator_cpp__visibility_control.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/set_xy.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__builder.hpp
+[1.638s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__struct.hpp
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__traits.hpp
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__type_support.hpp
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/get_xy.hpp
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_fastrtps_cpp.hpp
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[1.639s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_fastrtps_cpp.hpp
+[1.640s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_introspection_c.h
+[1.640s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[1.640s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_introspection_c.h
+[1.640s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_introspection_cpp.hpp
+[1.641s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_introspection_cpp.hpp
+[1.641s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/pythonpath.sh
+[1.641s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/pythonpath.dsv
+[1.641s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/PKG-INFO
+[1.641s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/SOURCES.txt
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/dependency_links.txt
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/top_level.txt
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/__init__.py
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_c.c
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_fastrtps_c.c
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_introspection_c.c
+[1.642s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/libinverse_kinematics_node__rosidl_generator_py.so
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/__init__.py
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/_set_xy.py
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/_set_xy_s.c
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/__init__.py
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/_get_xy.py
+[1.643s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/_get_xy_s.c
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/msg/SetXY.idl
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY.idl
+[1.644s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/msg/SetXY.msg
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY.srv
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY_Request.msg
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY_Response.msg
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/inverse_kinematics_node/ik_driver
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/package_run_dependencies/inverse_kinematics_node
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/parent_prefix_path/inverse_kinematics_node
+[1.645s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/ament_prefix_path.sh
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/ament_prefix_path.dsv
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/path.sh
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/path.dsv
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.bash
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.sh
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.zsh
+[1.646s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.dsv
+[1.646s] -- Symlinking: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/package.dsv
+[1.654s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/packages/inverse_kinematics_node
+[1.654s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake-extras.cmake
+[1.654s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_dependencies-extras.cmake
+[1.654s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_include_directories-extras.cmake
+[1.654s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_libraries-extras.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_targets-extras.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_nodeConfig.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_nodeConfig-version.cmake
+[1.655s] -- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/package.xml
+[1.655s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_generator_c.so
+[1.656s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_fastrtps_c.so
+[1.656s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_fastrtps_cpp.so
+[1.656s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_introspection_c.so
+[1.656s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_c.so
+[1.657s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_introspection_cpp.so
+[1.657s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_cpp.so
+[1.684s] Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node'...
+[1.685s] Compiling '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/__init__.py'...
+[1.685s] Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg'...
+[1.685s] Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv'...
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_generator_py.so
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cExport.cmake
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cExport-noconfig.cmake
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cExport.cmake
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[1.689s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cppExport.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cppExport.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cExport.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cExport.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cExport-noconfig.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cppExport.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[1.690s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cppExport.cmake
+[1.691s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cppExport-noconfig.cmake
+[1.691s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_pyExport.cmake
+[1.691s] -- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_pyExport-noconfig.cmake
+[1.700s] Invoked command in '/home/manuel/ros2_ws/build/inverse_kinematics_node' returned '0': AMENT_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/manuel/ros2_ws/build/inverse_kinematics_node

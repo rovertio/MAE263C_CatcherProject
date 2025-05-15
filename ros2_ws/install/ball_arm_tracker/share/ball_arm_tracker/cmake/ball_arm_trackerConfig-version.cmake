@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/ball_arm_tracker/ament_cmake_core/ball_arm_trackerConfig-version.cmake

@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/dual_dynamixel_node/ament_cmake_core/dual_dynamixel_nodeConfig-version.cmake

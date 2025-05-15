@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>pwm_position_node</name>
+  <version>0.0.1</version>
+  <description>PID‐based PWM position controller + IK subscription</description>
+
+  <maintainer email="manuel@example.com">Manuel Agp</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>dynamixel_sdk</depend>
+  <depend>inverse_kinematics_node</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

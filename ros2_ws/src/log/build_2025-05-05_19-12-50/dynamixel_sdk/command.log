@@ -1,0 +1,1 @@
+Invoking command in '/home/manuel/ros2_ws/src/build/dynamixel_sdk': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/DynamixelSDK/ros/dynamixel_sdk -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/dynamixel_sdk

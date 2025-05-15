@@ -1,0 +1,11 @@
+source;share/dual_dynamixel_node/hook/cmake_prefix_path.ps1
+source;share/dual_dynamixel_node/hook/cmake_prefix_path.dsv
+source;share/dual_dynamixel_node/hook/cmake_prefix_path.sh
+source;share/dual_dynamixel_node/hook/ld_library_path_lib.ps1
+source;share/dual_dynamixel_node/hook/ld_library_path_lib.dsv
+source;share/dual_dynamixel_node/hook/ld_library_path_lib.sh
+source;share/dual_dynamixel_node/local_setup.bash
+source;share/dual_dynamixel_node/local_setup.dsv
+source;share/dual_dynamixel_node/local_setup.ps1
+source;share/dual_dynamixel_node/local_setup.sh
+source;share/dual_dynamixel_node/local_setup.zsh

@@ -1,0 +1,6 @@
+msg/SetJointDegrees.idl
+msg/SetJointDegrees.msg
+srv/GetJointDegrees.idl
+srv/GetJointDegrees.srv
+srv/GetJointDegrees_Request.msg
+srv/GetJointDegrees_Response.msg

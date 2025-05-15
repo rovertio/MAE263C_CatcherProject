@@ -1,0 +1,143 @@
+[0.000000] (-) TimerEvent: {}
+[0.000411] (-) JobUnselected: {'identifier': 'ball_arm_tracker'}
+[0.000458] (-) JobUnselected: {'identifier': 'dual_dynamixel_node'}
+[0.000476] (-) JobUnselected: {'identifier': 'dynamixel_sdk'}
+[0.000490] (-) JobUnselected: {'identifier': 'dynamixel_sdk_custom_interfaces'}
+[0.000504] (-) JobUnselected: {'identifier': 'dynamixel_sdk_examples'}
+[0.000517] (-) JobUnselected: {'identifier': 'inverse_kinematics_node'}
+[0.000530] (-) JobUnselected: {'identifier': 'joint_plotter'}
+[0.000543] (-) JobUnselected: {'identifier': 'joint_positions_node'}
+[0.000555] (-) JobUnselected: {'identifier': 'my_cpp_pkg'}
+[0.000568] (-) JobUnselected: {'identifier': 'my_debug_pkg'}
+[0.000580] (-) JobUnselected: {'identifier': 'pwm_position_node'}
+[0.000593] (-) JobUnselected: {'identifier': 'synthetic_ball_publisher'}
+[0.000608] (ball_centroid_detector) JobQueued: {'identifier': 'ball_centroid_detector', 'dependencies': OrderedDict()}
+[0.001041] (ball_centroid_detector) JobStarted: {'identifier': 'ball_centroid_detector'}
+[0.008601] (ball_centroid_detector) JobProgress: {'identifier': 'ball_centroid_detector', 'progress': 'cmake'}
+[0.009936] (ball_centroid_detector) JobProgress: {'identifier': 'ball_centroid_detector', 'progress': 'build'}
+[0.010029] (ball_centroid_detector) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/manuel/ros2_ws/build/ball_centroid_detector', '--', '-j12', '-l12'], 'cwd': '/home/manuel/ros2_ws/build/ball_centroid_detector', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'manuel'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/manuel'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2256'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/manuel/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'manuel'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'manuel'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/manuel-ThinkPad-P1-Gen-2:@/tmp/.ICE-unix/1661,unix/manuel-ThinkPad-P1-Gen-2:/tmp/.ICE-unix/1661'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a0ad0b1e_e9e6_4477_a395_ccb5d562feb1'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.IF6352'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.95'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/joint_plotter:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/manuel/ros2_ws/build/ball_centroid_detector'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/joint_positions_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble')]), 'shell': False}
+[0.051741] (ball_centroid_detector) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target ball_detector\x1b[0m\n'}
+[0.067475] (ball_centroid_detector) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/ball_detector.dir/src/detector.cpp.o\x1b[0m\n'}
+[0.099902] (-) TimerEvent: {}
+[0.200177] (-) TimerEvent: {}
+[0.300436] (-) TimerEvent: {}
+[0.400764] (-) TimerEvent: {}
+[0.501022] (-) TimerEvent: {}
+[0.601304] (-) TimerEvent: {}
+[0.701582] (-) TimerEvent: {}
+[0.801961] (-) TimerEvent: {}
+[0.902226] (-) TimerEvent: {}
+[1.002470] (-) TimerEvent: {}
+[1.102753] (-) TimerEvent: {}
+[1.203063] (-) TimerEvent: {}
+[1.303431] (-) TimerEvent: {}
+[1.403750] (-) TimerEvent: {}
+[1.504053] (-) TimerEvent: {}
+[1.604315] (-) TimerEvent: {}
+[1.704618] (-) TimerEvent: {}
+[1.804942] (-) TimerEvent: {}
+[1.905303] (-) TimerEvent: {}
+[2.005549] (-) TimerEvent: {}
+[2.105817] (-) TimerEvent: {}
+[2.206124] (-) TimerEvent: {}
+[2.306491] (-) TimerEvent: {}
+[2.406853] (-) TimerEvent: {}
+[2.507158] (-) TimerEvent: {}
+[2.607507] (-) TimerEvent: {}
+[2.707863] (-) TimerEvent: {}
+[2.808219] (-) TimerEvent: {}
+[2.908509] (-) TimerEvent: {}
+[3.008881] (-) TimerEvent: {}
+[3.109250] (-) TimerEvent: {}
+[3.209552] (-) TimerEvent: {}
+[3.309774] (-) TimerEvent: {}
+[3.410085] (-) TimerEvent: {}
+[3.510411] (-) TimerEvent: {}
+[3.610777] (-) TimerEvent: {}
+[3.711182] (-) TimerEvent: {}
+[3.811727] (-) TimerEvent: {}
+[3.912166] (-) TimerEvent: {}
+[4.012447] (-) TimerEvent: {}
+[4.112726] (-) TimerEvent: {}
+[4.213132] (-) TimerEvent: {}
+[4.313439] (-) TimerEvent: {}
+[4.413745] (-) TimerEvent: {}
+[4.514103] (-) TimerEvent: {}
+[4.614400] (-) TimerEvent: {}
+[4.714800] (-) TimerEvent: {}
+[4.815114] (-) TimerEvent: {}
+[4.915477] (-) TimerEvent: {}
+[5.015878] (-) TimerEvent: {}
+[5.116177] (-) TimerEvent: {}
+[5.216474] (-) TimerEvent: {}
+[5.316808] (-) TimerEvent: {}
+[5.417160] (-) TimerEvent: {}
+[5.517440] (-) TimerEvent: {}
+[5.617786] (-) TimerEvent: {}
+[5.718060] (-) TimerEvent: {}
+[5.818327] (-) TimerEvent: {}
+[5.918593] (-) TimerEvent: {}
+[6.018913] (-) TimerEvent: {}
+[6.119174] (-) TimerEvent: {}
+[6.219447] (-) TimerEvent: {}
+[6.319805] (-) TimerEvent: {}
+[6.420092] (-) TimerEvent: {}
+[6.520368] (-) TimerEvent: {}
+[6.620618] (-) TimerEvent: {}
+[6.720978] (-) TimerEvent: {}
+[6.821234] (-) TimerEvent: {}
+[6.921485] (-) TimerEvent: {}
+[7.021765] (-) TimerEvent: {}
+[7.122060] (-) TimerEvent: {}
+[7.222306] (-) TimerEvent: {}
+[7.322563] (-) TimerEvent: {}
+[7.422886] (-) TimerEvent: {}
+[7.523249] (-) TimerEvent: {}
+[7.623549] (-) TimerEvent: {}
+[7.723854] (-) TimerEvent: {}
+[7.824129] (-) TimerEvent: {}
+[7.924420] (-) TimerEvent: {}
+[8.024716] (-) TimerEvent: {}
+[8.125030] (-) TimerEvent: {}
+[8.225327] (-) TimerEvent: {}
+[8.325702] (-) TimerEvent: {}
+[8.426012] (-) TimerEvent: {}
+[8.526382] (-) TimerEvent: {}
+[8.626736] (-) TimerEvent: {}
+[8.727025] (-) TimerEvent: {}
+[8.827300] (-) TimerEvent: {}
+[8.927646] (-) TimerEvent: {}
+[9.027997] (-) TimerEvent: {}
+[9.051556] (ball_centroid_detector) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable ball_detector\x1b[0m\n'}
+[9.128127] (-) TimerEvent: {}
+[9.228590] (-) TimerEvent: {}
+[9.328906] (-) TimerEvent: {}
+[9.429250] (-) TimerEvent: {}
+[9.529564] (-) TimerEvent: {}
+[9.629935] (-) TimerEvent: {}
+[9.685974] (ball_centroid_detector) StdoutLine: {'line': b'[100%] Built target ball_detector\n'}
+[9.696481] (ball_centroid_detector) CommandEnded: {'returncode': 0}
+[9.697309] (ball_centroid_detector) JobProgress: {'identifier': 'ball_centroid_detector', 'progress': 'install'}
+[9.705217] (ball_centroid_detector) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/manuel/ros2_ws/build/ball_centroid_detector'], 'cwd': '/home/manuel/ros2_ws/build/ball_centroid_detector', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'manuel'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/manuel'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2256'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/manuel/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'manuel'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'manuel'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/manuel-ThinkPad-P1-Gen-2:@/tmp/.ICE-unix/1661,unix/manuel-ThinkPad-P1-Gen-2:/tmp/.ICE-unix/1661'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a0ad0b1e_e9e6_4477_a395_ccb5d562feb1'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.IF6352'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.95'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/joint_plotter:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/manuel/ros2_ws/build/ball_centroid_detector'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/joint_positions_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble')]), 'shell': False}
+[9.712856] (ball_centroid_detector) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[9.713254] (ball_centroid_detector) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[9.713571] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/lib/ball_centroid_detector/ball_detector\n'}
+[9.713880] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/package_run_dependencies/ball_centroid_detector\n'}
+[9.714156] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/parent_prefix_path/ball_centroid_detector\n'}
+[9.714554] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/ament_prefix_path.sh\n'}
+[9.714651] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/ament_prefix_path.dsv\n'}
+[9.714827] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/path.sh\n'}
+[9.715011] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/environment/path.dsv\n'}
+[9.715215] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.bash\n'}
+[9.715335] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.sh\n'}
+[9.715552] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.zsh\n'}
+[9.715636] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/local_setup.dsv\n'}
+[9.715935] (ball_centroid_detector) StdoutLine: {'line': b'-- Symlinking: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/package.dsv\n'}
+[9.724593] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ament_index/resource_index/packages/ball_centroid_detector\n'}
+[9.724876] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/cmake/ball_centroid_detectorConfig.cmake\n'}
+[9.725138] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/cmake/ball_centroid_detectorConfig-version.cmake\n'}
+[9.725221] (ball_centroid_detector) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/ball_centroid_detector/share/ball_centroid_detector/package.xml\n'}
+[9.727297] (ball_centroid_detector) CommandEnded: {'returncode': 0}
+[9.730554] (-) TimerEvent: {}
+[9.744142] (ball_centroid_detector) JobEnded: {'identifier': 'ball_centroid_detector', 'rc': 0}
+[9.745017] (-) EventReactorShutdown: {}

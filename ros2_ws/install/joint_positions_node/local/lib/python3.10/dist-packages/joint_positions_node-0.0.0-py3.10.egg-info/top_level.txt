@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/joint_positions_node/ament_cmake_python/joint_positions_node/joint_positions_node.egg-info/top_level.txt

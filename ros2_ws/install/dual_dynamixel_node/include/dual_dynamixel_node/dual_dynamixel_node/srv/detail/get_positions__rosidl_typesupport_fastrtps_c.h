@@ -1,0 +1,1 @@
+/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_typesupport_fastrtps_c/dual_dynamixel_node/srv/detail/get_positions__rosidl_typesupport_fastrtps_c.h

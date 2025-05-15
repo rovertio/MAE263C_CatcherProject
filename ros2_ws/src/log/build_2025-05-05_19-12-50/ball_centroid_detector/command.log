@@ -1,0 +1,1 @@
+Invoking command in '/home/manuel/ros2_ws/src/build/ball_centroid_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/manuel/ros2_ws/src/ball_centroid_detector -DCMAKE_INSTALL_PREFIX=/home/manuel/ros2_ws/src/install/ball_centroid_detector

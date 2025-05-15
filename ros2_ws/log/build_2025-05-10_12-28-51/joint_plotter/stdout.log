@@ -1,0 +1,18 @@
+running egg_info
+writing ../../build/joint_plotter/joint_plotter.egg-info/PKG-INFO
+writing dependency_links to ../../build/joint_plotter/joint_plotter.egg-info/dependency_links.txt
+writing entry points to ../../build/joint_plotter/joint_plotter.egg-info/entry_points.txt
+writing requirements to ../../build/joint_plotter/joint_plotter.egg-info/requires.txt
+writing top-level names to ../../build/joint_plotter/joint_plotter.egg-info/top_level.txt
+reading manifest file '../../build/joint_plotter/joint_plotter.egg-info/SOURCES.txt'
+writing manifest file '../../build/joint_plotter/joint_plotter.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_egg_info
+removing '/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages/joint_plotter-0.0.1-py3.10.egg-info' (and everything under it)
+Copying ../../build/joint_plotter/joint_plotter.egg-info to /home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages/joint_plotter-0.0.1-py3.10.egg-info
+running install_scripts
+Installing joint_plotter script to /home/manuel/ros2_ws/install/joint_plotter/lib/joint_plotter
+writing list of installed files to '/home/manuel/ros2_ws/build/joint_plotter/install.log'

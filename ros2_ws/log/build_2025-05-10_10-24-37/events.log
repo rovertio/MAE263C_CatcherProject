@@ -1,0 +1,253 @@
+[0.000000] (-) TimerEvent: {}
+[0.000130] (-) JobUnselected: {'identifier': 'ball_arm_tracker'}
+[0.000155] (-) JobUnselected: {'identifier': 'ball_centroid_detector'}
+[0.000172] (-) JobUnselected: {'identifier': 'dual_dynamixel_node'}
+[0.000187] (-) JobUnselected: {'identifier': 'dynamixel_sdk'}
+[0.000201] (-) JobUnselected: {'identifier': 'dynamixel_sdk_custom_interfaces'}
+[0.000215] (-) JobUnselected: {'identifier': 'dynamixel_sdk_examples'}
+[0.000228] (-) JobUnselected: {'identifier': 'joint_plotter'}
+[0.000241] (-) JobUnselected: {'identifier': 'joint_positions_node'}
+[0.000254] (-) JobUnselected: {'identifier': 'my_cpp_pkg'}
+[0.000267] (-) JobUnselected: {'identifier': 'my_debug_pkg'}
+[0.000279] (-) JobUnselected: {'identifier': 'pwm_position_node'}
+[0.000292] (-) JobUnselected: {'identifier': 'synthetic_ball_publisher'}
+[0.000308] (inverse_kinematics_node) JobQueued: {'identifier': 'inverse_kinematics_node', 'dependencies': OrderedDict([('dynamixel_sdk', '/home/manuel/ros2_ws/install/dynamixel_sdk')])}
+[0.000331] (inverse_kinematics_node) JobStarted: {'identifier': 'inverse_kinematics_node'}
+[0.008558] (inverse_kinematics_node) JobProgress: {'identifier': 'inverse_kinematics_node', 'progress': 'cmake'}
+[0.009710] (inverse_kinematics_node) JobProgress: {'identifier': 'inverse_kinematics_node', 'progress': 'build'}
+[0.009763] (inverse_kinematics_node) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/manuel/ros2_ws/build/inverse_kinematics_node', '--', '-j12', '-l12'], 'cwd': '/home/manuel/ros2_ws/build/inverse_kinematics_node', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'manuel'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/manuel'), ('OLDPWD', '/tmp'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2256'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/manuel/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'manuel'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'manuel'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/manuel-ThinkPad-P1-Gen-2:@/tmp/.ICE-unix/1661,unix/manuel-ThinkPad-P1-Gen-2:/tmp/.ICE-unix/1661'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/78581404_2ab3_4838_a3ec_998b9704f5b5'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.IF6352'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.95'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/joint_plotter:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/manuel/ros2_ws/build/inverse_kinematics_node'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/joint_positions_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble')]), 'shell': False}
+[0.058659] (inverse_kinematics_node) StdoutLine: {'line': b'[ 12%] Built target inverse_kinematics_node__rosidl_generator_c\n'}
+[0.058808] (inverse_kinematics_node) StdoutLine: {'line': b'[ 12%] Built target inverse_kinematics_node__cpp\n'}
+[0.067721] (inverse_kinematics_node) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_symlink_inverse_kinematics_node\n'}
+[0.079658] (inverse_kinematics_node) StdoutLine: {'line': b'[ 31%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_cpp\n'}
+[0.079936] (inverse_kinematics_node) StdoutLine: {'line': b'[ 31%] Built target inverse_kinematics_node__rosidl_typesupport_cpp\n'}
+[0.080081] (inverse_kinematics_node) StdoutLine: {'line': b'[ 41%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_c\n'}
+[0.080455] (inverse_kinematics_node) StdoutLine: {'line': b'[ 51%] Built target inverse_kinematics_node__rosidl_typesupport_c\n'}
+[0.081228] (inverse_kinematics_node) StdoutLine: {'line': b'[ 60%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_cpp\n'}
+[0.082904] (inverse_kinematics_node) StdoutLine: {'line': b'[ 70%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_c\n'}
+[0.099268] (-) TimerEvent: {}
+[0.100436] (inverse_kinematics_node) StdoutLine: {'line': b'[ 70%] Built target inverse_kinematics_node\n'}
+[0.110605] (inverse_kinematics_node) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target ik_driver\x1b[0m\n'}
+[0.120053] (inverse_kinematics_node) StdoutLine: {'line': b'[ 73%] Built target inverse_kinematics_node__py\n'}
+[0.125591] (inverse_kinematics_node) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/ik_driver.dir/src/inverse_kinematics_node.cpp.o\x1b[0m\n'}
+[0.141428] (inverse_kinematics_node) StdoutLine: {'line': b'[ 82%] Built target inverse_kinematics_node__rosidl_generator_py\n'}
+[0.162410] (inverse_kinematics_node) StdoutLine: {'line': b'[ 95%] Built target inverse_kinematics_node__rosidl_typesupport_introspection_c__pyext\n'}
+[0.162634] (inverse_kinematics_node) StdoutLine: {'line': b'[ 97%] Built target inverse_kinematics_node__rosidl_typesupport_c__pyext\n'}
+[0.162707] (inverse_kinematics_node) StdoutLine: {'line': b'[ 95%] Built target inverse_kinematics_node__rosidl_typesupport_fastrtps_c__pyext\n'}
+[0.199403] (-) TimerEvent: {}
+[0.299645] (-) TimerEvent: {}
+[0.308078] (inverse_kinematics_node) StdoutLine: {'line': b'running egg_info\n'}
+[0.308825] (inverse_kinematics_node) StdoutLine: {'line': b'writing inverse_kinematics_node.egg-info/PKG-INFO\n'}
+[0.309003] (inverse_kinematics_node) StdoutLine: {'line': b'writing dependency_links to inverse_kinematics_node.egg-info/dependency_links.txt\n'}
+[0.309180] (inverse_kinematics_node) StdoutLine: {'line': b'writing top-level names to inverse_kinematics_node.egg-info/top_level.txt\n'}
+[0.311215] (inverse_kinematics_node) StdoutLine: {'line': b"reading manifest file 'inverse_kinematics_node.egg-info/SOURCES.txt'\n"}
+[0.311791] (inverse_kinematics_node) StdoutLine: {'line': b"writing manifest file 'inverse_kinematics_node.egg-info/SOURCES.txt'\n"}
+[0.337188] (inverse_kinematics_node) StdoutLine: {'line': b'[ 97%] Built target ament_cmake_python_build_inverse_kinematics_node_egg\n'}
+[0.399775] (-) TimerEvent: {}
+[0.500017] (-) TimerEvent: {}
+[0.600268] (-) TimerEvent: {}
+[0.700558] (-) TimerEvent: {}
+[0.800855] (-) TimerEvent: {}
+[0.901189] (-) TimerEvent: {}
+[1.001431] (-) TimerEvent: {}
+[1.101710] (-) TimerEvent: {}
+[1.201919] (-) TimerEvent: {}
+[1.302172] (-) TimerEvent: {}
+[1.402450] (-) TimerEvent: {}
+[1.502703] (-) TimerEvent: {}
+[1.602896] (-) TimerEvent: {}
+[1.703161] (-) TimerEvent: {}
+[1.803406] (-) TimerEvent: {}
+[1.903679] (-) TimerEvent: {}
+[2.003914] (-) TimerEvent: {}
+[2.104204] (-) TimerEvent: {}
+[2.204450] (-) TimerEvent: {}
+[2.304703] (-) TimerEvent: {}
+[2.404899] (-) TimerEvent: {}
+[2.505153] (-) TimerEvent: {}
+[2.605414] (-) TimerEvent: {}
+[2.705684] (-) TimerEvent: {}
+[2.805938] (-) TimerEvent: {}
+[2.906176] (-) TimerEvent: {}
+[3.006428] (-) TimerEvent: {}
+[3.106683] (-) TimerEvent: {}
+[3.206906] (-) TimerEvent: {}
+[3.307159] (-) TimerEvent: {}
+[3.407441] (-) TimerEvent: {}
+[3.507687] (-) TimerEvent: {}
+[3.607901] (-) TimerEvent: {}
+[3.708152] (-) TimerEvent: {}
+[3.808424] (-) TimerEvent: {}
+[3.908714] (-) TimerEvent: {}
+[4.008955] (-) TimerEvent: {}
+[4.109232] (-) TimerEvent: {}
+[4.209464] (-) TimerEvent: {}
+[4.309784] (-) TimerEvent: {}
+[4.410053] (-) TimerEvent: {}
+[4.510330] (-) TimerEvent: {}
+[4.610611] (-) TimerEvent: {}
+[4.710931] (-) TimerEvent: {}
+[4.811194] (-) TimerEvent: {}
+[4.911455] (-) TimerEvent: {}
+[5.011688] (-) TimerEvent: {}
+[5.112082] (-) TimerEvent: {}
+[5.212800] (-) TimerEvent: {}
+[5.313164] (-) TimerEvent: {}
+[5.413418] (-) TimerEvent: {}
+[5.513664] (-) TimerEvent: {}
+[5.613973] (-) TimerEvent: {}
+[5.714252] (-) TimerEvent: {}
+[5.814518] (-) TimerEvent: {}
+[5.914798] (-) TimerEvent: {}
+[6.015037] (-) TimerEvent: {}
+[6.115286] (-) TimerEvent: {}
+[6.215552] (-) TimerEvent: {}
+[6.315804] (-) TimerEvent: {}
+[6.416044] (-) TimerEvent: {}
+[6.516342] (-) TimerEvent: {}
+[6.616627] (-) TimerEvent: {}
+[6.716905] (-) TimerEvent: {}
+[6.817206] (-) TimerEvent: {}
+[6.917520] (-) TimerEvent: {}
+[7.017796] (-) TimerEvent: {}
+[7.118047] (-) TimerEvent: {}
+[7.218333] (-) TimerEvent: {}
+[7.318626] (-) TimerEvent: {}
+[7.418875] (-) TimerEvent: {}
+[7.519095] (-) TimerEvent: {}
+[7.619337] (-) TimerEvent: {}
+[7.719599] (-) TimerEvent: {}
+[7.819857] (-) TimerEvent: {}
+[7.920092] (-) TimerEvent: {}
+[8.020362] (-) TimerEvent: {}
+[8.120614] (-) TimerEvent: {}
+[8.220875] (-) TimerEvent: {}
+[8.289062] (inverse_kinematics_node) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable ik_driver\x1b[0m\n'}
+[8.320944] (-) TimerEvent: {}
+[8.421237] (-) TimerEvent: {}
+[8.521486] (-) TimerEvent: {}
+[8.621752] (-) TimerEvent: {}
+[8.664336] (inverse_kinematics_node) StdoutLine: {'line': b'[100%] Built target ik_driver\n'}
+[8.674969] (inverse_kinematics_node) CommandEnded: {'returncode': 0}
+[8.675722] (inverse_kinematics_node) JobProgress: {'identifier': 'inverse_kinematics_node', 'progress': 'install'}
+[8.684097] (inverse_kinematics_node) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/manuel/ros2_ws/build/inverse_kinematics_node'], 'cwd': '/home/manuel/ros2_ws/build/inverse_kinematics_node', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'manuel'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/manuel'), ('OLDPWD', '/tmp'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2256'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/manuel/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'manuel'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'manuel'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/manuel-ThinkPad-P1-Gen-2:@/tmp/.ICE-unix/1661,unix/manuel-ThinkPad-P1-Gen-2:/tmp/.ICE-unix/1661'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/78581404_2ab3_4838_a3ec_998b9704f5b5'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.IF6352'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.95'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/joint_plotter:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/ball_centroid_detector:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/manuel/ros2_ws/build/inverse_kinematics_node'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/manuel/ros2_ws/install/my_debug_pkg/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/joint_positions_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/joint_plotter/lib/python3.10/site-packages:/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dual_dynamixel_node/local/lib/python3.10/dist-packages:/home/manuel/ros2_ws/install/dynamixel_sdk/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble')]), 'shell': False}
+[8.690346] (inverse_kinematics_node) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.690785] (inverse_kinematics_node) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[8.691020] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/rosidl_interfaces/inverse_kinematics_node\n'}
+[8.691356] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__functions.h\n'}
+[8.691525] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__struct.h\n'}
+[8.691609] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__type_support.h\n'}
+[8.691667] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_generator_c__visibility_control.h\n'}
+[8.691749] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/set_xy.h\n'}
+[8.691859] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__functions.h\n'}
+[8.691931] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__struct.h\n'}
+[8.692003] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__type_support.h\n'}
+[8.692054] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/get_xy.h\n'}
+[8.692165] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/library_path.sh\n'}
+[8.692249] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/library_path.dsv\n'}
+[8.692602] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_fastrtps_c.h\n'}
+[8.692653] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[8.692728] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_fastrtps_c.h\n'}
+[8.693107] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__builder.hpp\n'}
+[8.693233] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__struct.hpp\n'}
+[8.693386] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__traits.hpp\n'}
+[8.693467] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__type_support.hpp\n'}
+[8.693596] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[8.693677] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/set_xy.hpp\n'}
+[8.693748] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__builder.hpp\n'}
+[8.693836] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__struct.hpp\n'}
+[8.693933] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__traits.hpp\n'}
+[8.693982] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__type_support.hpp\n'}
+[8.694030] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/get_xy.hpp\n'}
+[8.694192] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.694315] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[8.694466] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.694643] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_introspection_c.h\n'}
+[8.694719] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[8.694790] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_introspection_c.h\n'}
+[8.695097] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/msg/detail/set_xy__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.695276] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/include/inverse_kinematics_node/inverse_kinematics_node/srv/detail/get_xy__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.695450] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/pythonpath.sh\n'}
+[8.695548] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/pythonpath.dsv\n'}
+[8.695772] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[8.695913] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[8.696010] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[8.696103] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[8.696653] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/__init__.py\n'}
+[8.696773] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_c.c\n'}
+[8.696944] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[8.697062] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/_inverse_kinematics_node_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[8.697148] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.697244] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.697371] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.697467] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/libinverse_kinematics_node__rosidl_generator_py.so\n'}
+[8.697551] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/__init__.py\n'}
+[8.697643] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/_set_xy.py\n'}
+[8.697729] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg/_set_xy_s.c\n'}
+[8.697815] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/__init__.py\n'}
+[8.698179] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/_get_xy.py\n'}
+[8.698273] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv/_get_xy_s.c\n'}
+[8.698487] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.698698] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.698977] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/inverse_kinematics_node_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[8.699143] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/msg/SetXY.idl\n'}
+[8.699272] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY.idl\n'}
+[8.699394] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/msg/SetXY.msg\n'}
+[8.699482] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY.srv\n'}
+[8.699610] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY_Request.msg\n'}
+[8.699739] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/srv/GetXY_Response.msg\n'}
+[8.699976] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/inverse_kinematics_node/ik_driver\n'}
+[8.700117] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/package_run_dependencies/inverse_kinematics_node\n'}
+[8.700280] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/parent_prefix_path/inverse_kinematics_node\n'}
+[8.700390] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/ament_prefix_path.sh\n'}
+[8.700519] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/ament_prefix_path.dsv\n'}
+[8.700648] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/path.sh\n'}
+[8.700778] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/environment/path.dsv\n'}
+[8.700918] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.bash\n'}
+[8.701120] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.sh\n'}
+[8.701230] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.zsh\n'}
+[8.701305] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/local_setup.dsv\n'}
+[8.701384] (inverse_kinematics_node) StdoutLine: {'line': b'-- Symlinking: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/package.dsv\n'}
+[8.708540] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/ament_index/resource_index/packages/inverse_kinematics_node\n'}
+[8.708702] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake-extras.cmake\n'}
+[8.708789] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[8.708953] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.709105] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[8.709253] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[8.709360] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[8.709443] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[8.709562] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_nodeConfig.cmake\n'}
+[8.709656] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_nodeConfig-version.cmake\n'}
+[8.709781] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date symlink: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/package.xml\n'}
+[8.710046] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_generator_c.so\n'}
+[8.710243] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_fastrtps_c.so\n'}
+[8.710471] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_fastrtps_cpp.so\n'}
+[8.710636] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_introspection_c.so\n'}
+[8.710747] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_c.so\n'}
+[8.710950] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_introspection_cpp.so\n'}
+[8.711137] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_typesupport_cpp.so\n'}
+[8.721869] (-) TimerEvent: {}
+[8.740990] (inverse_kinematics_node) StdoutLine: {'line': b"Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node'...\n"}
+[8.741133] (inverse_kinematics_node) StdoutLine: {'line': b"Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/msg'...\n"}
+[8.741204] (inverse_kinematics_node) StdoutLine: {'line': b"Listing '/home/manuel/ros2_ws/install/inverse_kinematics_node/local/lib/python3.10/dist-packages/inverse_kinematics_node/srv'...\n"}
+[8.745419] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/lib/libinverse_kinematics_node__rosidl_generator_py.so\n'}
+[8.745698] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cExport.cmake\n'}
+[8.745771] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cExport-noconfig.cmake\n'}
+[8.745881] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[8.746024] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[8.746104] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_cppExport.cmake\n'}
+[8.746161] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[8.746234] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[8.746421] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cExport.cmake\n'}
+[8.746506] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[8.746580] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cExport.cmake\n'}
+[8.746669] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[8.746749] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[8.747094] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[8.747226] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cppExport.cmake\n'}
+[8.747366] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/inverse_kinematics_node__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[8.747443] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_pyExport.cmake\n'}
+[8.747554] (inverse_kinematics_node) StdoutLine: {'line': b'-- Up-to-date: /home/manuel/ros2_ws/install/inverse_kinematics_node/share/inverse_kinematics_node/cmake/export_inverse_kinematics_node__rosidl_generator_pyExport-noconfig.cmake\n'}
+[8.748956] (inverse_kinematics_node) CommandEnded: {'returncode': 0}
+[8.767384] (inverse_kinematics_node) JobEnded: {'identifier': 'inverse_kinematics_node', 'rc': 0}
+[8.768038] (-) EventReactorShutdown: {}

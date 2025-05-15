@@ -1,0 +1,3 @@
+[console_scripts]
+joint_plotter = joint_plotter.joint_plotter:main
+

@@ -1,0 +1,44 @@
+[0.012s] Invoking command in '/home/manuel/ros2_ws/build/pwm_position_node': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12
+[0.046s] [35m[1mConsolidate compiler generated dependencies of target pwm_position_node[0m
+[0.058s] [ 50%] [32mBuilding CXX object CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o[0m
+[1.948s] In file included from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/group_bulk_read.h:27[m[K,
+[1.948s]                  from [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/dynamixel_sdk.h:26[m[K,
+[1.949s]                  from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:9[m[K:
+[1.949s] [01m[K/home/manuel/ros2_ws/install/dynamixel_sdk/include/dynamixel_sdk/packet_handler.h:38:29:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+[1.949s]    38 | #define BROADCAST_ID        [01;31m[K0xFE[m[K    // 254
+[1.949s]       |                             [01;31m[K^~~~[m[K
+[1.949s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:44:19:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KBROADCAST_ID[m[K’
+[1.949s]    44 | constexpr uint8_t [01;36m[KBROADCAST_ID[m[K          = 0xFE; // For disabling torque on all servos
+[1.949s]       |                   [01;36m[K^~~~~~~~~~~~[m[K
+[2.006s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[2.006s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[2.007s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[2.007s]                  from [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:8[m[K:
+[2.007s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:[m[K In member function ‘[01m[Kvoid PWMPosNode::control_loop(double)[m[K’:
+[2.007s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:241:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+[2.007s]   241 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "SyncRead for Present Position failed: %s", packet_->getTxRxResult(dxl_comm_result));
+[2.007s]       |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.007s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:249:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+[2.007s]   249 |         [01;31m[KRCLCPP_WARN_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "Failed to get data for one or both servos in SyncRead.");
+[2.007s]       |         [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[2.009s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:328:5:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+[2.009s]   328 |     [01;31m[KRCLCPP_DEBUG_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(100), // Log every 100ms
+[2.009s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.010s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:341:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+[2.010s]   341 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "Failed to add all params to GroupSyncWrite for PWM.");
+[2.010s]       |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.011s] [01m[K/home/manuel/ros2_ws/src/pwm_position_node/src/pwm_position_node.cpp:350:9:[m[K [01;31m[Kerror: [m[Kinvalid ‘[01m[Kstatic_cast[m[K’ from type ‘[01m[Kstd::chrono::milliseconds[m[K’ {aka ‘[01m[Kstd::chrono::duration<long int, std::ratio<1, 1000> >[m[K’} to type ‘[01m[Krcutils_duration_value_t[m[K’ {aka ‘[01m[Klong int[m[K’}
+[2.011s]   350 |         [01;31m[KRCLCPP_ERROR_THROTTLE[m[K(get_logger(), *get_clock(), std::chrono::milliseconds(2000), "SyncWrite for Goal PWM failed: %s", packet_->getTxRxResult(dxl_comm_result));
+[2.011s]       |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[4.037s] gmake[2]: *** [CMakeFiles/pwm_position_node.dir/build.make:76: CMakeFiles/pwm_position_node.dir/src/pwm_position_node.cpp.o] Error 1
+[4.037s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/pwm_position_node.dir/all] Error 2
+[4.038s] gmake: *** [Makefile:146: all] Error 2
+[4.040s] Invoked command in '/home/manuel/ros2_ws/build/pwm_position_node' returned '2': CMAKE_PREFIX_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node:/home/manuel/ros2_ws/install/dynamixel_sdk:/home/manuel/ros2_ws/install/synthetic_ball_publisher:/home/manuel/ros2_ws/install/pwm_position_node:/home/manuel/ros2_ws/install/my_cpp_pkg:/home/manuel/ros2_ws/install/joint_positions_node:/home/manuel/ros2_ws/install/ball_arm_tracker:/home/manuel/ros2_ws/install/dynamixel_sdk_examples:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces:/home/manuel/ros2_ws/install/dual_dynamixel_node:/home/manuel/ros2_ws/install/ball_centroid_detector:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble LD_LIBRARY_PATH=/home/manuel/ros2_ws/install/inverse_kinematics_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk/lib:/home/manuel/ros2_ws/install/joint_positions_node/lib:/home/manuel/ros2_ws/install/dynamixel_sdk_custom_interfaces/lib:/home/manuel/ros2_ws/install/dual_dynamixel_node/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/manuel/ros2_ws/build/pwm_position_node -- -j12 -l12
