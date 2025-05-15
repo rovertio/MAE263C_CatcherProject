@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_py/dual_dynamixel_node/dual_dynamixel_node_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" "TARGETS" "dual_dynamixel_node__rosidl_typesupport_fastrtps_c__pyext" "DESTINATION" "local/lib/python3.10/dist-packages/dual_dynamixel_node")

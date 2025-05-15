@@ -169,8 +169,8 @@
       </visual>
     </link>
     <joint name='elbow' type='revolute'>
-      <!-- <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 0 -1.5708</pose> -->
-      <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 -1.546044239997952e-16 2.955755307179587</pose>
+      <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 0 -1.5708</pose>
+      <!-- <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 -1.546044239997952e-16 2.955755307179587</pose> -->
       <parent>shoulderlink</parent>
       <child>hooplink</child>
       <axis>
@@ -244,6 +244,7 @@
     <plugin
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
+      <!-- <joint_name>joint_pos</joint_name> -->
       <joint_name>shoulder</joint_name>
       <topic>posS</topic>
       <initial_position>0</initial_position>
@@ -267,7 +268,7 @@
       <d_gain>0.01</d_gain>
       <i_max>1</i_max>
       <i_min>-1</i_min>
-      <cmd_max>-2.2939099999999999</cmd_max>
+      <cmd_max>2.2939099999999999</cmd_max>
       <cmd_min>-2.2939099999999999</cmd_min>
     </plugin>
 
@@ -287,6 +288,20 @@
       <topic>velE</topic>
       <initial_velocity>0</initial_velocity>
     </plugin>
+
+    <!-- Plug in for joint reading -->
+    <plugin
+    filename="gz-sim-joint-state-publisher-system"
+    name="gz::sim::systems::JointStatePublisher">
+    <topic>joint_state</topic>
+    <joint_name>shoulder</joint_name>
+    <!-- <topic>shoulder_state</topic> -->
+
+    <joint_name>elbow</joint_name>
+    <update_rate>20</update_rate>
+    <!-- <topic>elbow_state</topic> -->
+    </plugin>
+
 
   </model>
 </sdf>

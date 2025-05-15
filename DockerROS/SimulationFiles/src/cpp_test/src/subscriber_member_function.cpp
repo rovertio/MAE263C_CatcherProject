@@ -19,6 +19,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
 
 using std::placeholders::_1;
 
@@ -28,19 +29,21 @@ public:
   MinimalSubscriber()
   : Node("minimal_subscriber")
   {
-    subscription_ = this->create_subscription<std_msgs::msg::Float64>(
-      "test_joint", 10, std::bind(&MinimalSubscriber::topic_callback, this, _1));
+    subscription_ = this->create_subscription<sensor_msgs::msg::JointState>(
+      "joint_state", 10, std::bind(&MinimalSubscriber::topic_callback, this, _1));
   }
 
 private:
-  void topic_callback(const std_msgs::msg::Float64 & msg) const
+  void topic_callback(sensor_msgs::msg::JointState::SharedPtr msg)
   {
-    double myDouble = msg.data;
-    std::string myString = std::to_string(myDouble);
-    const char* cString = myString.c_str();
-    RCLCPP_INFO(this->get_logger(), cString);
+    /* Position of the shoulder isindex 0, elbow is index 1*/
+    // double myDouble = msg->position[1];
+    // std::string myString = std::to_string(myDouble);
+    // const char* cString = myString.c_str();
+    // RCLCPP_INFO(this->get_logger(), cString);
+    RCLCPP_INFO(get_logger(), std::to_string(msg->position[1]).c_str());
   }
-  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr subscription_;
+  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subscription_;
 };
 
 int main(int argc, char * argv[])

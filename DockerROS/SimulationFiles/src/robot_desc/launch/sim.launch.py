@@ -4,6 +4,7 @@ from ament_index_python import get_package_prefix
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.actions import ExecuteProcess
+from launch.actions import SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
@@ -21,6 +22,11 @@ def generate_launch_description():
     # robot_description_raw = xacro.process_file(xacro_file).toxml()
 
     pkg_project_bringup = get_package_share_directory('robot_desc')
+    # Setting environmental variable
+    # set_env_vars_resources = AppendEnvironmentVariable(
+    #     'IGN_GAZEBO_RESOURCE_PATH',
+    #     os.path.join(get_package_share_directory('robot_desc'))
+    # )
 
     package_description = "robot_desc"
 
@@ -96,6 +102,7 @@ def generate_launch_description():
     #                            #'-world', world_sdf
     #                            ],
     #                 output='screen')
+
 
     # Run the node
     return LaunchDescription([

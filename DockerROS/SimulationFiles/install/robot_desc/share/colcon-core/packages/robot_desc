@@ -1,1 +1,1 @@
-joint_state_publisher:robot_state_publisher:rviz:urdf:xacro
+joint_state_publisher:rclcpp:robot_state_publisher:ros_gz_bridge:ros_gz_image:ros_gz_sim:rviz:sensor_msgs:tf2:urdf:xacro
