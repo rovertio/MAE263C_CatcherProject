@@ -6,6 +6,8 @@ from launch.actions import IncludeLaunchDescription
 from launch.actions import ExecuteProcess
 from launch.actions import SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition
 
 
 from launch_ros.actions import Node
@@ -85,6 +87,7 @@ def generate_launch_description():
             output='screen'
         )
     
+
     # Gazebo bridge for topics
     bridge = Node(
         package='ros_gz_bridge',
@@ -96,12 +99,7 @@ def generate_launch_description():
         output='screen'
     )
 
-    # spawn_entity = Node(package='ros_gz_sim', executable='create',
-    #                 arguments=['-name', 'robot',
-    #                            '-topic', 'robot_description',
-    #                            #'-world', world_sdf
-    #                            ],
-    #                 output='screen')
+
 
 
     # Run the node

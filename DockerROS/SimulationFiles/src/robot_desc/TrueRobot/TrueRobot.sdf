@@ -291,16 +291,15 @@
 
     <!-- Plug in for joint reading -->
     <plugin
-    filename="gz-sim-joint-state-publisher-system"
-    name="gz::sim::systems::JointStatePublisher">
-    <topic>joint_state</topic>
-    <joint_name>shoulder</joint_name>
-    <!-- <topic>shoulder_state</topic> -->
-
-    <joint_name>elbow</joint_name>
-    <update_rate>20</update_rate>
-    <!-- <topic>elbow_state</topic> -->
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+      <topic>joint_state</topic>
+      <joint_name>shoulder</joint_name>
+      <joint_name>elbow</joint_name>
+      <update_rate>20</update_rate>
     </plugin>
+
+    
 
 
   </model>
