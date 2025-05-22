@@ -1,158 +1,239 @@
+// detector.cpp
 #include <memory>
+#include <vector>
+#include <deque> // For easier management of fixed-size history
+#include <algorithm>
+#include <cmath> // For sqrt and tan
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
 #include "cv_bridge/cv_bridge.h"
 #include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp> // For cv::Rect
+#include <opencv2/highgui.hpp>
 #include "geometry_msgs/msg/point.hpp"
+#include <opencv2/core/types.hpp> // For cv::Point2d
+
+#ifndef M_PI // Ensure M_PI is defined
+#define M_PI 3.14159265358979323846
+#endif
+
+constexpr double MIN_BALL_AREA = 15.0 * 15.0; 
+
+// Constants for AREA-based height estimation
+constexpr double REFERENCE_AREA_AT_LOWEST_POINT = 340.0;
+constexpr double BALL_HEIGHT_CALIBRATION_FACTOR = 100.0; 
+
+// Constants for STEREO-based height estimation
+constexpr double STEREO_BASELINE_CM = 6.0; 
+constexpr double HORIZONTAL_FOV_DEGREES = 45.0; 
+
+// Constants for perspective correction (shared)
+constexpr double CAMERA_HEIGHT_CM = 85.0; 
+constexpr double IMAGE_WIDTH_PIXELS = 320.0; 
+constexpr double IMAGE_HEIGHT_PIXELS = 240.0; 
+constexpr double IMAGE_CENTER_X_PIXELS = IMAGE_WIDTH_PIXELS / 2.0; 
+constexpr double IMAGE_CENTER_Y_PIXELS = IMAGE_HEIGHT_PIXELS / 2.0;
+
+// Constants for Prediction
+constexpr double LOOKAHEAD_FRAMES = 0; // How many frames/iterations to predict ahead. Tune this.
+const size_t PREDICTION_HISTORY_SIZE = 2; // Need 2 previous points for one velocity estimate
+
 
 class BallCentroidDetector : public rclcpp::Node
 {
 public:
     BallCentroidDetector()
-        : Node("ball_centroid_detector")
+    : Node("ball_centroid_detector"), 
+      FOCAL_LENGTH_PIXELS_((IMAGE_WIDTH_PIXELS / 2.0) / std::tan((HORIZONTAL_FOV_DEGREES * M_PI / 180.0) / 2.0))
     {
-        // Assuming the combined image comes from gscam on /camera/combined/image_raw
-        // And your ball_image topic is a remapping of that or a different source
-        sub_ = this->create_subscription<sensor_msgs::msg::Image>(
-            "/camera/image_raw", // Or "/ball_image" if you remap it
+        sub_ = create_subscription<sensor_msgs::msg::Image>(
+            "/camera/image_raw",
             10,
             std::bind(&BallCentroidDetector::image_cb, this, std::placeholders::_1));
-        pub_ = this->create_publisher<geometry_msgs::msg::Point>(
-            "/ball_centroid", 10);
-
-        RCLCPP_INFO(this->get_logger(), "BallCentroidDetector node started. Waiting for images...");
+        pub_ = create_publisher<geometry_msgs::msg::Point>("/ball_centroid", 10);
+        RCLCPP_INFO(get_logger(), "BallCentroidDetector started. Cam H: %.1fcm. Img Ctr: (%.0f, %.0f). Focal: %.1f px. Lookahead: %.1f frames",
+            CAMERA_HEIGHT_CM, IMAGE_CENTER_X_PIXELS, IMAGE_CENTER_Y_PIXELS, FOCAL_LENGTH_PIXELS_, LOOKAHEAD_FRAMES);
     }
 
 private:
-    // Helper function to find centroid in a single image/ROI
-    // Returns true if centroid found, false otherwise.
-    // cx and cy are output parameters.
-    bool find_centroid_in_roi(const cv::Mat& roi_bgr, double& cx_out, double& cy_out)
+    bool find_centroid_in_roi(const cv::Mat& roi, double& cx, double& cy, double& area_out)
     {
-        if (roi_bgr.empty()) {
-            return false;
+        if (roi.empty()) return false;
+        cv::Mat gray, mask;
+        cv::cvtColor(roi, gray, cv::COLOR_BGR2GRAY);
+        cv::threshold(gray, mask, 247, 255, cv::THRESH_BINARY); 
+        cv::Mat erodeK = cv::getStructuringElement(cv::MORPH_ELLIPSE, {3,3});
+        cv::Mat dilateK = cv::getStructuringElement(cv::MORPH_ELLIPSE, {7,7});
+        cv::erode(mask, mask, erodeK, {}, 1);
+        cv::dilate(mask, mask, dilateK, {}, 1);
+        std::vector<std::vector<cv::Point>> cnts;
+        cv::findContours(mask, cnts, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+        double bestA = 0;
+        cv::Point2d bestC;
+        for (auto &c : cnts) {
+            double area = cv::contourArea(c);
+            if (area < MIN_BALL_AREA) continue;
+            auto m = cv::moments(c);
+            if (m.m00 == 0) continue;
+            double _cx = m.m10/m.m00;
+            double _cy = m.m01/m.m00;
+            if (area > bestA) {
+                bestA = area;
+                bestC = {_cx, _cy};
+            }
         }
-
-        cv::Mat gray;
-        cv::cvtColor(roi_bgr, gray, cv::COLOR_BGR2GRAY);
-
-        cv::Mat mask;
-        // Adjust these parameters based on your ball's color and lighting
-        // For a bright ball, a higher threshold (e.g., 200-240) is good.
-        // For a dark ball on a light background, you might invert the threshold
-        // or use a lower threshold with THRESH_BINARY_INV.
-        cv::threshold(gray, mask, 240, 255, cv::THRESH_BINARY); // Threshold might need tuning
-
-        // Optional: Denoising before morphology
-        // cv::medianBlur(mask, mask, 3);
-
-
-        // Morphology: Erode to remove small noise, Dilate to restore ball size
-        // The kernel size and iterations might need tuning
-        cv::Mat kernel_erode = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3));
-        cv::Mat kernel_dilate = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(7, 7)); // Larger dilation
-
-        cv::erode(mask, mask, kernel_erode, cv::Point(-1,-1), 1);
-        cv::dilate(mask, mask, kernel_dilate, cv::Point(-1,-1), 1); // Consider more dilation if ball is small or erosion is aggressive
-
-
-        cv::Moments M = cv::moments(mask, /*binaryImage=*/true);
-
-        if (M.m00 > 1e-2) { // Check if any white pixels (ball area) found
-            cx_out = M.m10 / M.m00;
-            cy_out = M.m01 / M.m00;
+        if (bestA > 0) {
+            cx = bestC.x;
+            cy = bestC.y;
+            area_out = bestA;
             return true;
         }
+        area_out = 0;
         return false;
     }
 
     void image_cb(const sensor_msgs::msg::Image::ConstSharedPtr & msg)
     {
-        cv_bridge::CvImagePtr cv_ptr;
-        try {
-            cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
-        } catch (cv_bridge::Exception& e) {
-            RCLCPP_ERROR(this->get_logger(), "cv_bridge exception: %s", e.what());
+        auto cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+        cv::Mat img = cv_ptr->image;
+        if (img.empty()) return;
+
+        if (img.cols != 640 || img.rows != 240) {
+            RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
+                                 "Bad image size: %dx%d", img.cols, img.rows);
             return;
         }
 
-        cv::Mat bgr_full = cv_ptr->image;
-        if (bgr_full.empty()) {
-            RCLCPP_WARN(this->get_logger(), "Received an empty image.");
-            return;
+        cv::Rect L_roi_rect(0,0,320,240), R_roi_rect(320,0,320,240);
+        double lx, ly, rx, ry; 
+        double areaL = 0.0, areaR = 0.0;
+        bool fL = find_centroid_in_roi(img(L_roi_rect), lx, ly, areaL);
+        bool fR = find_centroid_in_roi(img(R_roi_rect), rx, ry, areaR);
+
+        geometry_msgs::msg::Point point_to_publish; 
+        bool found_overall = false;
+        double current_ball_area = 0.0;
+        double perceived_px = 0.0, perceived_py = 0.0; 
+
+        if (fL && fR) {
+            perceived_px = (lx + rx)/2.0; 
+            perceived_py = (ly + ry)/2.0; 
+            current_ball_area = (areaL + areaR) / 2.0;
+            found_overall = true;
+        } else if (fL) {
+            perceived_px = lx; perceived_py = ly;
+            current_ball_area = areaL;
+            found_overall = true;
+        } else if (fR) {
+            perceived_px = rx; perceived_py = ry;
+            current_ball_area = areaR;
+            found_overall = true;
         }
 
-        // Assuming the image is 640x240 (width x height)
-        // Left camera ROI: x=0, y=0, width=320, height=240
-        // Right camera ROI: x=320, y=0, width=320, height=240
-        if (bgr_full.cols != 640 || bgr_full.rows != 240) {
-            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 5000,
-                                 "Received image with unexpected dimensions: %dx%d. Expected 640x240.",
-                                 bgr_full.cols, bgr_full.rows);
-            return;
-        }
+        if (found_overall) {
+            double original_clamped_px = std::clamp(perceived_px, 0.0, IMAGE_WIDTH_PIXELS - 1.0);
+            double original_clamped_py = std::clamp(perceived_py, 0.0, IMAGE_HEIGHT_PIXELS - 1.0);
 
-        cv::Rect left_roi_rect(0, 0, 320, 240);
-        cv::Rect right_roi_rect(320, 0, 320, 240);
+            double h_cm_area = 0.0; 
+            if (current_ball_area > 1.0) { 
+                double ratio_for_height = REFERENCE_AREA_AT_LOWEST_POINT / current_ball_area;
+                h_cm_area = BALL_HEIGHT_CALIBRATION_FACTOR * (std::sqrt(std::max(0.0, ratio_for_height)) - 1.0);
+            } else {
+                 RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,"Area too small (%.1f) for area-based height.", current_ball_area);
+            }
 
-        cv::Mat left_bgr = bgr_full(left_roi_rect);
-        cv::Mat right_bgr = bgr_full(right_roi_rect);
+            double h_cm_stereo = -1.0; 
+            double distance_to_ball_stereo_cm = -1.0;
+            if (fL && fR) { 
+                double disparity_pixels = lx - rx; 
+                RCLCPP_DEBUG(get_logger(), "Stereo: lx=%.1f, rx=%.1f, disparity=%.1f px", lx, rx, disparity_pixels);
 
-        double cx_left = -1.0, cy_left = -1.0;
-        double cx_right_roi = -1.0, cy_right_roi = -1.0; // Relative to right ROI
+                if (disparity_pixels > 0.5) { 
+                    distance_to_ball_stereo_cm = (STEREO_BASELINE_CM * FOCAL_LENGTH_PIXELS_) / disparity_pixels;
+                    h_cm_stereo = CAMERA_HEIGHT_CM - distance_to_ball_stereo_cm;
+                    RCLCPP_INFO(get_logger(), "Stereo Est: Dist: %.1f cm, Height: %.1f cm", distance_to_ball_stereo_cm, h_cm_stereo);
+                } else {
+                    RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "Stereo: Disparity too small or non-positive (%.1f px). Cannot estimate depth.", disparity_pixels);
+                }
+            }
+            
+            RCLCPP_INFO(get_logger(), "Ball Raw Px: (%.1f, %.1f). Area: %.1f -> Est H_area: %.1f cm.", 
+                        original_clamped_px, original_clamped_py, current_ball_area, h_cm_area);
 
-        bool found_left = find_centroid_in_roi(left_bgr, cx_left, cy_left);
-        bool found_right = find_centroid_in_roi(right_bgr, cx_right_roi, cy_right_roi);
+            double h_cm_for_correction = h_cm_area; 
+            if (fL && fR && h_cm_stereo > -CAMERA_HEIGHT_CM * 0.5 && distance_to_ball_stereo_cm > 0) { 
+                if (std::abs(h_cm_stereo) < CAMERA_HEIGHT_CM * 1.5) { 
+                    h_cm_for_correction = h_cm_stereo;
+                    RCLCPP_INFO(get_logger(), "Using Stereo Height (%.1f cm) for perspective correction.", h_cm_stereo);
+                } else {
+                    RCLCPP_WARN(get_logger(), "Stereo height (%.1f cm) seems unreasonable, falling back to area height (%.1f cm).", h_cm_stereo, h_cm_area);
+                }
+            } else {
+                 RCLCPP_INFO(get_logger(), "Using Area Height (%.1f cm) for perspective correction.", h_cm_area);
+            }
 
-        // Adjust right centroid to be in the 0-319 coordinate system (like the left)
-        double cx_right_adjusted = -1.0, cy_right_adjusted = -1.0;
-        if (found_right) {
-            cx_right_adjusted = cx_right_roi; // Already in 0-319 relative to its ROI
-            cy_right_adjusted = cy_right_roi;
-        }
+            double dx_pixels = perceived_px - IMAGE_CENTER_X_PIXELS;
+            double dy_pixels = perceived_py - IMAGE_CENTER_Y_PIXELS;
+            double H_minus_h = CAMERA_HEIGHT_CM - h_cm_for_correction;
+            double current_corrected_px = perceived_px; 
+            double current_corrected_py = perceived_py;
 
-        geometry_msgs::msg::Point p_out;
-        bool ball_detected_overall = false;
+            if (H_minus_h > 1.0 && CAMERA_HEIGHT_CM > 1.0) { 
+                double correction_factor = H_minus_h / CAMERA_HEIGHT_CM;
+                double corrected_dx_pixels = dx_pixels * correction_factor;
+                double corrected_dy_pixels = dy_pixels * correction_factor;
+                current_corrected_px = IMAGE_CENTER_X_PIXELS + corrected_dx_pixels;
+                current_corrected_py = IMAGE_CENTER_Y_PIXELS + corrected_dy_pixels;
+                RCLCPP_INFO(get_logger(), "Perspective Corrected Px: (%.1f, %.1f). Factor: %.3f",
+                            current_corrected_px, current_corrected_py, correction_factor);
+            } else {
+                 RCLCPP_WARN(get_logger(), "Ball est. at/above camera (H-h = %.1f cm) or invalid H. No perspective correction.", H_minus_h);
+            }
+            
+            // --- PREDICTION ---
+            double predicted_px = current_corrected_px;
+            double predicted_py = current_corrected_py;
 
-        if (found_left && found_right) {
-            p_out.x = (cx_left + cx_right_adjusted) / 2.0;
-            p_out.y = (cy_left + cy_right_adjusted) / 2.0;
-            p_out.z = 0.0; // Or some confidence metric / depth if available
-            ball_detected_overall = true;
-            RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 17, // Log every 1 sec
-                                 "Ball found in L&R. Left(%.1f,%.1f) RightAdj(%.1f,%.1f) Avg(%.1f,%.1f)",
-                                 cx_left, cy_left, cx_right_adjusted, cy_right_adjusted, p_out.x, p_out.y);
-        } else if (found_left) {
-            p_out.x = cx_left;
-            p_out.y = cy_left;
-            p_out.z = 0.0;
-            ball_detected_overall = true;
-            RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 17,
-                                 "Ball found in Left only. (%.1f,%.1f)", p_out.x, p_out.y);
-        } else if (found_right) {
-            p_out.x = cx_right_adjusted;
-            p_out.y = cy_right_adjusted;
-            p_out.z = 0.0;
-            ball_detected_overall = true;
-            RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 17,
-                                 "Ball found in Right only. (%.1f,%.1f)", p_out.x, p_out.y);
-        }
+            if (previous_ball_positions_.size() == PREDICTION_HISTORY_SIZE) {
+                const cv::Point2d& pos_n_minus_1 = previous_ball_positions_[1]; // Most recent previous
+                const cv::Point2d& pos_n_minus_2 = previous_ball_positions_[0]; // Oldest in history
+                
+                double velocity_x = pos_n_minus_1.x - pos_n_minus_2.x;
+                double velocity_y = pos_n_minus_1.y - pos_n_minus_2.y;
+                
+                // Predict based on current corrected position and this velocity
+                // (A more robust predictor might use velocity from pos_n_minus_1 and current_corrected_px)
+                // Let's use current_corrected_px as the base for prediction
+                predicted_px = current_corrected_px + velocity_x * LOOKAHEAD_FRAMES;
+                predicted_py = current_corrected_py + velocity_y * LOOKAHEAD_FRAMES;
+                
+                RCLCPP_INFO(get_logger(), "Prediction: Vel (%.1f, %.1f) px/fr. Pred Px: (%.1f, %.1f)",
+                            velocity_x, velocity_y, predicted_px, predicted_py);
+            } else {
+                RCLCPP_INFO(get_logger(), "Prediction: Not enough history (%zu/%zu), using current corrected position.",
+                            previous_ball_positions_.size(), PREDICTION_HISTORY_SIZE);
+            }
 
-        if (ball_detected_overall) {
-            // Ensure coordinates are within the 320x240 space
-            // (though averaging should keep them within if individual detections are)
-            p_out.x = std::max(0.0, std::min(p_out.x, 319.0));
-            p_out.y = std::max(0.0, std::min(p_out.y, 239.0));
-            pub_->publish(p_out);
+            // Update history with current corrected position
+            previous_ball_positions_.push_back(cv::Point2d(current_corrected_px, current_corrected_py));
+            if (previous_ball_positions_.size() > PREDICTION_HISTORY_SIZE) {
+                previous_ball_positions_.pop_front(); // Keep history size fixed
+            }
+
+            point_to_publish.x = std::clamp(predicted_px, 0.0, IMAGE_WIDTH_PIXELS - 1.0);
+            point_to_publish.y = std::clamp(predicted_py, 0.0, IMAGE_HEIGHT_PIXELS - 1.0);
+            point_to_publish.z = h_cm_for_correction; 
+            pub_->publish(point_to_publish);
+
         } else {
-            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 2000, // Log every 2 secs
-                                 "Ball not found in either camera view.");
+            RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "Ball not found in either view.");
+            previous_ball_positions_.clear(); // Reset history if ball is lost
         }
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub_;
     rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_;
+    const double FOCAL_LENGTH_PIXELS_; 
+    std::deque<cv::Point2d> previous_ball_positions_; // Using deque for efficient pop_front
 };
 
 int main(int argc, char **argv)
