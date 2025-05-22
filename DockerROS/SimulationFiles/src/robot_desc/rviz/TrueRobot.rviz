@@ -72,6 +72,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        front_camera:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         dynamixelmotor_withhorn:
           Alpha: 1
           Show Axes: false
@@ -104,6 +109,8 @@ Visualization Manager:
         All Enabled: true
         armbasemount:
           Value: true
+        front_camera:
+          Value: true
         dynamixelmotor_withhorn:
           Value: true
         shoulderlink:
@@ -119,6 +126,7 @@ Visualization Manager:
       Show Names: false
       Tree:
         armbasemount:
+          front_camera:
           dynamixelmotor_withhorn:
             shoulderlink:
               dynamixelmotor_withhorn_2:

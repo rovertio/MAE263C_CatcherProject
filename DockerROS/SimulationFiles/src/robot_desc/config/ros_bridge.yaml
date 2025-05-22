@@ -9,17 +9,27 @@
   ros_type_name: "sensor_msgs/msg/JointState"
   gz_type_name: "ignition.msgs.Model"
   direction: GZ_TO_ROS
-# gz topic published by Sensors plugin (Camera)
-- ros_topic_name: "camera/camera_info"
-  gz_topic_name: "camera/camera_info"
+# Bridging topics for the left camera: camera info and raw image
+- ros_topic_name: "/camera/left_camera_info"
+  gz_topic_name: "/camera/left_camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "ignition.msgs.CameraInfo"
   direction: GZ_TO_ROS
-# Raw image reading
-- ros_topic_name: "/camera/image_raw"
-  gz_topic_name: "/camera/image_raw"
+- ros_topic_name: "/camera/left_image_raw"
+  gz_topic_name: "/camera/left_image_raw"
   ros_type_name: "sensor_msgs/msg/Image"
-  gz_type_name: "gz.msgs.Image"
+  gz_type_name: "ignition.msgs.Image"
+  direction: GZ_TO_ROS
+# Bridging topics for the right camera: camera info and raw image
+- ros_topic_name: "/camera/right_camera_info"
+  gz_topic_name: "/camera/right_camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "ignition.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+- ros_topic_name: "/camera/right_image_raw"
+  gz_topic_name: "/camera/right_image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
   direction: GZ_TO_ROS
 # - ros_topic_name: "/shoulder_state"
 #   gz_topic_name: "/shoulder_state"

@@ -72,8 +72,8 @@
         <limit>
           <lower>-1.5708</lower>
           <upper>1.5708</upper>
-          <effort>10</effort>
-          <velocity>10</velocity>
+          <effort>2.3</effort>
+          <velocity>5.236</velocity>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
@@ -178,8 +178,8 @@
         <limit>
           <lower>-2.2939099999999999</lower>
           <upper>2.2939099999999999</upper>
-          <effort>10</effort>
-          <velocity>10</velocity>
+          <effort>2.3</effort>
+          <velocity>5.236</velocity>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
@@ -226,6 +226,7 @@
         </material>
       </visual>
     </link>
+
     <frame name='shouldermotor' attached_to='armbasemount'>
       <pose>0 0.1036 0.10388 0 -0 0</pose>
     </frame>
@@ -247,7 +248,7 @@
       <!-- <joint_name>joint_pos</joint_name> -->
       <joint_name>shoulder</joint_name>
       <topic>posS</topic>
-      <initial_position>0</initial_position>
+      <initial_position>-0.785398</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>
@@ -262,7 +263,7 @@
       name="gz::sim::systems::JointPositionController">
       <joint_name>elbow</joint_name>
       <topic>posE</topic>
-      <initial_position>0</initial_position>
+      <initial_position>1.5708</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>

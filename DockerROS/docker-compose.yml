@@ -2,6 +2,7 @@ services:
   gaz_con:
     image: dockerros
     ipc: host
+    cpus: 14      
     environment:
       - DISPLAY=:0
       - XAUTHORITY=/tmp/.X11-unix/X0

@@ -108,7 +108,6 @@ def generate_launch_description():
         gazebo,
         robot_state_publisher,
         bridge,
-        # spawn_entity
     ])
 
 
