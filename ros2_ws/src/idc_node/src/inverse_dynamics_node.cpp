@@ -1,10 +1,13 @@
-// inverse_dynamics_node.cpp
+// inverse_dynamics_node.cppinverse_dynamics_node.cpp
 #include <cmath>
 #include <memory>
 #include <chrono>
 #include <mutex>
 #include <algorithm>
 #include <optional>
+#include <array>
+#include <cmath>
+
 
 #include "rclcpp/rclcpp.hpp"
 #include "dynamixel_sdk/dynamixel_sdk.h"
@@ -72,6 +75,104 @@ void eval(const Coef& c,double t,double& q,double&qd,double&qdd){
     q   =c.a0+c.a1*t+c.a2*t2+c.a3*t3+c.a4*t4+c.a5*t5;
     qd  =c.a1+2*c.a2*t+3*c.a3*t2+4*c.a4*t3+5*c.a5*t4;
     qdd =2*c.a2+6*c.a3*t+12*c.a4*t2+20*c.a5*t3;
+}
+
+
+std::array<double, 2> computeEndEffector(double q1, double q2) {
+    constexpr double L1 = 0.30, L2 = 0.30;
+    double x = L1 * std::cos(q1) + L2 * std::cos(q1 + q2);
+    double y = L1 * std::sin(q1) + L2 * std::sin(q1 + q2);
+    return {x, y};
+}
+
+
+
+std::array<std::array<double, 2>, 2> computeJacobian(double q1, double q2) {
+    constexpr double L1 = 0.30;
+    constexpr double L2 = 0.30;
+
+    double s1 = std::sin(q1);
+    double s12 = std::sin(q1 + q2);
+    double c1 = std::cos(q1);
+    double c12 = std::cos(q1 + q2);
+
+    return {{
+        { -L1 * s1 - L2 * s12, -L2 * s12 },
+        {  L1 * c1 + L2 * c12,  L2 * c12 }
+    }};
+}
+
+
+std::array<double, 2> computeJdotTimesQdot(double q1, double q2, double dq1, double dq2) {
+    constexpr double L1 = 0.30, L2 = 0.30;
+    double dq12 = dq1 + dq2;
+    double s1 = std::sin(q1), c1 = std::cos(q1);
+    double s12 = std::sin(q1 + q2), c12 = std::cos(q1 + q2);
+
+    double j11_dot = -L1 * c1 * dq1 - L2 * c12 * dq12;
+    double j12_dot = -L2 * c12 * dq12;
+    double j21_dot = -L1 * s1 * dq1 - L2 * s12 * dq12;
+    double j22_dot = -L2 * s12 * dq12;
+
+    double dJdq_x = j11_dot * dq1 + j12_dot * dq2;
+    double dJdq_y = j21_dot * dq1 + j22_dot * dq2;
+
+    return { dJdq_x, dJdq_y };
+}
+
+
+
+
+std::array<std::array<double, 2>, 2> invert2x2(const std::array<std::array<double, 2>, 2>& J) {
+    double a = J[0][0], b = J[0][1];
+    double c = J[1][0], d = J[1][1];
+    double det = a * d - b * c;
+
+    if (std::abs(det) < 1e-6) throw std::runtime_error("Jacobian is singular!");
+
+    return {{
+        {  d / det, -b / det },
+        { -c / det,  a / det }
+    }};
+}
+
+struct OperationalTrajectory {
+    std::array<double, 2> pos;      // x_d
+    std::array<double, 2> vel;      // ẋ_d
+    std::array<double, 2> accel;    // ẍ_d
+};
+
+OperationalTrajectory computeOperationalTrajectory(
+    const Coef& cf1, const Coef& cf2, double t) 
+{
+    // Joint space trajectory
+    double q1, dq1, ddq1;
+    double q2, dq2, ddq2;
+    eval(cf1, t, q1, dq1, ddq1);
+    eval(cf2, t, q2, dq2, ddq2);
+
+    std::array<double, 2> q  = {q1, q2};
+    std::array<double, 2> dq = {dq1, dq2};
+    std::array<double, 2> ddq = {ddq1, ddq2};
+
+    // Forward Kinematics for xd
+    auto xd = computeEndEffector(q1, q2);
+
+    // Jacobian for ẋ_d
+    auto J = computeJacobian(q1, q2);
+    std::array<double, 2> dxd = {
+        J[0][0] * dq1 + J[0][1] * dq2,
+        J[1][0] * dq1 + J[1][1] * dq2
+    };
+
+    // Jacobian derivative for ẍ_d
+    std::array<double, 2> dJdq = computeJdotTimesQdot(q1, q2, dq1, dq2);
+    std::array<double, 2> ddxd = {
+        J[0][0] * ddq1 + J[0][1] * ddq2 + dJdq[0],
+        J[1][0] * ddq1 + J[1][1] * ddq2 + dJdq[1]
+    };
+
+    return OperationalTrajectory{xd, dxd, ddxd};
 }
 
 constexpr double DT = 0.001;
@@ -219,50 +320,69 @@ private:
 
         double q1d = current_goal_q1_;
         double q2d = current_goal_q2_;
-        double q1dd = 0.0, q2dd = 0.0;
-        double q1ddd = 0.0, q2ddd = 0.0;
+        // double q1dd = 0.0, q2dd = 0.0;
+        // double q1ddd = 0.0, q2ddd = 0.0;
 
-        {
-            std::scoped_lock l(mx_);
-            if(trajectory_active_){
-                double t_elapsed = (this->get_clock()->now() - trajectory_start_time_).seconds();
-                if(t_elapsed < TRAJECTORY_DURATION){
-                    if (active_cf1_ && active_cf2_) {
-                        eval(active_cf1_.value(), t_elapsed, q1d, q1dd, q1ddd);
-                        eval(active_cf2_.value(), t_elapsed, q2d, q2dd, q2ddd);
-                    } else {
-                        trajectory_active_ = false;
-                         RCLCPP_ERROR(get_logger(), "Trajectory active but coefficients not set!");
-                    }
-                } else {
-                    q1d = current_goal_q1_; q1dd = 0.0; q1ddd = 0.0;
-                    q2d = current_goal_q2_; q2dd = 0.0; q2ddd = 0.0;
-                    trajectory_active_ = false;
-                }
-            }
-        }
 
-        double e1 = q1d - q1_m, e2 = q2d - q2_m;
-        double de1 = q1dd - dq1_m, de2 = q2dd - dq2_m;
-        double y1 = KP1*e1 + KD1*de1 + q1ddd;
-        double y2 = KP2*e2 + KD2*de2 + q2ddd;
+       
+if (active_cf1_ && active_cf2_) {
+    double t_elapsed = (this->get_clock()->now() - trajectory_start_time_).seconds();
 
-        double cos_q2_m = std::cos(q2_m), sin_q2_m = std::sin(q2_m);
-        double h   = -M2*L1*LC2*sin_q2_m;
-        double b11 = I1+I2+M1*LC1*LC1 + M2*(L1*L1+LC2*LC2+2*L1*LC2*cos_q2_m);
-        double b12 = I2 + M2*(LC2*LC2 + L1*LC2*cos_q2_m);
-        double b22 = I2 + M2*LC2*LC2;
+    auto traj = computeOperationalTrajectory(active_cf1_.value(), active_cf2_.value(), t_elapsed);
+    auto x_d = traj.pos;
+    auto xd_d = traj.vel;
+    auto xdd_d = traj.accel;
 
-        double tau1 = b11*y1 + b12*y2 + h*(2*dq1_m*dq2_m + dq2_m*dq2_m);
-        double tau2 = b12*y1 + b22*y2 - h*dq1_m*dq1_m;
+    // Get measured state
+    auto x = computeEndEffector(q1_m, q2_m);
+    auto J = computeJacobian(q1_m, q2_m);
+    std::array<double, 2> dq_m = { dq1_m, dq2_m };
+    std::array<double, 2> xd = {
+        J[0][0]*dq1_m + J[0][1]*dq2_m,
+        J[1][0]*dq1_m + J[1][1]*dq2_m
+    };
 
-        int pwm1 = int(tau1/TAUMAX1 * PWM_LIM);
-        int pwm2 = int(tau2/TAUMAX2 * PWM_LIM); // Removed PWM_BOOST2 for now, can be added back if needed
-        pwm1 = std::clamp(pwm1,-PWM_LIM,PWM_LIM);
-        pwm2 = std::clamp(pwm2,-PWM_LIM,PWM_LIM);
-        
-        send_pwm(pwm1,pwm2);
-        
+    // Task-space errors
+    std::array<double, 2> e_x = { x_d[0] - x[0], x_d[1] - x[1] };
+    std::array<double, 2> e_xdot = { xd_d[0] - xd[0], xd_d[1] - xd[1] };
+
+    // Task-space gains
+    constexpr double KP = 500.0, KD = 50.0;
+
+    // dJ·dq
+    auto dJdq = computeJdotTimesQdot(q1_m, q2_m, dq1_m, dq2_m);
+
+    // Desired Cartesian acceleration
+    std::array<double, 2> xdd_des = {
+        xdd_d[0] + KD * e_xdot[0] + KP * e_x[0] - dJdq[0],
+        xdd_d[1] + KD * e_xdot[1] + KP * e_x[1] - dJdq[1]
+    };
+
+    // Joint-space mapping
+    auto Jinv = invert2x2(J);
+    std::array<double, 2> y = {
+        Jinv[0][0] * xdd_des[0] + Jinv[0][1] * xdd_des[1],
+        Jinv[1][0] * xdd_des[0] + Jinv[1][1] * xdd_des[1]
+    };
+
+    double cos_q2_m = std::cos(q2_m), sin_q2_m = std::sin(q2_m);
+    double h   = -M2 * L1 * LC2 * sin_q2_m;
+    double b11 = I1 + I2 + M1 * LC1 * LC1 + M2 * (L1 * L1 + LC2 * LC2 + 2 * L1 * LC2 * cos_q2_m);
+    double b12 = I2 + M2 * (LC2 * LC2 + L1 * LC2 * cos_q2_m);
+    double b22 = I2 + M2 * LC2 * LC2;
+
+    double tau1 = b11 * y[0] + b12 * y[1] + h * (2 * dq1_m * dq2_m + dq2_m * dq2_m);
+    double tau2 = b12 * y[0] + b22 * y[1] - h * dq1_m * dq1_m;
+
+    int pwm1 = int(tau1 / TAUMAX1 * PWM_LIM);
+    int pwm2 = int(tau2 / TAUMAX2 * PWM_LIM);
+    pwm1 = std::clamp(pwm1, -PWM_LIM, PWM_LIM);
+    pwm2 = std::clamp(pwm2, -PWM_LIM, PWM_LIM);
+    send_pwm(pwm1, pwm2);
+}
+
+
+
         auto plot_msg = JointPlotData();
         plot_msg.measured_q1 = q1_m; plot_msg.desired_q1 = q1d;
         plot_msg.measured_q2 = q2_m; plot_msg.desired_q2 = q2d;
