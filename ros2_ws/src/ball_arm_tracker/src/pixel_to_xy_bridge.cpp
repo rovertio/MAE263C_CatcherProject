@@ -21,7 +21,7 @@ public:
 private:
 	void cb(const geometry_msgs::msg::Point::SharedPtr p)
 	{
-		constexpr double SCALE = 1.0/5.0;
+		constexpr double SCALE = 0.22;
 		constexpr double PIX_H = 240.0;
 		constexpr double PIX_W = 320.0;
 

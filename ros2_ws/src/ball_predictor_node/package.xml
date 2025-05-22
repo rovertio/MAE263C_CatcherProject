@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ball_predictor_node</name>
+  <version>0.1.0</version>
+  <description>Stereo-vision ball detector and landing-point predictor for a planar 2-R catch arm.</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- build system -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- compile-time deps -->
+  <build_depend>rclcpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>OpenCV</build_depend>
+
+  <!-- run-time deps (mirror build deps) -->
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>OpenCV</exec_depend>
+
+  <!-- tests could go here -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+</package>
+
