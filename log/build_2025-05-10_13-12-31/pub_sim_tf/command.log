@@ -1,0 +1,1 @@
+Invoking command in '/home/manuel/MAE263C_CatcherProject/build/pub_sim_tf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake /home/manuel/MAE263C_CatcherProject/DockerROS/SimulationFiles/src/pub_sim_tf -DCMAKE_INSTALL_PREFIX=/home/manuel/MAE263C_CatcherProject/install/pub_sim_tf

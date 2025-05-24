@@ -1,0 +1,1 @@
+Invoking command in '/home/manuel/MAE263C_CatcherProject/build/synthetic_ball_publisher': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake /home/manuel/MAE263C_CatcherProject/ros2_ws/src/synthetic_ball_publisher -DCMAKE_INSTALL_PREFIX=/home/manuel/MAE263C_CatcherProject/install/synthetic_ball_publisher

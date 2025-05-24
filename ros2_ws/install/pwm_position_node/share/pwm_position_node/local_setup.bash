@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/pwm_position_node/ament_cmake_environment_hooks/local_setup.bash

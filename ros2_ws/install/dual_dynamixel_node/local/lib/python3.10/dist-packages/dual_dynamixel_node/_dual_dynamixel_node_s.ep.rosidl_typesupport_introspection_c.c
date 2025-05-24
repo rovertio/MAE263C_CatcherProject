@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_py/dual_dynamixel_node/_dual_dynamixel_node_s.ep.rosidl_typesupport_introspection_c.c

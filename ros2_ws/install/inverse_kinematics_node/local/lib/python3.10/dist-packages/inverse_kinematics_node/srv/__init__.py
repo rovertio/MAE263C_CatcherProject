@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/inverse_kinematics_node/rosidl_generator_py/inverse_kinematics_node/srv/__init__.py

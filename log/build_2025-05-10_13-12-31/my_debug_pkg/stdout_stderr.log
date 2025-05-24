@@ -1,0 +1,37 @@
+running egg_info
+creating ../../../build/my_debug_pkg/my_debug_pkg.egg-info
+writing ../../../build/my_debug_pkg/my_debug_pkg.egg-info/PKG-INFO
+writing dependency_links to ../../../build/my_debug_pkg/my_debug_pkg.egg-info/dependency_links.txt
+writing entry points to ../../../build/my_debug_pkg/my_debug_pkg.egg-info/entry_points.txt
+writing requirements to ../../../build/my_debug_pkg/my_debug_pkg.egg-info/requires.txt
+writing top-level names to ../../../build/my_debug_pkg/my_debug_pkg.egg-info/top_level.txt
+writing manifest file '../../../build/my_debug_pkg/my_debug_pkg.egg-info/SOURCES.txt'
+reading manifest file '../../../build/my_debug_pkg/my_debug_pkg.egg-info/SOURCES.txt'
+writing manifest file '../../../build/my_debug_pkg/my_debug_pkg.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build
+creating /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib
+creating /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib/my_debug_pkg
+copying my_debug_pkg/__init__.py -> /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib/my_debug_pkg
+copying my_debug_pkg/env_check_node.py -> /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib/my_debug_pkg
+running install
+running install_lib
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+copying /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib/my_debug_pkg/__init__.py -> /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+copying /home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/build/lib/my_debug_pkg/env_check_node.py -> /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg
+byte-compiling /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg/env_check_node.py to env_check_node.cpython-310.pyc
+running install_data
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/ament_index
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/ament_index/resource_index
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/ament_index/resource_index/packages
+copying resource/my_debug_pkg -> /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/ament_index/resource_index/packages
+creating /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/my_debug_pkg
+copying package.xml -> /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/share/my_debug_pkg
+running install_egg_info
+Copying ../../../build/my_debug_pkg/my_debug_pkg.egg-info to /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/python3.10/site-packages/my_debug_pkg-0.0.0-py3.10.egg-info
+running install_scripts
+Installing env_checker script to /home/manuel/MAE263C_CatcherProject/install/my_debug_pkg/lib/my_debug_pkg
+writing list of installed files to '/home/manuel/MAE263C_CatcherProject/build/my_debug_pkg/install.log'

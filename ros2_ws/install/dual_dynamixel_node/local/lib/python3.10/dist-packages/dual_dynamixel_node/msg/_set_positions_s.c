@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_py/dual_dynamixel_node/msg/_set_positions_s.c

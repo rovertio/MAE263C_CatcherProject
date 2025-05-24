@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/joint_positions_node/rosidl_generator_py/joint_positions_node/msg/_set_joint_degrees.py

@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/ball_arm_tracker/ament_cmake_environment_hooks/local_setup.bash

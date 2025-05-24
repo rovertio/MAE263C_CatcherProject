@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_cpp/dual_dynamixel_node/srv/detail/get_positions__traits.hpp

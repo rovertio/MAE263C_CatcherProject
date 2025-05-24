@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_typesupport_introspection_c/dual_dynamixel_node/msg/detail/set_positions__rosidl_typesupport_introspection_c.h

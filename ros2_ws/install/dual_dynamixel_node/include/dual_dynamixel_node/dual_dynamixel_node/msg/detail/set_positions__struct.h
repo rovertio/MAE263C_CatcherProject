@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/dual_dynamixel_node/rosidl_generator_c/dual_dynamixel_node/msg/detail/set_positions__struct.h

@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/joint_positions_node/rosidl_generator_cpp/joint_positions_node/srv/detail/get_joint_degrees__traits.hpp

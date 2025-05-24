@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/inverse_kinematics_node/ament_cmake_core/inverse_kinematics_nodeConfig.cmake

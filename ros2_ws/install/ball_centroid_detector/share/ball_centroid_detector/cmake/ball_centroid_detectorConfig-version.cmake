@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/ball_centroid_detector/ament_cmake_core/ball_centroid_detectorConfig-version.cmake

@@ -1,0 +1,36 @@
+[0.321s] Invoking command in '/home/manuel/MAE263C_CatcherProject/build/robot_desc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake /home/manuel/MAE263C_CatcherProject/DockerROS/SimulationFiles/src/robot_desc -DCMAKE_INSTALL_PREFIX=/home/manuel/MAE263C_CatcherProject/install/robot_desc
+[0.405s] -- The C compiler identification is GNU 11.4.0
+[0.496s] -- The CXX compiler identification is GNU 11.4.0
+[0.508s] -- Detecting C compiler ABI info
+[0.617s] -- Detecting C compiler ABI info - done
+[0.630s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.630s] -- Detecting C compile features
+[0.631s] -- Detecting C compile features - done
+[0.639s] -- Detecting CXX compiler ABI info
+[0.762s] -- Detecting CXX compiler ABI info - done
+[0.779s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.779s] -- Detecting CXX compile features
+[0.780s] -- Detecting CXX compile features - done
+[0.785s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.059s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.433s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[1.654s] [31mCMake Error at CMakeLists.txt:11 (find_package):
+[1.654s]   By not providing "Findxacro.cmake" in CMAKE_MODULE_PATH this project has
+[1.654s]   asked CMake to find a package configuration file provided by "xacro", but
+[1.654s]   CMake did not find one.
+[1.654s] 
+[1.654s]   Could not find a package configuration file provided by "xacro" with any of
+[1.655s]   the following names:
+[1.655s] 
+[1.655s]     xacroConfig.cmake
+[1.655s]     xacro-config.cmake
+[1.655s] 
+[1.655s]   Add the installation prefix of "xacro" to CMAKE_PREFIX_PATH or set
+[1.655s]   "xacro_DIR" to a directory containing one of the above files.  If "xacro"
+[1.655s]   provides a separate development package or SDK, be sure it has been
+[1.655s]   installed.
+[1.656s] 
+[1.656s] [0m
+[1.660s] -- Configuring incomplete, errors occurred!
+[1.660s] See also "/home/manuel/MAE263C_CatcherProject/build/robot_desc/CMakeFiles/CMakeOutput.log".
+[1.691s] Invoked command in '/home/manuel/MAE263C_CatcherProject/build/robot_desc' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/manuel/ros2_ws/install/joint_plotter:/opt/ros/humble /usr/bin/cmake /home/manuel/MAE263C_CatcherProject/DockerROS/SimulationFiles/src/robot_desc -DCMAKE_INSTALL_PREFIX=/home/manuel/MAE263C_CatcherProject/install/robot_desc

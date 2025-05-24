@@ -35,9 +35,10 @@ constexpr double FOCAL_PX = (HALF_W/2.0) /
         std::tan((HFOV_DEG*M_PI/180.0)/2.0);
 
 /* ── predictor & buffers ───────────────────────────────────────────── */
-constexpr double LPF_ALPHA = 0.3;        // 1-pole height LPF
-constexpr double VEL_LPF_ALPHA = 0.3;    // 1-pole velocity LPF
-constexpr double G_CM      = 981.0;      // gravity in cm/s²
+constexpr double LPF_ALPHA = 0.7;
+constexpr double VEL_LPF_ALPHA = 0.7;
+constexpr double PRED_LPF_ALPHA = 0.6; // For predicted landing position
+constexpr double G_CM      = 981.0;
 constexpr size_t BUF_MAX   = 4;
 constexpr size_t BUF_MIN   = 2;
 constexpr double RESET_GAP_S = 0.30;
@@ -48,7 +49,7 @@ class BallPredictorNode : public rclcpp::Node
 public:
   BallPredictorNode():Node("ball_predictor_node")
   {
-    img_sub_ = create_subscription<sensor_msgs::msg::Image>( // CORRECTED THIS LINE
+    img_sub_ = create_subscription<sensor_msgs::msg::Image>(
       "/camera/image_raw",10,std::bind(&BallPredictorNode::cb_img,this,_1));
     pub_ = create_publisher<Point>("/ball_centroid",10);
 
@@ -85,108 +86,124 @@ private:
     const cv::Mat& img=cv_ptr->image;
     if(img.cols!=IMG_W||img.rows!=IMG_H) return;
 
-    /* detect left / right */
     double lx,ly,rx,ry,aL=0,aR=0;
     bool fL=centroid(img(cv::Rect(0,0,HALF_W,IMG_H)), lx,ly,aL);
     bool fR=centroid(img(cv::Rect(HALF_W,0,HALF_W,IMG_H)), rx,ry,aR);
 
-    /* reset buffer after gap ---------------------------------------- */
     if(!fL&&!fR){
       if(last_seen_.nanoseconds()!=0 &&
          (get_clock()->now()-last_seen_).seconds()>RESET_GAP_S)
         {
           buf_.clear();
-          has_prev_v_ = false; // Reset velocity LPF state
+          has_prev_h_ = false;
+          has_prev_v_ = false;
+          has_prev_pred_ = false; // Reset prediction LPF state
         }
       return;
     }
     last_seen_=get_clock()->now();
 
-    /* merge detections */
     double px,py,area;
     if(fL&&fR){
       px=(lx+rx)/2; py=(ly+ry)/2; area=(aL+aR)/2;
     }else if(fL){ px=lx; py=ly; area=aL; }
     else         { px=rx; py=ry; area=aR; }
 
-    /* ---- height ---------------------------------------------------- */
     double h_area = std::max(0.0, H_SCALE*(std::sqrt(AREA_REF/area)-1.0));
     double disp = lx - rx;
     double dist=(BASELINE*FOCAL_PX)/disp;
     double h_st = CAMERA_H - dist;
-    double h = h_st;
-    double h_filt;
+    double h_raw = h_st; // Raw height before LPF
     
-    /* LPF */
-    if(has_prev_h_) h_filt = LPF_ALPHA*prev_h_ + (1.0-LPF_ALPHA)*h;
-    prev_h_=h; has_prev_h_=true;
+    if(has_prev_h_) h_raw = LPF_ALPHA*prev_h_ + (1.0-LPF_ALPHA)*h_raw;
+    prev_h_=h_raw; has_prev_h_=true;
 
-    /* ground-plane pixel */
-    double corr=(CAMERA_H-h_filt)/CAMERA_H;
+    double corr=(CAMERA_H-h_raw)/CAMERA_H; // Use filtered height for correction
     double cx=IMG_CX+(px-IMG_CX)*corr;
     double cy=IMG_CY+(py-IMG_CY)*corr;
 
-    /* store sample --------------------------------------------------- */
     double t = msg->header.stamp.sec + msg->header.stamp.nanosec*1e-9;
-    buf_.push_back({t,cx,cy,h_filt});
+    buf_.push_back({t,cx,cy,h_raw}); // Store filtered height in buffer
     if(buf_.size()>BUF_MAX) buf_.pop_front();
     if(buf_.size()<BUF_MIN) return;
 
-    /* velocities ----------------------------------------------------- */
     const auto& q0=buf_[buf_.size()-2];
     const auto& q1=buf_.back();
-    double dt=q1.t-q0.t; if(dt<1e-4) return;
+    double dt=q1.t-q0.t; 
+    if(dt<1e-4) {
+        has_prev_pred_ = false; // Not enough time change for velocity, invalidate prediction
+        return;
+    }
 
     double vx_raw=(q1.x-q0.x)/dt;
     double vy_raw=(q1.y-q0.y)/dt;
-    double vz_raw=(q1.h_filt-q0.h_filt)/dt;
+    double vz_raw=(q1.h-q0.h)/dt;
 
     double vx, vy, vz;
-    double vx_filt, vy_filt, vz_filt;
-    
     if(has_prev_v_){
-      vx_filt = VEL_LPF_ALPHA*prev_vx_ + (1.0-VEL_LPF_ALPHA)*vx_raw;
-      vy_filt = VEL_LPF_ALPHA*prev_vy_ + (1.0-VEL_LPF_ALPHA)*vy_raw;
-      vz_filt = VEL_LPF_ALPHA*prev_vz_ + (1.0-VEL_LPF_ALPHA)*vz_raw;
+      vx = VEL_LPF_ALPHA*prev_vx_ + (1.0-VEL_LPF_ALPHA)*vx_raw;
+      vy = VEL_LPF_ALPHA*prev_vy_ + (1.0-VEL_LPF_ALPHA)*vy_raw;
+      vz = LPF_ALPHA*prev_vz_ + (1.0-VEL_LPF_ALPHA)*vz_raw;
     } else {
-      vx_filt = vx_raw; vy_filt = vy_raw; vz_filt = vz_raw;
+      vx = vx_raw; vy = vy_raw; vz = vz_raw;
       has_prev_v_ = true;
     }
-    prev_vx_ = vx_raw; prev_vy_ = vy_raw; prev_vz_ = vz_raw;
+    prev_vx_ = vx; prev_vy_ = vy; prev_vz_ = vz;
 
-    /* ---- gating: only when h>5 cm and STILL GOING UP -------------- */
-    if(q1.h_filt <= 0.0 || q1.h_filt >= 30.0 || vz_filt <= -5.0){ // Note: vz is now filtered
-      RCLCPP_INFO(get_logger(),
-        "skip  h=%.1f vz=%.1f  (below gate)",q1.h_filt,vz_filt);
+    if(q1.h <= -80.0 || q1.h >= 80.0 || vz <= -80.0){
+      RCLCPP_INFO(get_logger(),"skip  h=%.1f vz=%.1f  (gate)",q1.h,vz);
+      has_prev_pred_ = false; // Prediction not made, reset filter state
       return;
     }
 
-    /* projectile solve  h_filt + vz·t -½g t² = 0 ------------------------- */
-    double a=-0.5*G_CM, b=vz, c=q1.h_filt; // Note: vz is now filtered
-    double disc=b*b-4*a*c; if(disc<0) return;
-    double t_land=(-b - std::sqrt(disc))/(2*a);  // positive root
-    if(t_land<=0) return;
+    double a_grav=-0.5*G_CM, b_vel=vz, c_height=q1.h;
+    double disc=b_vel*b_vel-4*a_grav*c_height; 
+    if(disc<0) {
+        has_prev_pred_ = false; // Prediction fails, reset filter
+        return;
+    }
+    double t_land=(-b_vel - std::sqrt(disc))/(2*a_grav);
+    if(t_land<=0) {
+        has_prev_pred_ = false; // Prediction fails, reset filter
+        return;
+    }
 
-    double pred_x=q1.x+vx*t_land, pred_y=q1.y+vy*t_land; // Note: vx, vy are filtered
-    pred_x=std::clamp(pred_x,0.0,double(HALF_W-1));
-    pred_y=std::clamp(pred_y,0.0,double(IMG_H-1));
+    double raw_pred_x=q1.x+vx*t_land;
+    double raw_pred_y=q1.y+vy*t_land;
 
-    Point out; out.x=pred_x; out.y=pred_y; out.z=0.0;
+    double filtered_pred_x, filtered_pred_y;
+    if (has_prev_pred_) {
+        filtered_pred_x = PRED_LPF_ALPHA * prev_pred_x_ + (1.0 - PRED_LPF_ALPHA) * raw_pred_x;
+        filtered_pred_y = PRED_LPF_ALPHA * prev_pred_y_ + (1.0 - PRED_LPF_ALPHA) * raw_pred_y;
+    } else {
+        filtered_pred_x = raw_pred_x;
+        filtered_pred_y = raw_pred_y;
+        has_prev_pred_ = true;
+    }
+    prev_pred_x_ = filtered_pred_x;
+    prev_pred_y_ = filtered_pred_y;
+
+    filtered_pred_x = std::clamp(filtered_pred_x, 0.0, double(HALF_W-1));
+    filtered_pred_y = std::clamp(filtered_pred_y, 0.0, double(IMG_H-1));
+
+    Point out; 
+    out.x = filtered_pred_x;
+    out.y = filtered_pred_y;
+    out.z = 0.0;
     pub_->publish(out);
 
-    /* continuous log (no throttle) ---------------------------------- */
     RCLCPP_INFO(get_logger(),
-      "h0=%.1f  vx=%.1f vy=%.1f vz=%.1f  t=%.3f  \n (%.1f,%.1f) → (%.1f,%.1f)",
-      q1.h_filt,vx_filt,vy_filt,vz_filt,t_land,q1.x,q1.y,out.x,out.y); // vx,vy,vz are filtered
+      "h0=%.1f vx=%.1f vy=%.1f vz=%.1f tL=%.3f | Raw(%.1f,%.1f) Filt(%.1f,%.1f)",
+      q1.h,vx,vy,vz,t_land, raw_pred_x, raw_pred_y, out.x,out.y);
   }
 
 /* ---- data ----------------------------------------------------------- */
-  struct Sample{ double t,x,y,h_filt; };
+  struct Sample{ double t,x,y,h; };
   std::deque<Sample> buf_;
-  rclcpp::Time last_seen_;
+  rclcpp::Time last_seen_{0,0,RCL_ROS_TIME}; // Initialize to avoid nanoseconds() on zero
   double prev_h_{0}; bool has_prev_h_{false};
-  double prev_vx_{0}, prev_vy_{0}, prev_vz_{0};
-  bool has_prev_v_{false};
+  double prev_vx_{0}, prev_vy_{0}, prev_vz_{0}; bool has_prev_v_{false};
+  double prev_pred_x_{0.0}, prev_pred_y_{0.0}; bool has_prev_pred_{false};
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
   rclcpp::Publisher<Point>::SharedPtr pub_;

@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/synthetic_ball_publisher/ament_cmake_environment_hooks/local_setup.zsh

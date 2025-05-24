@@ -1,1 +1,0 @@
-/home/manuel/ros2_ws/build/joint_positions_node/rosidl_typesupport_introspection_c/joint_positions_node/msg/rosidl_typesupport_introspection_c__visibility_control.h

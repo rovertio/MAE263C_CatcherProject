@@ -40,7 +40,6 @@ constexpr double L1 = 0.30, L2 = 0.30, LC1 = L1*0.7, LC2 = L2*0.5;
 constexpr double M1 = (0.098 + 0.08) * Infill + 0.077, M2 = 0.088 * Infill;
 constexpr double I1 = 0.001105+ (0.077 * (0.09*L1*L1)), I2 = 0.000300;
 
-
 constexpr double BLX = -42, BLY = 1, L1d = 30, L2d = 30;
 constexpr double J1min = -85, J1max = -10, J2min = 20, J2max = 140;
 
@@ -176,7 +175,8 @@ OperationalTrajectory computeOperationalTrajectory(
 }
 
 constexpr double DT = 0.001;
-constexpr double TRAJECTORY_DURATION = 0.2; 
+constexpr double TRAJECTORY_DURATION = 0.2;
+constexpr double COOLDOWN_DURATION = 4.8;
 constexpr double KP1 = 300, KD1 = 30;
 constexpr double KP2 = 2000, KD2 = 50;
 constexpr double TAUMAX1 = 2.5, TAUMAX2 = 2.5;
@@ -187,6 +187,8 @@ public:
     IDCNode() : Node("inverse_dynamics_node"),
                 current_goal_q1_(0.0), current_goal_q2_(0.0),
                 trajectory_active_(false) {
+        busy_until_time_ = this->get_clock()->now();
+
         port_ = dynamixel::PortHandler::getPortHandler("/dev/ttyUSB0");
         pkt_  = dynamixel::PacketHandler::getPacketHandler(2.0);
         if(!port_->openPort() || !port_->setBaudRate(1000000)) {
@@ -201,7 +203,7 @@ public:
             current_goal_q1_ = initial_q1;
             current_goal_q2_ = initial_q2;
         } else {
-            RCLCPP_ERROR(get_logger(), "Failed to read initial state. Assuming (0,0) and continuing cautiously.");
+            RCLCPP_ERROR(get_logger(), "Failed to read initial state. Assuming (0,0).");
             current_goal_q1_ = 0.0; current_goal_q2_ = 0.0;
         }
 
@@ -209,38 +211,50 @@ public:
             "set_xy",10,[this](SetXY::SharedPtr m){
                 double new_target_q1_rad, new_target_q2_rad;
                 if(ik(m->x,m->y,new_target_q1_rad,new_target_q2_rad)){
-                    bool can_plan_new_trajectory = false;
+                    rclcpp::Time time_of_request = this->get_clock()->now();
+                    bool plan_this_trajectory = false;
                     {
                         std::scoped_lock l(mx_);
-                        if (!trajectory_active_) {
-                            can_plan_new_trajectory = true;
+                        if (!trajectory_active_ && time_of_request >= busy_until_time_) {
+                            plan_this_trajectory = true;
+                            busy_until_time_ = time_of_request + rclcpp::Duration::from_seconds(TRAJECTORY_DURATION + COOLDOWN_DURATION);
                         } else {
-                            RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 5000,
-                                "SetXY: Ignoring new target; trajectory active.");
+                            if (trajectory_active_){
+                                RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 2000,"SetXY: Ignoring; quintic trajectory active (current goal q1=%.2f, q2=%.2f).", current_goal_q1_, current_goal_q2_);
+                            } else { 
+                                RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 2000,"SetXY: Ignoring; in cooldown period until %.2fs from now.", (busy_until_time_ - time_of_request).seconds());
+                            }
                         }
                     }
 
-                    if (can_plan_new_trajectory) {
-                        std::scoped_lock l(mx_);
+                    if (plan_this_trajectory) {
                         double current_q1_val, current_q2_val, current_dq1_val, current_dq2_val;
                         if(!read_state(current_q1_val, current_q2_val, current_dq1_val, current_dq2_val)){
-                            RCLCPP_ERROR(get_logger(), "SetXY: Failed to read current state for new trajectory planning.");
+                            RCLCPP_ERROR(get_logger(), "SetXY: Failed to read state for new trajectory. Reverting busy_until_time_.");
+                            {
+                                std::scoped_lock l(mx_);
+                                busy_until_time_ = this->get_clock()->now(); 
+                            }
                             return;
                         }
-                        RCLCPP_INFO(get_logger(), "Planning new trajectory to q1=%.2f, q2=%.2f", new_target_q1_rad, new_target_q2_rad);
-                        active_cf1_ = quintic(current_q1_val, current_dq1_val, 0.0, new_target_q1_rad, 0.0, 0.0, TRAJECTORY_DURATION);
-                        active_cf2_ = quintic(current_q2_val, current_dq2_val, 0.0, new_target_q2_rad, 0.0, 0.0, TRAJECTORY_DURATION);
-                        trajectory_start_time_ = this->get_clock()->now();
-                        trajectory_active_ = true;
-                        current_goal_q1_ = new_target_q1_rad;
-                        current_goal_q2_ = new_target_q2_rad;
+                        
+                        RCLCPP_INFO(get_logger(), "Planning new trajectory from (q1m=%.2f, q2m=%.2f) to (q1t=%.2f, q2t=%.2f)",
+                                    current_q1_val, current_q2_val, new_target_q1_rad, new_target_q2_rad);
+                        {
+                            std::scoped_lock l(mx_);
+                            active_cf1_ = quintic(current_q1_val, current_dq1_val, 0.0, new_target_q1_rad, 0.0, 0.0, TRAJECTORY_DURATION);
+                            active_cf2_ = quintic(current_q2_val, current_dq2_val, 0.0, new_target_q2_rad, 0.0, 0.0, TRAJECTORY_DURATION);
+                            trajectory_start_time_ = time_of_request; 
+                            trajectory_active_ = true;                
+                            current_goal_q1_ = new_target_q1_rad; 
+                            current_goal_q2_ = new_target_q2_rad;
+                        }
                     }
                 }
             });
-
         plot_data_pub_ = create_publisher<JointPlotData>("joint_plot_data", 10);
         timer_ = create_wall_timer(std::chrono::duration<double>(DT), std::bind(&IDCNode::tick,this));
-        RCLCPP_INFO(get_logger(),"IDC stream online (dt %.3f s, traj_T %.2f s)", DT, TRAJECTORY_DURATION);
+        RCLCPP_INFO(get_logger(),"IDC stream online (dt %.3f s, traj_T %.2f s, cooldown %.2f s)", DT, TRAJECTORY_DURATION, COOLDOWN_DURATION);
     }
 
     ~IDCNode() override {
@@ -320,9 +334,40 @@ private:
 
         double q1d = current_goal_q1_;
         double q2d = current_goal_q2_;
+<<<<<<< HEAD
         // double q1dd = 0.0, q2dd = 0.0;
         // double q1ddd = 0.0, q2ddd = 0.0;
 
+=======
+        double q1dd = 0.0, q2dd = 0.0;
+        double q1ddd = 0.0, q2ddd = 0.0;
+        bool just_finished_quintic = false;
+
+        {
+            std::scoped_lock l(mx_);
+            if(trajectory_active_){
+                double t_elapsed = (this->get_clock()->now() - trajectory_start_time_).seconds();
+                if(t_elapsed < TRAJECTORY_DURATION){
+                    if (active_cf1_ && active_cf2_) {
+                        eval(active_cf1_.value(), t_elapsed, q1d, q1dd, q1ddd);
+                        eval(active_cf2_.value(), t_elapsed, q2d, q2dd, q2ddd);
+                    } else {
+                        trajectory_active_ = false;
+                         RCLCPP_ERROR(get_logger(), "Bug: Trajectory active but coefficients not set!");
+                    }
+                } else { 
+                    q1d = current_goal_q1_; q1dd = 0.0; q1ddd = 0.0;
+                    q2d = current_goal_q2_; q2dd = 0.0; q2ddd = 0.0;
+                    trajectory_active_ = false; 
+                    just_finished_quintic = true;
+                }
+            }
+        } 
+
+        if (just_finished_quintic) {
+             RCLCPP_INFO(get_logger(), "Quintic trajectory finished. Entering cooldown. Holding (%.2f, %.2f)", current_goal_q1_, current_goal_q2_);
+        }
+>>>>>>> 7ff5822 (gitignore)
 
        
 if (active_cf1_ && active_cf2_) {
@@ -383,6 +428,16 @@ if (active_cf1_ && active_cf2_) {
 
 
 
+<<<<<<< HEAD
+=======
+        int pwm1 = int(tau1/TAUMAX1 * PWM_LIM);
+        int pwm2 = int(tau2/TAUMAX2 * PWM_LIM);
+        pwm1 = std::clamp(pwm1,-PWM_LIM,PWM_LIM);
+        pwm2 = std::clamp(pwm2,-PWM_LIM,PWM_LIM);
+        
+        send_pwm(pwm1,pwm2);
+        
+>>>>>>> 7ff5822 (gitignore)
         auto plot_msg = JointPlotData();
         plot_msg.measured_q1 = q1_m; plot_msg.desired_q1 = q1d;
         plot_msg.measured_q2 = q2_m; plot_msg.desired_q2 = q2d;
@@ -400,8 +455,9 @@ if (active_cf1_ && active_cf2_) {
     double current_goal_q2_;
     std::optional<Coef> active_cf1_;
     std::optional<Coef> active_cf2_;
-    rclcpp::Time trajectory_start_time_;
-    bool trajectory_active_;
+    rclcpp::Time trajectory_start_time_; 
+    bool trajectory_active_;             
+    rclcpp::Time busy_until_time_;       
 };
 
 int main(int argc,char** argv){
