@@ -1,7 +1,0 @@
-{
-  "package_name": "inverse_kinematics_node",
-  "non_idl_tuples": [
-    "/home/manuel/ros2_ws/src/inverse_kinematics_node:msg/SetXY.msg",
-    "/home/manuel/ros2_ws/src/inverse_kinematics_node:srv/GetXY.srv"
-  ]
-}

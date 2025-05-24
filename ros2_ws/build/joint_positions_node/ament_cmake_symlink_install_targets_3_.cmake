@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/manuel/ros2_ws/build/joint_positions_node/joint_positions_driver" "TARGETS" "joint_positions_driver" "DESTINATION" "lib/joint_positions_node")

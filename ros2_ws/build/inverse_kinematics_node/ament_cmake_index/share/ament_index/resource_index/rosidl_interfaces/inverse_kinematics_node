@@ -1,6 +1,0 @@
-msg/SetXY.idl
-msg/SetXY.msg
-srv/GetXY.idl
-srv/GetXY.srv
-srv/GetXY_Request.msg
-srv/GetXY_Response.msg

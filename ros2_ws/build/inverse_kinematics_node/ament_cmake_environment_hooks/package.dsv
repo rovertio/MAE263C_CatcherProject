@@ -1,4 +1,0 @@
-source;share/inverse_kinematics_node/local_setup.bash
-source;share/inverse_kinematics_node/local_setup.dsv
-source;share/inverse_kinematics_node/local_setup.sh
-source;share/inverse_kinematics_node/local_setup.zsh

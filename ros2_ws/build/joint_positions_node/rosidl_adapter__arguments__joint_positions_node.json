@@ -1,7 +1,0 @@
-{
-  "package_name": "joint_positions_node",
-  "non_idl_tuples": [
-    "/home/manuel/ros2_ws/src/joint_positions_node:msg/SetJointDegrees.msg",
-    "/home/manuel/ros2_ws/src/joint_positions_node:srv/GetJointDegrees.srv"
-  ]
-}

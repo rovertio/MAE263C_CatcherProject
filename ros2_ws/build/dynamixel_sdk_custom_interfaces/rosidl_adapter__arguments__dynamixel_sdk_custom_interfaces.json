@@ -1,7 +1,0 @@
-{
-  "package_name": "dynamixel_sdk_custom_interfaces",
-  "non_idl_tuples": [
-    "/home/manuel/ros2_ws/src/DynamixelSDK/ros/dynamixel_sdk_custom_interfaces:msg/SetPosition.msg",
-    "/home/manuel/ros2_ws/src/DynamixelSDK/ros/dynamixel_sdk_custom_interfaces:srv/GetPosition.srv"
-  ]
-}
