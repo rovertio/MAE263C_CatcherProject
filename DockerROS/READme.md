@@ -7,7 +7,7 @@ vcxsrv# Reference for running the system
 - Go through the prompted setups for the VcXsrv executor
 
 ## Building the container:
-- Build the docker image
+- Build the docker image: opening the folder with the dockerfile in Visual Studio Code is best to reduce complications in container naming
 - Compose the container (run within the dockerros directory)
 ```
 docker compose up
@@ -24,5 +24,9 @@ source install/setup.bash
 - Modifying the environmental variable for gazebo resources (add to bash/run in terminal
 ```
 export IGN_GAZEBO_RESOURCE_PATH=src/robot_desc/install/robot_desc/share/
+```
+- Modifying the environmental variable for message interfaces (troubleshooting)
+```
+export LD_LIBRARY_PATH=/opt/ros/humble/lib
 ```
 # Refrence media:
