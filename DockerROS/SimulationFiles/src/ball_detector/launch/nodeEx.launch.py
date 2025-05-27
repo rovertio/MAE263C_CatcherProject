@@ -17,10 +17,14 @@ def generate_launch_description():
 
     # Run the node
     return LaunchDescription([
-        launch_ros.actions.Node(
+        Node(
             package='ball_detector',
-            executable='detector_node',
-            name='detector_node'),
+            executable='depth_node',
+            name='depth_node'),
+        Node(
+            package='ball_detector',
+            executable='pixel_to_xy_bridge',
+            name='pixel_to_xy_bridge'),
     ])
 
 

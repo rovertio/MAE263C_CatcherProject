@@ -13,6 +13,12 @@ find_package(geometry_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(message_filters REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/SetXY.msg"
+)
+# ament_export_dependencies(rosidl_default_runtime)
 
 add_executable(depth_node src/ball_predictor_node.cpp)
 ament_target_dependencies(
@@ -27,6 +33,17 @@ target_link_libraries(depth_node
   ${OpenCV_LIBRARIES}
 )
 
+add_executable(pixel_to_xy_bridge src/pixel_to_xy_bridge.cpp)
+ament_target_dependencies(
+    pixel_to_xy_bridge
+	  rclcpp 
+    geometry_msgs 
+)
+# rosidl_target_interfaces(pixel_to_xy_bridge
+#   ${PROJECT_NAME} "rosidl_typesupport_cpp"
+# )
+
+
 # add_executable(center_node src/ball_center.cpp)
 # ament_target_dependencies(
 #    center_node
@@ -40,6 +57,10 @@ target_link_libraries(depth_node
 #   ${OpenCV_LIBRARIES}
 # )
 
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION include/${PROJECT_NAME}
+)
+
 install(DIRECTORY
   launch
   DESTINATION share/${PROJECT_NAME}/
@@ -48,6 +69,7 @@ install(DIRECTORY
 install(TARGETS
   # center_node
   depth_node
+  pixel_to_xy_bridge
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
@@ -58,8 +80,13 @@ if(BUILD_TESTING)
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
+  rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+  target_link_libraries(pixel_to_xy_bridge "${cpp_typesupport_target}") 
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_include_directories(include)
 
 ament_package()

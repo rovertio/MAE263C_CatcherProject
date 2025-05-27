@@ -44,8 +44,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.769607 1 1 1</diffuse>
-          <ambient>0.769607 1 1 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
       <visual name='armbasemount_fixed_joint_lump__dynamixelmotor_withhorn_visual_1'>
@@ -58,8 +60,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
-          <ambient>0.808824 0.808824 0.808824 1</ambient>
+          <!-- <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
     </link>
@@ -135,8 +139,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.769607 1 1 1</diffuse>
-          <ambient>0.769607 1 1 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
       <visual name='shoulderlink_visual_1'>
@@ -149,8 +155,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.289216 0.47549 0.882353 1</diffuse>
-          <ambient>0.289216 0.47549 0.882353 1</ambient>
+          <!-- <diffuse>0.289216 0.47549 0.882353 1</diffuse>
+          <ambient>0.289216 0.47549 0.882353 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
       <visual name='shoulderlink_fixed_joint_lump__dynamixelmotor_withhorn_2_visual_2'>
@@ -163,8 +171,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.808824 0.808824 0.808824 1</diffuse>
-          <ambient>0.808824 0.808824 0.808824 1</ambient>
+          <!-- <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
     </link>
@@ -221,8 +231,10 @@
           </mesh>
         </geometry>
         <material>
-          <diffuse>0.769607 1 1 1</diffuse>
-          <ambient>0.769607 1 1 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
         </material>
       </visual>
     </link>

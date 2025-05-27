@@ -334,7 +334,7 @@
       <!-- Insert the ping pong ball model -->
       <include>
         <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
-        <pose>0 0 0.3 0 0 0</pose>
+        <pose>0 0 0.5 0 0 0</pose>
       </include>
 
       <joint name="ball_fixed" type="fixed">

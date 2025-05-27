@@ -113,7 +113,7 @@ private:
     bool fL=centroid(imgL, lx,ly,aL);
     bool fR=centroid(imgR, rx,ry,aR);
 
-    RCLCPP_INFO(get_logger(),"Image processed");
+    // RCLCPP_INFO(get_logger(),"Image processed");
 
     if(!fL&&!fR){
       if(last_seen_.nanoseconds()!=0 &&
@@ -134,7 +134,10 @@ private:
     }else if(fL){ px=lx; py=ly; area=aL; }
     else         { px=rx; py=ry; area=aR; }
 
-
+    // Print raw detected values
+    // RCLCPP_INFO(get_logger(),
+    //   "px=%.1f py=%.1f area=%.1f",
+    //   px,py,area);
     // End of image processing for centroid
 
     double h_area = std::max(0.0, H_SCALE*(std::sqrt(AREA_REF/area)-1.0));
