@@ -46,7 +46,7 @@
         <scene>scene</scene>
         <ambient_light>0.4 0.4 0.4</ambient_light>
         <background_color>0.8 0.8 0.8</background_color>
-        <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+        <camera_pose>-1 0 1 0 0.5 0</camera_pose>
       </plugin>
 
       <!-- Plugins that add functionality to the scene -->
@@ -137,7 +137,7 @@
         <topic>/camera/left_image_raw</topic>
         <topic_picker>0</topic_picker>
         <ignition-gui>
-          <title>Left Camera Feed</title>
+          <title>Camera Feed</title>
           <property key="state" type="string">floating</property>
           <property type="double" key="height">320</property>
           <property type="double" key="width">320</property>
@@ -147,7 +147,7 @@
         </ignition-gui>
       </plugin>
 
-      <!-- <plugin filename="ImageDisplay" name="right_camera">
+      <plugin filename="ImageDisplay" name="right_camera">
         <topic>/camera/right_image_raw</topic>
         <topic_picker>0</topic_picker>
         <ignition-gui>
@@ -159,7 +159,7 @@
           <property type="double" key="y">1</property>
           <property type="double" key="z">1</property>
         </ignition-gui>
-      </plugin> -->
+      </plugin>
 
       <!-- Inspector -->
       <plugin filename="ComponentInspector" name="Component inspector">
@@ -232,10 +232,10 @@
           </geometry>
         </collision>
         <visual name = 'workspace_visual'>
-          <pose>0 0.53926 0 0 0 0</pose>
+          <pose>0 0 0 0 0 0</pose>
           <geometry>
             <box>
-              <size>0.23 0.23 0.02</size>
+              <size>0.5 0.5 0.02</size>
             </box>
           </geometry>
           <material>
@@ -248,6 +248,7 @@
         <parent>ground</parent>
         <child>workspace</child>
       </joint>
+
 
       <link name='left_camera'>
        <pose>0 0.03 0.85 0 1.57 0</pose>
@@ -282,6 +283,7 @@
       </joint>
 
 
+
       <link name='right_camera'>
        <pose>0 -0.03 0.85 0 1.57 0</pose>
        <inertial>
@@ -312,7 +314,8 @@
       <joint name="right_camera_fixed" type="fixed">
         <parent>ground</parent>
         <child>right_camera</child>
-      </joint>
+      </joint> 
+
 
 
       <!-- Insert the robotic arm model -->
@@ -325,6 +328,18 @@
       <joint name="base_fixed" type="fixed">
         <parent>ground</parent>
         <child>project_robot::armbasemount</child>
+      </joint>
+
+
+      <!-- Insert the ping pong ball model -->
+      <include>
+        <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
+        <pose>0 0 0.3 0 0 0</pose>
+      </include>
+
+      <joint name="ball_fixed" type="fixed">
+        <parent>ground</parent>
+        <child>ping_pong_ball::ping_pong_ball_link</child>
       </joint>
 
     </model>    

@@ -27,8 +27,8 @@
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/config.json
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/robot.urdf
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/TrueRobot.sdf
+/home/Catcher/install/robot_desc/share/robot_desc//simWorld/ball.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/camera.sdf
-/home/Catcher/install/robot_desc/share/robot_desc//simWorld/simRobotWorld.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/simset.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//config/ros_bridge.yaml
 /home/Catcher/install/robot_desc/share/robot_desc/environment/robot_desc.dsv

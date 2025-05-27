@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <model name="ping_pong_ball">
+    <link name="ping_pong_ball_link">
+      <visual  name='ball_visual'>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius> <!-- Radius in meters.  Ping pong ball is approximately 2cm (0.02 meters) diameter -->
+          </sphere>
+        </geometry>
+        <material>
+            <diffuse>1 1 1 1</diffuse>
+            <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <collision  name='ball_collision'>
+        <geometry>
+          <sphere>
+            <radius>0.02</radius> <!-- Radius in meters -->
+          </sphere>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass>0.0025</mass> <!-- Approximate mass (grams converted to kilograms) -->
+        <inertia>
+          <ixx>0.000001</ixx>
+          <iyy>0.000001</iyy>
+          <izz>0.000001</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <static>false</static> <!-- Set to true if you don't want the ball to move -->
+  </model>
+</sdf>

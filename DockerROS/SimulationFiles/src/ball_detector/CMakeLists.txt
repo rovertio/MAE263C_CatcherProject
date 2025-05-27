@@ -7,9 +7,48 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(message_filters REQUIRED)
+
+add_executable(depth_node src/ball_predictor_node.cpp)
+ament_target_dependencies(
+   depth_node
+   sensor_msgs
+   rclcpp
+   geometry_msgs
+   cv_bridge
+   message_filters
+)
+target_link_libraries(depth_node
+  ${OpenCV_LIBRARIES}
+)
+
+# add_executable(center_node src/ball_center.cpp)
+# ament_target_dependencies(
+#    center_node
+#    sensor_msgs
+#    rclcpp
+#    geometry_msgs
+#    cv_bridge
+#    message_filters
+# )
+# target_link_libraries(center_node
+#   ${OpenCV_LIBRARIES}
+# )
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+install(TARGETS
+  # center_node
+  depth_node
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
