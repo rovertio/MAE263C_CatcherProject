@@ -5,6 +5,8 @@ ros2_ws/log/
 
 DockerROS/SimulationFiles/build/
 DockerROS/SimulationFiles/src/build/
+DockerROS/SimulationFiles/src/install/
+DockerROS/SimulationFiles/src/log/
 DockerROS/SimulationFiles/install/
 DockerROS/SimulationFiles/log/
 
