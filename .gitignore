@@ -3,9 +3,10 @@ ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
 
-SimulationFiles/build/
-SimulationFiles/install/
-SimulationFiles/log/
+DockerROS/SimulationFiles/build/
+DockerROS/SimulationFiles/src/build/
+DockerROS/SimulationFiles/install/
+DockerROS/SimulationFiles/log/
 
 
 # Python bytecode and caches
