@@ -13,29 +13,51 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(dynamixel_sdk REQUIRED)
-# find_package(inverse_kinematics_node REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(message_filters REQUIRED)
+find_package(ball_detector REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/JointPlotData.msg"
 )
 
-ament_export_dependencies(rosidl_default_runtime)
+# ament_export_dependencies(rosidl_default_runtime)
 
-add_executable(inverse_dynamics_node src/inverse_dynamics_node.cpp)
-ament_target_dependencies(inverse_dynamics_node
+# add_executable(inverse_dynamics_node src/inverse_dynamics_node.cpp)
+# ament_target_dependencies(inverse_dynamics_node
+#   rclcpp
+#   dynamixel_sdk
+#   geometry_msgs
+#   ball_detector
+#   message_filters
+#   sensor_msgs
+# )
+
+# rosidl_target_interfaces(inverse_dynamics_node
+#   ${PROJECT_NAME} "rosidl_typesupport_cpp"
+# )
+
+add_executable(simple_pid src/pwm_position_node.cpp)
+ament_target_dependencies(simple_pid
   rclcpp
   dynamixel_sdk
-  inverse_kinematics_node
   geometry_msgs
+  ball_detector
+  message_filters
+  sensor_msgs
 )
 
-rosidl_target_interfaces(inverse_dynamics_node
-  ${PROJECT_NAME} "rosidl_typesupport_cpp"
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION include/${PROJECT_NAME}
 )
 
-install(TARGETS inverse_dynamics_node DESTINATION lib/${PROJECT_NAME})
+install(TARGETS 
+        # inverse_dynamics_node
+        simple_pid 
+        DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -45,8 +67,14 @@ if(BUILD_TESTING)
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
+  rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+  # target_link_libraries(inverse_dynamics_node "${cpp_typesupport_target}") 
+  target_link_libraries(simple_pid "${cpp_typesupport_target}") 
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_include_directories(include)
 
 ament_package()

@@ -39,23 +39,6 @@ ament_target_dependencies(
 	  rclcpp 
     geometry_msgs 
 )
-# rosidl_target_interfaces(pixel_to_xy_bridge
-#   ${PROJECT_NAME} "rosidl_typesupport_cpp"
-# )
-
-
-# add_executable(center_node src/ball_center.cpp)
-# ament_target_dependencies(
-#    center_node
-#    sensor_msgs
-#    rclcpp
-#    geometry_msgs
-#    cv_bridge
-#    message_filters
-# )
-# target_link_libraries(center_node
-#   ${OpenCV_LIBRARIES}
-# )
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include/${PROJECT_NAME}
