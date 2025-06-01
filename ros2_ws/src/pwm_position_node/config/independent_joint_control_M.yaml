@@ -1,0 +1,15 @@
+pwm_position_node:          # ← node name
+  ros__parameters:
+    # --- serial ---
+    port: "/dev/ttyUSB0"
+    baud: 1000000
+
+    # --- control gains tuned by M ---
+    kp: 55.0
+    ki: 0.15
+    kd: 6.0
+    max_pwm: 885
+
+    # --- loop rate (Hz) ---
+    ctrl_rate_hz: 500
+

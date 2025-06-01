@@ -11,10 +11,11 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(inverse_kinematics_node REQUIRED)
+find_package(controller_msgs REQUIRED)     # add after other find_package()
 
 add_executable(pixel_to_xy_bridge src/pixel_to_xy_bridge.cpp)
 ament_target_dependencies(pixel_to_xy_bridge
-	rclcpp geometry_msgs inverse_kinematics_node)
+	rclcpp geometry_msgs inverse_kinematics_node controller_msgs)
 
 install(TARGETS pixel_to_xy_bridge DESTINATION lib/${PROJECT_NAME})
 

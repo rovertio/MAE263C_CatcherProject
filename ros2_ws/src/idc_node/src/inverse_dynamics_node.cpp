@@ -1,471 +1,230 @@
-// inverse_dynamics_node.cppinverse_dynamics_node.cpp
-#include <cmath>
-#include <memory>
+/* ========================================================================
+ * inverse_dynamics_node.cpp — latency-optimised  +  joint-limit clamp
+ * ------------------------------------------------------------------------
+ *  Subscribes   :  /set_xy  (controller_msgs/SetXY, cm in camera plane)
+ *  Computes     :  planar 2-DOF Operational Space ID  ➜ pwm signal
+ *  Writes to    :  Dynamixel PWM Registers
+ *  Publishes on :  /idc/joint_plot_data  (controller_msgs/JointPlotData)
+ * ======================================================================== */
 #include <chrono>
-#include <mutex>
-#include <algorithm>
-#include <optional>
-#include <array>
 #include <cmath>
+#include <algorithm>
+#include <rclcpp/rclcpp.hpp>
+#include <controller_msgs/msg/set_xy.hpp>
+#include <controller_msgs/msg/joint_plot_data.hpp>
+#include <dynamixel_sdk/dynamixel_sdk.h>
+#include <Eigen/Dense>
 
+#include "control_common/control_params.hpp"
+#include "control_common/control_utils.hpp"
 
-#include "rclcpp/rclcpp.hpp"
-#include "dynamixel_sdk/dynamixel_sdk.h"
-#include "inverse_kinematics_node/msg/set_xy.hpp"
-#include "idc_node/msg/joint_plot_data.hpp"
-
-using SetXY = inverse_kinematics_node::msg::SetXY;
-using JointPlotData = idc_node::msg::JointPlotData;
-using namespace std::chrono_literals;
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
+#ifndef PROFILING
+#define PROFILING 1
 #endif
-inline double deg2rad(double d){ return d*M_PI/180.0; }
-inline double rad2deg(double r){ return r*180.0/M_PI; }
 
-constexpr uint8_t ID1 = 4, ID2 = 1;
-constexpr uint8_t MODE_PWM = 16;
-constexpr uint8_t ADDR_TORQUE = 64, ADDR_MODE = 11;
-constexpr uint16_t ADDR_POS = 132, ADDR_VEL = 128, ADDR_PWM = 100;
+using SetXY = controller_msgs::msg::SetXY;
+using Plot  = controller_msgs::msg::JointPlotData;
+namespace ch = std::chrono;
+using namespace std::chrono_literals;
+using std::placeholders::_1;
 
-constexpr double ZERO1 = 2048, ZERO2 = 2048;
-constexpr double TICK2RAD = (360.0/4096.0)*M_PI/180.0;
-constexpr double SPEED2RAD = 0.229*(2*M_PI/60.0);
-inline double pos2rad(uint32_t t,double z){ return (int(t)-z)*TICK2RAD; }
-inline double vel2rad(int32_t v){ return v*SPEED2RAD; }
+/* ── Joint hard-limits (deg) ───────────────────────────────────── */
+constexpr double Q1_MIN_DEG = -90.0;
+constexpr double Q1_MAX_DEG =  20.0;
+constexpr double Q2_MIN_DEG =  10.0;
+constexpr double Q2_MAX_DEG = 140.0;
 
-constexpr double Infill = 52.0/88.0;
-constexpr double L1 = 0.30, L2 = 0.30, LC1 = L1*0.7, LC2 = L2*0.5;
-constexpr double M1 = (0.098 + 0.08) * Infill + 0.077, M2 = 0.088 * Infill;
-constexpr double I1 = 0.001105+ (0.077 * (0.09*L1*L1)), I2 = 0.000300;
-
-constexpr double BLX = -42, BLY = 1, L1d = 30, L2d = 30;
-constexpr double J1min = -85, J1max = -10, J2min = 20, J2max = 140;
-
-struct Coef{double a0,a1,a2,a3,a4,a5;};
-
-bool ik(double x,double y,double& q1,double& q2){
-    double xr = x-BLX, yr = y-BLY, r2 = xr*xr+yr*yr, maxR = L1d+L2d;
-    if(r2>maxR*maxR) return false;
-    double c2 = (r2-L1d*L1d-L2d*L2d)/(2*L1d*L2d);
-    c2 = std::clamp(c2,-1.0,1.0);
-    double s2 = std::sqrt(1-c2*c2);
-    q2 = std::atan2(s2,c2);
-    q1 = std::atan2(yr,xr)-std::atan2(L2d*s2,L1d+L2d*c2);
-    double d1 = rad2deg(q1), d2 = rad2deg(q2);
-    return d1>=J1min&&d1<=J1max && d2>=J2min&&d2<=J2max;
-}
-
-Coef quintic(double qi,double qdi,double qddi,
-             double qf,double qdf,double qddf,double T){
-    Coef c; c.a0=qi; c.a1=qdi; c.a2=qddi/2.0;
-    if (T <= 1e-6) {
-        c.a3=0; c.a4=0; c.a5=0; return c;
-    }
-    double T2=T*T,T3=T2*T,T4=T3*T,T5=T4*T;
-    c.a3=(20*(qf-qi)-(8*qdf+12*qdi)*T-(3*qddf-qddi)*T2)/(2*T3);
-    c.a4=(30*(qi-qf)+(14*qdf+16*qdi)*T+(3*qddf-2*qddi)*T2)/(2*T4);
-    c.a5=(12*(qf-qi)-(6*qdf+6*qdi)*T-(qddf-qddi)*T2)/(2*T5); return c;
-}
-
-void eval(const Coef& c,double t,double& q,double&qd,double&qdd){
-    double t2=t*t,t3=t2*t,t4=t3*t, t5=t4*t;
-    q   =c.a0+c.a1*t+c.a2*t2+c.a3*t3+c.a4*t4+c.a5*t5;
-    qd  =c.a1+2*c.a2*t+3*c.a3*t2+4*c.a4*t3+5*c.a5*t4;
-    qdd =2*c.a2+6*c.a3*t+12*c.a4*t2+20*c.a5*t3;
-}
-
-
-std::array<double, 2> computeEndEffector(double q1, double q2) {
-    constexpr double L1 = 0.30, L2 = 0.30;
-    double x = L1 * std::cos(q1) + L2 * std::cos(q1 + q2);
-    double y = L1 * std::sin(q1) + L2 * std::sin(q1 + q2);
-    return {x, y};
-}
-
-
-
-std::array<std::array<double, 2>, 2> computeJacobian(double q1, double q2) {
-    constexpr double L1 = 0.30;
-    constexpr double L2 = 0.30;
-
-    double s1 = std::sin(q1);
-    double s12 = std::sin(q1 + q2);
-    double c1 = std::cos(q1);
-    double c12 = std::cos(q1 + q2);
-
-    return {{
-        { -L1 * s1 - L2 * s12, -L2 * s12 },
-        {  L1 * c1 + L2 * c12,  L2 * c12 }
-    }};
-}
-
-
-std::array<double, 2> computeJdotTimesQdot(double q1, double q2, double dq1, double dq2) {
-    constexpr double L1 = 0.30, L2 = 0.30;
-    double dq12 = dq1 + dq2;
-    double s1 = std::sin(q1), c1 = std::cos(q1);
-    double s12 = std::sin(q1 + q2), c12 = std::cos(q1 + q2);
-
-    double j11_dot = -L1 * c1 * dq1 - L2 * c12 * dq12;
-    double j12_dot = -L2 * c12 * dq12;
-    double j21_dot = -L1 * s1 * dq1 - L2 * s12 * dq12;
-    double j22_dot = -L2 * s12 * dq12;
-
-    double dJdq_x = j11_dot * dq1 + j12_dot * dq2;
-    double dJdq_y = j21_dot * dq1 + j22_dot * dq2;
-
-    return { dJdq_x, dJdq_y };
-}
-
-
-
-
-std::array<std::array<double, 2>, 2> invert2x2(const std::array<std::array<double, 2>, 2>& J) {
-    double a = J[0][0], b = J[0][1];
-    double c = J[1][0], d = J[1][1];
-    double det = a * d - b * c;
-
-    if (std::abs(det) < 1e-6) throw std::runtime_error("Jacobian is singular!");
-
-    return {{
-        {  d / det, -b / det },
-        { -c / det,  a / det }
-    }};
-}
-
-struct OperationalTrajectory {
-    std::array<double, 2> pos;      // x_d
-    std::array<double, 2> vel;      // ẋ_d
-    std::array<double, 2> accel;    // ẍ_d
-};
-
-OperationalTrajectory computeOperationalTrajectory(
-    const Coef& cf1, const Coef& cf2, double t) 
+/* ════════════════════════════════════════════════════════════════ */
+class InverseDynamicsNode final : public rclcpp::Node
 {
-    // Joint space trajectory
-    double q1, dq1, ddq1;
-    double q2, dq2, ddq2;
-    eval(cf1, t, q1, dq1, ddq1);
-    eval(cf2, t, q2, dq2, ddq2);
-
-    std::array<double, 2> q  = {q1, q2};
-    std::array<double, 2> dq = {dq1, dq2};
-    std::array<double, 2> ddq = {ddq1, ddq2};
-
-    // Forward Kinematics for xd
-    auto xd = computeEndEffector(q1, q2);
-
-    // Jacobian for ẋ_d
-    auto J = computeJacobian(q1, q2);
-    std::array<double, 2> dxd = {
-        J[0][0] * dq1 + J[0][1] * dq2,
-        J[1][0] * dq1 + J[1][1] * dq2
-    };
-
-    // Jacobian derivative for ẍ_d
-    std::array<double, 2> dJdq = computeJdotTimesQdot(q1, q2, dq1, dq2);
-    std::array<double, 2> ddxd = {
-        J[0][0] * ddq1 + J[0][1] * ddq2 + dJdq[0],
-        J[1][0] * ddq1 + J[1][1] * ddq2 + dJdq[1]
-    };
-
-    return OperationalTrajectory{xd, dxd, ddxd};
-}
-
-constexpr double DT = 0.001;
-constexpr double TRAJECTORY_DURATION = 0.2;
-constexpr double COOLDOWN_DURATION = 4.8;
-constexpr double KP1 = 300, KD1 = 30;
-constexpr double KP2 = 2000, KD2 = 50;
-constexpr double TAUMAX1 = 2.5, TAUMAX2 = 2.5;
-constexpr int    PWM_LIM = 885, PWM_BOOST2 = 15;
-
-class IDCNode : public rclcpp::Node{
 public:
-    IDCNode() : Node("inverse_dynamics_node"),
-                current_goal_q1_(0.0), current_goal_q2_(0.0),
-                trajectory_active_(false) {
-        busy_until_time_ = this->get_clock()->now();
+  InverseDynamicsNode() : Node("inverse_dynamics_node")
+  {
+    /* parameters */
+    declare_parameter("port",          std::string{"/dev/ttyUSB0"});
+    declare_parameter("baud",          1'000'000);
+    declare_parameter("kp1_task",      50.0);
+    declare_parameter("kd1_task",       1.0);
+    declare_parameter("kp2_task",      50.0);
+    declare_parameter("kd2_task",       1.0);
+    declare_parameter("ctrl_rate_hz",  500);
 
-        port_ = dynamixel::PortHandler::getPortHandler("/dev/ttyUSB0");
-        pkt_  = dynamixel::PacketHandler::getPacketHandler(2.0);
-        if(!port_->openPort() || !port_->setBaudRate(1000000)) {
-            RCLCPP_FATAL(get_logger(), "Failed to open port or set baud rate.");
-            throw std::runtime_error("Serial port initialization failed.");
-        }
+    kp1_ = get_parameter("kp1_task").as_double();
+    kd1_ = get_parameter("kd1_task").as_double();
+    kp2_ = get_parameter("kp2_task").as_double();
+    kd2_ = get_parameter("kd2_task").as_double();
+    dt_  = 1.0 / get_parameter("ctrl_rate_hz").as_int();
 
-        init_servo(ID1); init_servo(ID2);
+    /* Dynamixel init */
+    port_   = dynamixel::PortHandler::getPortHandler(
+                get_parameter("port").as_string().c_str());
+    packet_ = dynamixel::PacketHandler::getPacketHandler(2.0);
+    if (!port_->openPort() ||
+        !port_->setBaudRate(get_parameter("baud").as_int()))
+      throw std::runtime_error("DXL: cannot open port or set baud");
 
-        double initial_q1, initial_q2, initial_dq1, initial_dq2;
-        if (read_state(initial_q1, initial_q2, initial_dq1, initial_dq2)) {
-            current_goal_q1_ = initial_q1;
-            current_goal_q2_ = initial_q2;
-        } else {
-            RCLCPP_ERROR(get_logger(), "Failed to read initial state. Assuming (0,0).");
-            current_goal_q1_ = 0.0; current_goal_q2_ = 0.0;
-        }
+    /* bulk read: 8 bytes per ID  (vel-pos) */
+    bulk_ = new dynamixel::GroupBulkRead(port_, packet_);
+    sync_ = new dynamixel::GroupSyncWrite(port_, packet_,
+                                          control::ADDR_GOAL_POSITION, 4);
+    constexpr uint16_t VEL_ADDR = control::ADDR_PRESENT_VELOCITY; // 128
+    if (!bulk_->addParam(control::ID1, VEL_ADDR, 8) ||
+        !bulk_->addParam(control::ID2, VEL_ADDR, 8))
+      throw std::runtime_error("DXL: GroupBulkRead addParam failed");
 
-        sub_ = create_subscription<SetXY>(
-            "set_xy",10,[this](SetXY::SharedPtr m){
-                double new_target_q1_rad, new_target_q2_rad;
-                if(ik(m->x,m->y,new_target_q1_rad,new_target_q2_rad)){
-                    rclcpp::Time time_of_request = this->get_clock()->now();
-                    bool plan_this_trajectory = false;
-                    {
-                        std::scoped_lock l(mx_);
-                        if (!trajectory_active_ && time_of_request >= busy_until_time_) {
-                            plan_this_trajectory = true;
-                            busy_until_time_ = time_of_request + rclcpp::Duration::from_seconds(TRAJECTORY_DURATION + COOLDOWN_DURATION);
-                        } else {
-                            if (trajectory_active_){
-                                RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 2000,"SetXY: Ignoring; quintic trajectory active (current goal q1=%.2f, q2=%.2f).", current_goal_q1_, current_goal_q2_);
-                            } else { 
-                                RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 2000,"SetXY: Ignoring; in cooldown period until %.2fs from now.", (busy_until_time_ - time_of_request).seconds());
-                            }
-                        }
-                    }
-
-                    if (plan_this_trajectory) {
-                        double current_q1_val, current_q2_val, current_dq1_val, current_dq2_val;
-                        if(!read_state(current_q1_val, current_q2_val, current_dq1_val, current_dq2_val)){
-                            RCLCPP_ERROR(get_logger(), "SetXY: Failed to read state for new trajectory. Reverting busy_until_time_.");
-                            {
-                                std::scoped_lock l(mx_);
-                                busy_until_time_ = this->get_clock()->now(); 
-                            }
-                            return;
-                        }
-                        
-                        RCLCPP_INFO(get_logger(), "Planning new trajectory from (q1m=%.2f, q2m=%.2f) to (q1t=%.2f, q2t=%.2f)",
-                                    current_q1_val, current_q2_val, new_target_q1_rad, new_target_q2_rad);
-                        {
-                            std::scoped_lock l(mx_);
-                            active_cf1_ = quintic(current_q1_val, current_dq1_val, 0.0, new_target_q1_rad, 0.0, 0.0, TRAJECTORY_DURATION);
-                            active_cf2_ = quintic(current_q2_val, current_dq2_val, 0.0, new_target_q2_rad, 0.0, 0.0, TRAJECTORY_DURATION);
-                            trajectory_start_time_ = time_of_request; 
-                            trajectory_active_ = true;                
-                            current_goal_q1_ = new_target_q1_rad; 
-                            current_goal_q2_ = new_target_q2_rad;
-                        }
-                    }
-                }
-            });
-        plot_data_pub_ = create_publisher<JointPlotData>("joint_plot_data", 10);
-        timer_ = create_wall_timer(std::chrono::duration<double>(DT), std::bind(&IDCNode::tick,this));
-        RCLCPP_INFO(get_logger(),"IDC stream online (dt %.3f s, traj_T %.2f s, cooldown %.2f s)", DT, TRAJECTORY_DURATION, COOLDOWN_DURATION);
+    for (uint8_t id : control::SERVO_IDS) {
+      write8(id, control::ADDR_TORQUE_ENABLE, 0);
+      write8(id, control::ADDR_OPERATING_MODE, control::MODE_POSITION);
+      write8(id, control::ADDR_TORQUE_ENABLE, 1);
     }
 
-    ~IDCNode() override {
-        RCLCPP_INFO(get_logger(), "Disabling torque and closing port.");
-        uint8_t dxl_error = 0;
-        pkt_->write1ByteTxRx(port_, ID1, ADDR_TORQUE, 0, &dxl_error);
-        pkt_->write1ByteTxRx(port_, ID2, ADDR_TORQUE, 0, &dxl_error);
-        port_->closePort();
-    }
+    /* ROS 2 I/O */
+    sub_xy_   = create_subscription<SetXY>(
+                  "set_xy", 10, std::bind(&InverseDynamicsNode::cb_target, this, _1));
+    pub_plot_ = create_publisher<Plot>("idc/joint_plot_data", 10);
+    timer_    = create_wall_timer(
+                  ch::duration<double>(dt_), std::bind(&InverseDynamicsNode::cb_loop, this));
+
+    RCLCPP_INFO(get_logger(), "IDC ready | dt=%.4f s (%.0f Hz)", dt_, 1.0/dt_);
+  }
+
+  ~InverseDynamicsNode() override
+  {
+    for (uint8_t id : control::SERVO_IDS)
+      write8(id, control::ADDR_TORQUE_ENABLE, 0);
+    delete bulk_;
+    delete sync_;
+    port_->closePort();
+  }
 
 private:
-    void init_servo(uint8_t id){
-        uint8_t dxl_error = 0;
-        int comm_result = pkt_->write1ByteTxRx(port_, id, ADDR_TORQUE, 0, &dxl_error);
-        if (comm_result != COMM_SUCCESS) RCLCPP_ERROR(get_logger(), "Torque disable ID %d fail: %s", id, pkt_->getTxRxResult(comm_result));
-        if (dxl_error != 0) RCLCPP_ERROR(get_logger(), "DXL error torque disable ID %d: %s", id, pkt_->getRxPacketError(dxl_error));
+  /* low-level helpers */
+  void write8(uint8_t id,uint16_t addr,uint8_t data)
+  { uint8_t err=0; packet_->write1ByteTxRx(port_,id,addr,data,&err); }
 
-        comm_result = pkt_->write1ByteTxRx(port_, id, ADDR_MODE, MODE_PWM, &dxl_error);
-        if (comm_result != COMM_SUCCESS) RCLCPP_ERROR(get_logger(), "Mode set ID %d fail: %s", id, pkt_->getTxRxResult(comm_result));
-        if (dxl_error != 0) RCLCPP_ERROR(get_logger(), "DXL error mode set ID %d: %s", id, pkt_->getRxPacketError(dxl_error));
-        
-        comm_result = pkt_->write1ByteTxRx(port_, id, ADDR_TORQUE, 1, &dxl_error);
-        if (comm_result != COMM_SUCCESS) RCLCPP_ERROR(get_logger(), "Torque enable ID %d fail: %s", id, pkt_->getTxRxResult(comm_result));
-        if (dxl_error != 0) RCLCPP_ERROR(get_logger(), "DXL error torque enable ID %d: %s", id, pkt_->getRxPacketError(dxl_error));
-    }
+  bool read_states(double &q1,double &q2,double &dq1,double &dq2)
+  {
+    if (bulk_->txRxPacket() != COMM_SUCCESS) return false;
+    auto ok=[&](uint8_t id,uint16_t a){return bulk_->isAvailable(id,a,4);};
+    if(!(ok(control::ID1, control::ADDR_PRESENT_POSITION ) &&
+         ok(control::ID1, control::ADDR_PRESENT_VELOCITY ) &&
+         ok(control::ID2, control::ADDR_PRESENT_POSITION ) &&
+         ok(control::ID2, control::ADDR_PRESENT_VELOCITY ))) return false;
 
-    bool read_state(double& q1,double& q2,double& dq1,double& dq2){
-        dynamixel::GroupSyncRead p(port_,pkt_,ADDR_POS,4);
-        dynamixel::GroupSyncRead v(port_,pkt_,ADDR_VEL,4);
-        p.addParam(ID1); p.addParam(ID2);
-        v.addParam(ID1); v.addParam(ID2);
+    int32_t v1 = bulk_->getData(control::ID1, control::ADDR_PRESENT_VELOCITY, 4);
+    int32_t t1 = bulk_->getData(control::ID1, control::ADDR_PRESENT_POSITION, 4);
+    int32_t v2 = bulk_->getData(control::ID2, control::ADDR_PRESENT_VELOCITY, 4);
+    int32_t t2 = bulk_->getData(control::ID2, control::ADDR_PRESENT_POSITION, 4);
 
-        int dxl_comm_result_pos = p.txRxPacket();
-        if (dxl_comm_result_pos != COMM_SUCCESS) {
-            RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000, "GSRead Pos failed: %s", pkt_->getTxRxResult(dxl_comm_result_pos));
-            return false;
-        }
-        int dxl_comm_result_vel = v.txRxPacket();
-        if (dxl_comm_result_vel != COMM_SUCCESS) {
-            RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000, "GSRead Vel failed: %s", pkt_->getTxRxResult(dxl_comm_result_vel));
-            return false;
-        }
+    dq1 = control::vel_tick2rad(v1);
+    dq2 = control::vel_tick2rad(v2);
+    q1  = control::tick2deg(0, t1) * M_PI/180.0;
+    q2  = control::tick2deg(1, t2) * M_PI/180.0;
+    return true;
+  }
 
-        bool p_ok_id1 = p.isAvailable(ID1, ADDR_POS, 4);
-        bool p_ok_id2 = p.isAvailable(ID2, ADDR_POS, 4);
-        bool v_ok_id1 = v.isAvailable(ID1, ADDR_VEL, 4);
-        bool v_ok_id2 = v.isAvailable(ID2, ADDR_VEL, 4);
+  void send_goal(uint32_t t1,uint32_t t2)
+  {
+    uint8_t b1[4]={DXL_LOBYTE(DXL_LOWORD(t1)),DXL_HIBYTE(DXL_LOWORD(t1)),
+                   DXL_LOBYTE(DXL_HIWORD(t1)),DXL_HIBYTE(DXL_HIWORD(t1))};
+    uint8_t b2[4]={DXL_LOBYTE(DXL_LOWORD(t2)),DXL_HIBYTE(DXL_LOWORD(t2)),
+                   DXL_LOBYTE(DXL_HIWORD(t2)),DXL_HIBYTE(DXL_HIWORD(t2))};
+    sync_->clearParam();
+    sync_->addParam(control::ID1,b1);
+    sync_->addParam(control::ID2,b2);
+    sync_->txPacket();
+  }
 
-        if (!p_ok_id1 || !p_ok_id2 || !v_ok_id1 || !v_ok_id2) {
-            RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000, "GSRead data not available. P1:%d,P2:%d,V1:%d,V2:%d", p_ok_id1,p_ok_id2,v_ok_id1,v_ok_id2);
-            return false;
-        }
+#ifdef PROFILING
+  struct Stat{double avg=0,worst=0;void u(double s){const double k=.01;avg=(1-k)*avg+k*s;worst=std::max(worst,s);} } st_[5];
+  uint64_t loops_=0;
+#endif
 
-        q1 = pos2rad(p.getData(ID1,ADDR_POS,4),ZERO1);
-        q2 = pos2rad(p.getData(ID2,ADDR_POS,4),ZERO2);
-        dq1= vel2rad(int32_t(v.getData(ID1,ADDR_VEL,4)));
-        dq2= vel2rad(int32_t(v.getData(ID2,ADDR_VEL,4)));
-        return true;
-    }
+  /* callbacks */
+  void cb_target(const SetXY::SharedPtr m)
+  {
+    if(!std::isfinite(m->x)||!std::isfinite(m->y)) return;
+    target_xy_ = { m->x*0.01, m->y*0.01 };
+    has_target_= true;
+  }
 
-    void send_pwm(int pwm1,int pwm2){
-        uint8_t b1[2]={DXL_LOBYTE(int16_t(pwm1)),DXL_HIBYTE(int16_t(pwm1))};
-        uint8_t b2[2]={DXL_LOBYTE(int16_t(pwm2)),DXL_HIBYTE(int16_t(pwm2))};
-        dynamixel::GroupSyncWrite sw(port_,pkt_,ADDR_PWM,2);
-        sw.addParam(ID1,b1); sw.addParam(ID2,b2);
-        int comm_result = sw.txPacket();
-        if (comm_result != COMM_SUCCESS) {
-             RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000, "GSWrite PWM failed: %s", pkt_->getTxRxResult(comm_result));
-        }
-    }
+  void cb_loop()
+  {
+    auto t0 = ch::steady_clock::now();
+    if(!has_target_) return;
 
-    void tick(){
-        double q1_m, q2_m, dq1_m, dq2_m;
-        if(!read_state(q1_m, q2_m, dq1_m, dq2_m)) {
-            return;
-        }
+    /* 1 ▸ read */
+    double q1,q2,dq1,dq2;
+    if(!read_states(q1,q2,dq1,dq2)) return;
+    auto t1 = ch::steady_clock::now();
 
-        double q1d = current_goal_q1_;
-        double q2d = current_goal_q2_;
-<<<<<<< HEAD
-        // double q1dd = 0.0, q2dd = 0.0;
-        // double q1ddd = 0.0, q2ddd = 0.0;
+    /* 2 ▸ dynamics */
+    Eigen::Vector2d q{q1,q2}, dq{dq1,dq2};
+    Eigen::Vector2d x  = control::fk_xy(q);
+    Eigen::Matrix2d J  = control::jacobian(q);
+    Eigen::Vector2d xd = J*dq;
+    Eigen::Vector2d e  = target_xy_ - x;
+    Eigen::Vector2d ed = -xd;
+    Eigen::Vector2d xdd{ kp1_*e[0]+kd1_*ed[0], kp2_*e[1]+kd2_*ed[1] };
+    Eigen::Vector2d qdd = J.inverse() * (xdd - control::jdot_qdot(q,dq));
+    Eigen::Vector2d tau = control::mass_matrix(q)*qdd +
+                          control::coriolis(q,dq) +
+                          control::gravity(q);
+    auto t2 = ch::steady_clock::now();
 
-=======
-        double q1dd = 0.0, q2dd = 0.0;
-        double q1ddd = 0.0, q2ddd = 0.0;
-        bool just_finished_quintic = false;
+    /* 3 ▸ write (with clamp) */
+    Eigen::Vector2d dqdeg = control::tau_to_deg(tau);
+    Eigen::Vector2d qdeg  = (q*180.0/M_PI) + dqdeg;
 
-        {
-            std::scoped_lock l(mx_);
-            if(trajectory_active_){
-                double t_elapsed = (this->get_clock()->now() - trajectory_start_time_).seconds();
-                if(t_elapsed < TRAJECTORY_DURATION){
-                    if (active_cf1_ && active_cf2_) {
-                        eval(active_cf1_.value(), t_elapsed, q1d, q1dd, q1ddd);
-                        eval(active_cf2_.value(), t_elapsed, q2d, q2dd, q2ddd);
-                    } else {
-                        trajectory_active_ = false;
-                         RCLCPP_ERROR(get_logger(), "Bug: Trajectory active but coefficients not set!");
-                    }
-                } else { 
-                    q1d = current_goal_q1_; q1dd = 0.0; q1ddd = 0.0;
-                    q2d = current_goal_q2_; q2dd = 0.0; q2ddd = 0.0;
-                    trajectory_active_ = false; 
-                    just_finished_quintic = true;
-                }
-            }
-        } 
+    qdeg[0] = std::clamp(qdeg[0], Q1_MIN_DEG, Q1_MAX_DEG);
+    qdeg[1] = std::clamp(qdeg[1], Q2_MIN_DEG, Q2_MAX_DEG);
 
-        if (just_finished_quintic) {
-             RCLCPP_INFO(get_logger(), "Quintic trajectory finished. Entering cooldown. Holding (%.2f, %.2f)", current_goal_q1_, current_goal_q2_);
-        }
->>>>>>> 7ff5822 (gitignore)
+    send_goal(control::deg2tick(0,qdeg[0]), control::deg2tick(1,qdeg[1]));
+    auto t3 = ch::steady_clock::now();
 
-       
-if (active_cf1_ && active_cf2_) {
-    double t_elapsed = (this->get_clock()->now() - trajectory_start_time_).seconds();
+    /* 4 ▸ publish */
+    Plot p; p.stamp=now(); p.q1_deg=qdeg[0]; p.q2_deg=qdeg[1];
+    p.x = x[0]; p.y = x[1]; pub_plot_->publish(p);
+    auto t4 = ch::steady_clock::now();
 
-    auto traj = computeOperationalTrajectory(active_cf1_.value(), active_cf2_.value(), t_elapsed);
-    auto x_d = traj.pos;
-    auto xd_d = traj.vel;
-    auto xdd_d = traj.accel;
+#ifdef PROFILING
+    double us_r=ch::duration_cast<ch::microseconds>(t1-t0).count();
+    double us_d=ch::duration_cast<ch::microseconds>(t2-t1).count();
+    double us_w=ch::duration_cast<ch::microseconds>(t3-t2).count();
+    double us_p=ch::duration_cast<ch::microseconds>(t4-t3).count();
+    double us_t=ch::duration_cast<ch::microseconds>(t4-t0).count();
+    st_[0].u(us_r); st_[1].u(us_d); st_[2].u(us_w); st_[3].u(us_p); st_[4].u(us_t);
+    if(++loops_%100==0 || us_t>dt_*1e6)
+      RCLCPP_INFO(get_logger(),
+        "LOOP #%llu  avg_us [read %.1f | dyn %.1f | write %.1f | pub %.1f | total %.1f]  worst_total %.1f",
+        static_cast<unsigned long long>(loops_),
+        st_[0].avg, st_[1].avg, st_[2].avg, st_[3].avg, st_[4].avg, st_[4].worst);
+#endif
+  }
 
-    // Get measured state
-    auto x = computeEndEffector(q1_m, q2_m);
-    auto J = computeJacobian(q1_m, q2_m);
-    std::array<double, 2> dq_m = { dq1_m, dq2_m };
-    std::array<double, 2> xd = {
-        J[0][0]*dq1_m + J[0][1]*dq2_m,
-        J[1][0]*dq1_m + J[1][1]*dq2_m
-    };
+  /* members */
+  rclcpp::Subscription<SetXY>::SharedPtr sub_xy_;
+  rclcpp::Publisher<Plot>::SharedPtr     pub_plot_;
+  rclcpp::TimerBase::SharedPtr           timer_;
 
-    // Task-space errors
-    std::array<double, 2> e_x = { x_d[0] - x[0], x_d[1] - x[1] };
-    std::array<double, 2> e_xdot = { xd_d[0] - xd[0], xd_d[1] - xd[1] };
+  dynamixel::PortHandler*   port_{};
+  dynamixel::PacketHandler* packet_{};
+  dynamixel::GroupBulkRead*  bulk_{};
+  dynamixel::GroupSyncWrite* sync_{};
 
-    // Task-space gains
-    constexpr double KP = 500.0, KD = 50.0;
+  Eigen::Vector2d target_xy_{0,0};
+  bool            has_target_{false};
 
-    // dJ·dq
-    auto dJdq = computeJdotTimesQdot(q1_m, q2_m, dq1_m, dq2_m);
-
-    // Desired Cartesian acceleration
-    std::array<double, 2> xdd_des = {
-        xdd_d[0] + KD * e_xdot[0] + KP * e_x[0] - dJdq[0],
-        xdd_d[1] + KD * e_xdot[1] + KP * e_x[1] - dJdq[1]
-    };
-
-    // Joint-space mapping
-    auto Jinv = invert2x2(J);
-    std::array<double, 2> y = {
-        Jinv[0][0] * xdd_des[0] + Jinv[0][1] * xdd_des[1],
-        Jinv[1][0] * xdd_des[0] + Jinv[1][1] * xdd_des[1]
-    };
-
-    double cos_q2_m = std::cos(q2_m), sin_q2_m = std::sin(q2_m);
-    double h   = -M2 * L1 * LC2 * sin_q2_m;
-    double b11 = I1 + I2 + M1 * LC1 * LC1 + M2 * (L1 * L1 + LC2 * LC2 + 2 * L1 * LC2 * cos_q2_m);
-    double b12 = I2 + M2 * (LC2 * LC2 + L1 * LC2 * cos_q2_m);
-    double b22 = I2 + M2 * LC2 * LC2;
-
-    double tau1 = b11 * y[0] + b12 * y[1] + h * (2 * dq1_m * dq2_m + dq2_m * dq2_m);
-    double tau2 = b12 * y[0] + b22 * y[1] - h * dq1_m * dq1_m;
-
-    int pwm1 = int(tau1 / TAUMAX1 * PWM_LIM);
-    int pwm2 = int(tau2 / TAUMAX2 * PWM_LIM);
-    pwm1 = std::clamp(pwm1, -PWM_LIM, PWM_LIM);
-    pwm2 = std::clamp(pwm2, -PWM_LIM, PWM_LIM);
-    send_pwm(pwm1, pwm2);
-}
-
-
-
-<<<<<<< HEAD
-=======
-        int pwm1 = int(tau1/TAUMAX1 * PWM_LIM);
-        int pwm2 = int(tau2/TAUMAX2 * PWM_LIM);
-        pwm1 = std::clamp(pwm1,-PWM_LIM,PWM_LIM);
-        pwm2 = std::clamp(pwm2,-PWM_LIM,PWM_LIM);
-        
-        send_pwm(pwm1,pwm2);
-        
->>>>>>> 7ff5822 (gitignore)
-        auto plot_msg = JointPlotData();
-        plot_msg.measured_q1 = q1_m; plot_msg.desired_q1 = q1d;
-        plot_msg.measured_q2 = q2_m; plot_msg.desired_q2 = q2d;
-        plot_data_pub_->publish(plot_msg);
-    }
-
-    dynamixel::PortHandler*   port_{};
-    dynamixel::PacketHandler* pkt_{};
-    rclcpp::Subscription<SetXY>::SharedPtr sub_;
-    rclcpp::TimerBase::SharedPtr           timer_;
-    rclcpp::Publisher<JointPlotData>::SharedPtr plot_data_pub_;
-    
-    std::mutex mx_;
-    double current_goal_q1_;
-    double current_goal_q2_;
-    std::optional<Coef> active_cf1_;
-    std::optional<Coef> active_cf2_;
-    rclcpp::Time trajectory_start_time_; 
-    bool trajectory_active_;             
-    rclcpp::Time busy_until_time_;       
+  double kp1_,kd1_,kp2_,kd2_,dt_;
 };
 
-int main(int argc,char** argv){
-    rclcpp::init(argc,argv);
-    auto idc_node = std::make_shared<IDCNode>();
-    rclcpp::executors::SingleThreadedExecutor executor;
-    executor.add_node(idc_node);
-    executor.spin();
-    rclcpp::shutdown();
-    return 0;
+/* ── main ──────────────────────────────────────────────────────── */
+int main(int argc,char** argv)
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<InverseDynamicsNode>());
+  rclcpp::shutdown();
+  return 0;
 }
+
+

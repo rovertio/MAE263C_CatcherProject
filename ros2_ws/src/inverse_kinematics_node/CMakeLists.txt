@@ -1,45 +1,23 @@
 cmake_minimum_required(VERSION 3.8)
 project(inverse_kinematics_node)
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+add_compile_options(-Wall -Wextra -Wpedantic)
 
-# find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(dynamixel_sdk REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-set(msg_files "msg/SetXY.msg")
-set(srv_files "srv/GetXY.srv")
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-	${msg_files}
-	${srv_files}
-	DEPENDENCIES std_msgs)
-
-ament_export_dependencies(rosidl_default_runtime)
+find_package(Eigen3 REQUIRED)                # ← add
+find_package(control_common REQUIRED)
+find_package(controller_msgs REQUIRED)
 
 add_executable(ik_driver src/inverse_kinematics_node.cpp)
-ament_target_dependencies(ik_driver rclcpp dynamixel_sdk)
 
-rosidl_target_interfaces(ik_driver
-	${PROJECT_NAME} "rosidl_typesupport_cpp")
+ament_target_dependencies(ik_driver          # only once, after add_executable
+  rclcpp dynamixel_sdk Eigen3
+  control_common controller_msgs)
 
-install(TARGETS ik_driver DESTINATION lib/${PROJECT_NAME})
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
+install(TARGETS ik_driver
+  RUNTIME DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
+

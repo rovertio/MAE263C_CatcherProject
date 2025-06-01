@@ -1,0 +1,12 @@
+pwm_position_node:   
+  ros__parameters:
+    port: "/dev/ttyUSB0"
+    baud: 1000000
+
+    kp: 62.0
+    ki: 0.20
+    kd: 7.0
+    max_pwm: 900
+
+    ctrl_rate_hz: 500
+

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robust_joint_control</name>
+  <version>0.1.0</version>
+  <description>Robust joint-space inverse-dynamics controller node</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- build tool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- build / run deps -->
+  <depend>rclcpp</depend>
+  <depend>controller_msgs</depend>
+  <depend>dynamixel_sdk</depend>
+  <depend>control_common</depend>
+  <depend>eigen3_cmake_module</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

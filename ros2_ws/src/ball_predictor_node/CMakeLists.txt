@@ -8,6 +8,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(vision_common REQUIRED)
 
 # ── Executable ───────────────────────────────────────────────────────────
 add_executable(ball_predictor_node
@@ -19,13 +20,13 @@ target_include_directories(ball_predictor_node PUBLIC
   ${OpenCV_INCLUDE_DIRS}
 )
 ament_target_dependencies(ball_predictor_node
-  rclcpp sensor_msgs geometry_msgs cv_bridge
+	rclcpp sensor_msgs geometry_msgs cv_bridge vision_common
 )
 target_link_libraries(ball_predictor_node
   ${OpenCV_LIBRARIES}
 )
 
-# ── Install rules (two lines are essential!) ─────────────────────────────
+# ── Install rules ─────────────────────────────
 install(TARGETS ball_predictor_node
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )

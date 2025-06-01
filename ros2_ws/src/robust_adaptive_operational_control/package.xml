@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robust_adaptive_operational_control</name>
+  <version>0.1.0</version>
+  <description>Operational-space inverse-dynamics controller combining Slotine–Li parameter adaptation with sliding-mode robustness for a 2-DOF planar arm</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- build tool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- build + exec dependencies -->
+  <depend>rclcpp</depend>
+  <depend>controller_msgs</depend>
+  <depend>dynamixel_sdk</depend>
+  <depend>control_common</depend>
+  <depend>eigen3_cmake_module</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

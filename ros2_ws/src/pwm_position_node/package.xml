@@ -11,6 +11,10 @@
   <depend>rclcpp</depend>
   <depend>dynamixel_sdk</depend>
   <depend>inverse_kinematics_node</depend>
+  <depend>idc_node</depend>
+  <depend>control_common</depend>
+  <depend>controller_msgs</depend>
+
 
   <export>
     <build_type>ament_cmake</build_type>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>joint_space_idc</name>
+  <version>0.1.0</version>
+  <description>Joint-space inverse-dynamics controller node</description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- build tool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- build + export + exec deps -->
+  <depend>rclcpp</depend>
+  <depend>controller_msgs</depend>
+  <depend>dynamixel_sdk</depend>
+  <depend>control_common</depend>
+  <depend>eigen3_cmake_module</depend>  <!-- gives Eigen3::Eigen target -->
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

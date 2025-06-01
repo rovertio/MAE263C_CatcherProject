@@ -1,9 +1,9 @@
-/* ========================================================================
- *  ball_predictor_node.cpp – stereo CV → projectile-landing predictor
- *  • publish only while ball is RISING  &  h > 5 cm
- *  • no log throttling (prints every processed frame)
- *  • otherwise identical behaviour
- * ===================================================================== */
+/* ====================================================================
+ * ball_predictor_node.cpp – stereo blob tracker + parabolic landing
+ * --------------------------------------------------------------------
+ *  • subscribes   /camera/image_raw   (640×240 stereo image)
+ *  • publishes    /ball_centroid      (geometry_msgs/Point, px coords)
+ * ==================================================================== */
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <geometry_msgs/msg/point.hpp>
@@ -14,34 +14,55 @@
 #include <algorithm>
 
 using std::placeholders::_1;
-using geometry_msgs::msg::Point;
 
-/* ── camera / blob params ──────────────────────────────────────────── */
+/* ── shared vision constants (duplicate of detector.cpp – factor out later) */
+namespace vp {
 constexpr int    IMG_W = 640, IMG_H = 240;
 constexpr int    HALF_W = IMG_W / 2;
 constexpr double IMG_CX = HALF_W / 2.0;
 constexpr double IMG_CY = IMG_H  / 2.0;
-constexpr double MIN_AREA = 15.0 * 15.0;
-constexpr int    THRESH = 225;
-constexpr int    ERODE_SZ = 3, DILATE_SZ = 7;
 
-/* ── height estimation ─────────────────────────────────────────────── */
-constexpr double AREA_REF = 340.0;
-constexpr double H_SCALE  = 120.0;
-constexpr double BASELINE = 5.5;
-constexpr double HFOV_DEG = 45.0;
-constexpr double CAMERA_H = 85.0;
-constexpr double FOCAL_PX = (HALF_W/2.0) /
+constexpr int    THRESH    = 225;
+constexpr int    ERODE_SZ  = 3, DILATE_SZ = 7;
+constexpr double MIN_AREA  = 15.0 * 15.0;
+
+constexpr double HFOV_DEG  = 45.0;
+constexpr double CAMERA_H  = 85.0;          // camera height above table [cm]
+constexpr double BASELINE  = 5.5;           // stereo baseline [cm]
+constexpr double FOCAL_PX  = (HALF_W/2.0) /
         std::tan((HFOV_DEG*M_PI/180.0)/2.0);
 
-/* ── predictor & buffers ───────────────────────────────────────────── */
-constexpr double LPF_ALPHA = 0.7;
-constexpr double VEL_LPF_ALPHA = 0.7;
-constexpr double PRED_LPF_ALPHA = 0.6; // For predicted landing position
-constexpr double G_CM      = 981.0;
-constexpr size_t BUF_MAX   = 4;
-constexpr size_t BUF_MIN   = 2;
-constexpr double RESET_GAP_S = 0.30;
+/* Physics & filter */
+constexpr double G_CM      = 981.0;         // gravity [cm·s⁻²]
+constexpr double LPF_ALPHA = 0.8;           // pos low-pass
+constexpr double VEL_ALPHA = 0.8;           // vel low-pass
+constexpr double PRED_ALPHA= 0.8;           // landing-point LPF
+constexpr size_t  BUF_MAX  = 4;
+constexpr size_t  BUF_MIN  = 2;
+constexpr double  RESET_GAP_S = 0.30;
+} // namespace vp
+
+/* ---- centroid helper (identical to detector.cpp) ------------------ */
+static bool centroid(const cv::Mat& roi,
+                     double& cx,double& cy,double& area,
+                     const cv::Mat& erodeK,const cv::Mat& dilateK)
+{
+  cv::Mat g,m; cv::cvtColor(roi,g,cv::COLOR_BGR2GRAY);
+  cv::threshold(g,m,vp::THRESH,255,cv::THRESH_BINARY);
+  cv::erode(m,m,erodeK); cv::dilate(m,m,dilateK);
+
+  std::vector<std::vector<cv::Point>> cont;
+  cv::findContours(m,cont,cv::RETR_EXTERNAL,cv::CHAIN_APPROX_SIMPLE);
+  if(cont.empty()) return false;
+  auto it = std::max_element(cont.begin(),cont.end(),
+        [](auto&a,auto&b){ return cv::contourArea(a)<cv::contourArea(b); });
+  area = cv::contourArea(*it);
+  if(area < vp::MIN_AREA) return false;
+  cv::Moments mom = cv::moments(*it);
+  cx = mom.m10 / mom.m00;
+  cy = mom.m01 / mom.m00;
+  return true;
+}
 
 /* =================================================================== */
 class BallPredictorNode : public rclcpp::Node
@@ -50,167 +71,130 @@ public:
   BallPredictorNode():Node("ball_predictor_node")
   {
     img_sub_ = create_subscription<sensor_msgs::msg::Image>(
-      "/camera/image_raw",10,std::bind(&BallPredictorNode::cb_img,this,_1));
-    pub_ = create_publisher<Point>("/ball_centroid",10);
+        "/camera/image_raw",10,std::bind(&BallPredictorNode::cb_img,this,_1));
+    pub_=create_publisher<geometry_msgs::msg::Point>("/ball_centroid",10);
 
-    erodeK_  = cv::getStructuringElement(cv::MORPH_ELLIPSE,{ERODE_SZ,ERODE_SZ});
-    dilateK_ = cv::getStructuringElement(cv::MORPH_ELLIPSE,{DILATE_SZ,DILATE_SZ});
-    RCLCPP_INFO(get_logger(),"Predictor ready (g=%.1f cm/s²)",G_CM);
+    erodeK_=cv::getStructuringElement(cv::MORPH_ELLIPSE,{vp::ERODE_SZ,vp::ERODE_SZ});
+    dilateK_=cv::getStructuringElement(cv::MORPH_ELLIPSE,{vp::DILATE_SZ,vp::DILATE_SZ});
+    RCLCPP_INFO(get_logger(),"Predictor ready (g=%.1f cm/s²)",vp::G_CM);
   }
 
 private:
-/* ---- centroid of bright blob in ROI -------------------------------- */
-  bool centroid(const cv::Mat&roi,double&cx,double&cy,double&area)
+/* ---- helper: compute height from area & disparity ----------------- */
+  double height_cm(double area,double disparity) const
   {
-    cv::Mat g,m; cv::cvtColor(roi,g,cv::COLOR_BGR2GRAY);
-    cv::threshold(g,m,THRESH,255,cv::THRESH_BINARY);
-    cv::erode(m,m,erodeK_); cv::dilate(m,m,dilateK_);
-    std::vector<std::vector<cv::Point>> cont;
-    cv::findContours(m,cont,cv::RETR_EXTERNAL,cv::CHAIN_APPROX_SIMPLE);
-
-    double bestA=0; cv::Point2d bestC;
-    for(const auto& c:cont){
-      double a=cv::contourArea(c); if(a<MIN_AREA) continue;
-      auto mo=cv::moments(c); if(mo.m00==0) continue;
-      double x=mo.m10/mo.m00, y=mo.m01/mo.m00;
-      if(a>bestA){ bestA=a; bestC={x,y}; }
-    }
-    if(bestA==0) return false;
-    cx=bestC.x; cy=bestC.y; area=bestA; return true;
+    const double AREA_REF = 340.0, H_SCALE = 120.0;
+    double h_area = std::max(0.0, H_SCALE*(std::sqrt(AREA_REF/area)-1.0));
+    if(std::abs(disparity) < 1e-2) return h_area; // avoid div-by-zero
+    double dist = (vp::BASELINE*vp::FOCAL_PX)/disparity;
+    double h_st = vp::CAMERA_H - dist;
+    return 0.6*h_st + 0.4*h_area;                // cheap fuse
   }
 
-/* ---- main callback -------------------------------------------------- */
+/* ---- main callback ------------------------------------------------ */
   void cb_img(const sensor_msgs::msg::Image::ConstSharedPtr& msg)
   {
-    auto cv_ptr=cv_bridge::toCvCopy(msg,sensor_msgs::image_encodings::BGR8);
-    const cv::Mat& img=cv_ptr->image;
-    if(img.cols!=IMG_W||img.rows!=IMG_H) return;
-
-    double lx,ly,rx,ry,aL=0,aR=0;
-    bool fL=centroid(img(cv::Rect(0,0,HALF_W,IMG_H)), lx,ly,aL);
-    bool fR=centroid(img(cv::Rect(HALF_W,0,HALF_W,IMG_H)), rx,ry,aR);
-
-    if(!fL&&!fR){
-      if(last_seen_.nanoseconds()!=0 &&
-         (get_clock()->now()-last_seen_).seconds()>RESET_GAP_S)
-        {
-          buf_.clear();
-          has_prev_h_ = false;
-          has_prev_v_ = false;
-          has_prev_pred_ = false; // Reset prediction LPF state
-        }
+    /* ··· basic checks ··· */
+    auto cv_ptr = cv_bridge::toCvCopy(msg,sensor_msgs::image_encodings::BGR8);
+    const cv::Mat& img = cv_ptr->image;
+    if(img.empty()) return;
+    if(img.cols!=vp::IMG_W || img.rows!=vp::IMG_H){
+      RCLCPP_WARN_THROTTLE(get_logger(),*get_clock(),5000,
+                           "Unexpected image size %dx%d",img.cols,img.rows);
       return;
     }
-    last_seen_=get_clock()->now();
 
+    /* ··· extract centroids from left/right eye ··· */
+    cv::Rect roiL(0,0,vp::HALF_W,vp::IMG_H), roiR(vp::HALF_W,0,vp::HALF_W,vp::IMG_H);
+    double lx,ly,aL=0; bool fL = centroid(img(roiL),lx,ly,aL,erodeK_,dilateK_);
+    double rx,ry,aR=0; bool fR = centroid(img(roiR),rx,ry,aR,erodeK_,dilateK_);
+
+    if(!(fL||fR)){   // nothing
+      if((get_clock()->now()-last_seen_).seconds()>vp::RESET_GAP_S){
+        buf_.clear(); has_prev_h_=has_prev_v_=has_pred_=false;
+      }
+      return;
+    }
+    last_seen_ = get_clock()->now();
+
+    /* choose centroid */
     double px,py,area;
-    if(fL&&fR){
-      px=(lx+rx)/2; py=(ly+ry)/2; area=(aL+aR)/2;
-    }else if(fL){ px=lx; py=ly; area=aL; }
-    else         { px=rx; py=ry; area=aR; }
+    if(fL&&fR){ px=(lx+rx)/2; py=(ly+ry)/2; area=(aL+aR)/2; }
+    else if(fL){ px=lx; py=ly; area=aL; }
+    else        { px=rx; py=ry; area=aR; }
 
-    double h_area = std::max(0.0, H_SCALE*(std::sqrt(AREA_REF/area)-1.0));
-    double disp = lx - rx;
-    double dist=(BASELINE*FOCAL_PX)/disp;
-    double h_st = CAMERA_H - dist;
-    double h_raw = h_st; // Raw height before LPF
-    
-    if(has_prev_h_) h_raw = LPF_ALPHA*prev_h_ + (1.0-LPF_ALPHA)*h_raw;
+    double disp = (fL&&fR)? lx-rx : 0.0;
+
+    /* height LPF */
+    double h_raw = height_cm(area,disp);
+    if(has_prev_h_) h_raw = vp::LPF_ALPHA*prev_h_ + (1.0-vp::LPF_ALPHA)*h_raw;
     prev_h_=h_raw; has_prev_h_=true;
 
-    double corr=(CAMERA_H-h_raw)/CAMERA_H; // Use filtered height for correction
-    double cx=IMG_CX+(px-IMG_CX)*corr;
-    double cy=IMG_CY+(py-IMG_CY)*corr;
+    /* perspective correct */
+    double corr = (vp::CAMERA_H-h_raw)/vp::CAMERA_H;
+    px = vp::IMG_CX + (px-vp::IMG_CX)*corr;
+    py = vp::IMG_CY + (py-vp::IMG_CY)*corr;
 
-    double t = msg->header.stamp.sec + msg->header.stamp.nanosec*1e-9;
-    buf_.push_back({t,cx,cy,h_raw}); // Store filtered height in buffer
-    if(buf_.size()>BUF_MAX) buf_.pop_front();
-    if(buf_.size()<BUF_MIN) return;
+    /* buffer sample */
+    if(buf_.size()==vp::BUF_MAX) buf_.pop_front();
+    buf_.push_back({px,py,h_raw,get_clock()->now().seconds()});
 
+    if(buf_.size()<vp::BUF_MIN) return;
+
+    /* planar velocity */
     const auto& q0=buf_[buf_.size()-2];
     const auto& q1=buf_.back();
-    double dt=q1.t-q0.t; 
-    if(dt<1e-4) {
-        has_prev_pred_ = false; // Not enough time change for velocity, invalidate prediction
-        return;
-    }
-
-    double vx_raw=(q1.x-q0.x)/dt;
-    double vy_raw=(q1.y-q0.y)/dt;
-    double vz_raw=(q1.h-q0.h)/dt;
-
-    double vx, vy, vz;
+    double dt = q1.t - q0.t;
+    if(dt<1e-3) return;      // avoid div0
+    double vx=(q1.x - q0.x)/dt, vy=(q1.y - q0.y)/dt;
     if(has_prev_v_){
-      vx = VEL_LPF_ALPHA*prev_vx_ + (1.0-VEL_LPF_ALPHA)*vx_raw;
-      vy = VEL_LPF_ALPHA*prev_vy_ + (1.0-VEL_LPF_ALPHA)*vy_raw;
-      vz = LPF_ALPHA*prev_vz_ + (1.0-VEL_LPF_ALPHA)*vz_raw;
-    } else {
-      vx = vx_raw; vy = vy_raw; vz = vz_raw;
-      has_prev_v_ = true;
+      vx = vp::VEL_ALPHA*prev_vx_ + (1.0-vp::VEL_ALPHA)*vx;
+      vy = vp::VEL_ALPHA*prev_vy_ + (1.0-vp::VEL_ALPHA)*vy;
     }
-    prev_vx_ = vx; prev_vy_ = vy; prev_vz_ = vz;
+    prev_vx_=vx; prev_vy_=vy; has_prev_v_=true;
 
-    if(q1.h <= -80.0 || q1.h >= 80.0 || vz <= -80.0){
-      RCLCPP_INFO(get_logger(),"skip  h=%.1f vz=%.1f  (gate)",q1.h,vz);
-      has_prev_pred_ = false; // Prediction not made, reset filter state
-      return;
+    /* time until ground (vertical parabola) */
+    double vz   = (q1.h - q0.h) / dt;
+    double h_cl = std::max(0.0, q1.h);              // ← 1. clamp height
+    double disc = vz*vz + 2*vp::G_CM*h_cl;          // ← 2. safe radicand
+    if (disc <= 0.0) return;                        // ← 3. give up this frame
+
+    double t_land = (-vz - std::sqrt(disc)) / -vp::G_CM;
+
+    double px_land = px + vx*t_land;
+    double py_land = py + vy*t_land;
+
+    if(has_pred_){
+      px_land = vp::PRED_ALPHA*prev_pred_x_ + (1.0-vp::PRED_ALPHA)*px_land;
+      py_land = vp::PRED_ALPHA*prev_pred_y_ + (1.0-vp::PRED_ALPHA)*py_land;
     }
+    prev_pred_x_=px_land; prev_pred_y_=py_land; has_pred_=true;
+    
+    px_land = std::clamp(px_land, 0.0, static_cast<double>(vp::HALF_W  - 1)); // 0 … 319
+    py_land = std::clamp(py_land, 0.0, static_cast<double>(vp::IMG_H   - 1)); // 0 … 239
 
-    double a_grav=-0.5*G_CM, b_vel=vz, c_height=q1.h;
-    double disc=b_vel*b_vel-4*a_grav*c_height; 
-    if(disc<0) {
-        has_prev_pred_ = false; // Prediction fails, reset filter
-        return;
-    }
-    double t_land=(-b_vel - std::sqrt(disc))/(2*a_grav);
-    if(t_land<=0) {
-        has_prev_pred_ = false; // Prediction fails, reset filter
-        return;
-    }
 
-    double raw_pred_x=q1.x+vx*t_land;
-    double raw_pred_y=q1.y+vy*t_land;
-
-    double filtered_pred_x, filtered_pred_y;
-    if (has_prev_pred_) {
-        filtered_pred_x = PRED_LPF_ALPHA * prev_pred_x_ + (1.0 - PRED_LPF_ALPHA) * raw_pred_x;
-        filtered_pred_y = PRED_LPF_ALPHA * prev_pred_y_ + (1.0 - PRED_LPF_ALPHA) * raw_pred_y;
-    } else {
-        filtered_pred_x = raw_pred_x;
-        filtered_pred_y = raw_pred_y;
-        has_prev_pred_ = true;
-    }
-    prev_pred_x_ = filtered_pred_x;
-    prev_pred_y_ = filtered_pred_y;
-
-    filtered_pred_x = std::clamp(filtered_pred_x, 0.0, double(HALF_W-1));
-    filtered_pred_y = std::clamp(filtered_pred_y, 0.0, double(IMG_H-1));
-
-    Point out; 
-    out.x = filtered_pred_x;
-    out.y = filtered_pred_y;
-    out.z = 0.0;
+    /* publish */
+    geometry_msgs::msg::Point out;
+    out.x=px_land; out.y=py_land; out.z=h_raw;
     pub_->publish(out);
-
-    RCLCPP_INFO(get_logger(),
-      "h0=%.1f vx=%.1f vy=%.1f vz=%.1f tL=%.3f | Raw(%.1f,%.1f) Filt(%.1f,%.1f)",
-      q1.h,vx,vy,vz,t_land, raw_pred_x, raw_pred_y, out.x,out.y);
   }
 
-/* ---- data ----------------------------------------------------------- */
-  struct Sample{ double t,x,y,h; };
+/* ---- sample struct & state ---------------------------------------- */
+  struct Sample{ double x,y,h,t; };
   std::deque<Sample> buf_;
-  rclcpp::Time last_seen_{0,0,RCL_ROS_TIME}; // Initialize to avoid nanoseconds() on zero
+
+  rclcpp::Time last_seen_{0,0,RCL_ROS_TIME};
   double prev_h_{0}; bool has_prev_h_{false};
-  double prev_vx_{0}, prev_vy_{0}, prev_vz_{0}; bool has_prev_v_{false};
-  double prev_pred_x_{0.0}, prev_pred_y_{0.0}; bool has_prev_pred_{false};
+  double prev_vx_{0}, prev_vy_{0}; bool has_prev_v_{false};
+  double prev_pred_x_{0}, prev_pred_y_{0}; bool has_pred_{false};
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
-  rclcpp::Publisher<Point>::SharedPtr pub_;
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_;
   cv::Mat erodeK_, dilateK_;
 };
 
-/* -------------------------------------------------------------------- */
+/* ---- main --------------------------------------------------------- */
 int main(int argc,char** argv)
 {
   rclcpp::init(argc,argv);
@@ -218,3 +202,4 @@ int main(int argc,char** argv)
   rclcpp::shutdown();
   return 0;
 }
+
