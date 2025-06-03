@@ -260,7 +260,8 @@
       <!-- <joint_name>joint_pos</joint_name> -->
       <joint_name>shoulder</joint_name>
       <topic>posS</topic>
-      <initial_position>-0.785398</initial_position>
+      <!-- <initial_position>-0.785398</initial_position> -->
+      <initial_position>0</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>
@@ -275,7 +276,8 @@
       name="gz::sim::systems::JointPositionController">
       <joint_name>elbow</joint_name>
       <topic>posE</topic>
-      <initial_position>1.5708</initial_position>
+      <!-- <initial_position>1.5708</initial_position> -->
+      <initial_position>0</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
       <d_gain>0.01</d_gain>

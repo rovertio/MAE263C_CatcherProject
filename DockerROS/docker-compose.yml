@@ -11,6 +11,7 @@ services:
       - ./SimulationFiles:/home/Catcher
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev:/dev
+      # - /dev/ttyUSB0:/dev/ttyUSB0
     tty: true
 
 volumes:

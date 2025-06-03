@@ -18,10 +18,12 @@ find_package(sensor_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(ball_detector REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED) 
 
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/JointPlotData.msg"
+  DEPENDENCIES builtin_interfaces 
 )
 
 # ament_export_dependencies(rosidl_default_runtime)
@@ -52,6 +54,12 @@ ament_target_dependencies(simple_pid
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include/${PROJECT_NAME}
+)
+
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 install(TARGETS 

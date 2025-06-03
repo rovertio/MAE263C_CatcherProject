@@ -29,6 +29,5 @@
         </inertia>
       </inertial>
     </link>
-    <static>false</static> <!-- Set to true if you don't want the ball to move -->
   </model>
 </sdf>

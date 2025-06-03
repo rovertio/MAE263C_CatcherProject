@@ -24,18 +24,17 @@ using namespace std::chrono_literals;
 using SetXY = ball_detector::msg::SetXY;
 
 /* ── hardware constants ------------------------------------------------ */
-// constexpr uint8_t ID_1 = 4 , ID_2 = 1;
-// constexpr uint8_t MODE_PWM = 16;
-// constexpr uint8_t ADDR_TORQUE = 64, ADDR_MODE = 11,
-//                   ADDR_POS    = 132, ADDR_PWM  = 100;
-
-// constexpr double ZERO_1 = 2048 , ZERO_2 = 2048;
-// constexpr double TICK2DEG = 360.0/4096.0;
-// inline double tick2deg(uint32_t t,double z){return (int(t)-z)*TICK2DEG;}
 
 constexpr double L1=30,L2=30, BASE_X=-42, BASE_Y=1;
 constexpr double REACH2=(L1+L2)*(L1+L2);
 constexpr double J1_MIN=-80,J1_MAX=-10,J2_MIN=20,J2_MAX=140;
+double P_GAIN1=50;
+double I_GAIN1=1;
+double D_GAIN1=0.01;
+
+double P_GAIN2=50;
+double I_GAIN2=1;
+double D_GAIN2=0.01;
 
 /* ── tiny IK (elbow-down) --------------------------------------------- */
 bool ik(double x,double y,double& j1,double& j2)
@@ -80,7 +79,8 @@ public:
     pubEl_ = create_publisher<std_msgs::msg::Float64>("velE",10);
 
     timer_=create_wall_timer(10ms,std::bind(&PWMNode::loop,this));
-
+    
+    RCLCPP_INFO(get_logger(), "PWM node ready (kp=%.1f ki=%.1f kd=%.1f)", P_GAIN1, I_GAIN1, D_GAIN1);
     // RCLCPP_INFO(get_logger(),"PWM PID node: port=%s baud=%d",port_name.c_str(),baud);
   }
 
@@ -158,7 +158,7 @@ private:
   double pos_S{0},pos_E{0};
   static constexpr double DT = 0.01;
   static constexpr double    PWM_MAX = 5.236;
-  PID pid1_{50,1,0.01}, pid2_{50,1,0.01};
+  PID pid1_{P_GAIN1,I_GAIN1,D_GAIN1}, pid2_{P_GAIN2,I_GAIN2,D_GAIN2};
 };
 
 /* --------------------------------------------------------------------- */
@@ -169,5 +169,4 @@ int main(int argc,char** argv)
   rclcpp::shutdown();
   return 0;
 }
-
 

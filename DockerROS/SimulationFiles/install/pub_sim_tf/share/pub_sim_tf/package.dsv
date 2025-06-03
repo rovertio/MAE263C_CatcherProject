@@ -1,5 +1,0 @@
-source;share/pub_sim_tf/local_setup.bash
-source;share/pub_sim_tf/local_setup.dsv
-source;share/pub_sim_tf/local_setup.ps1
-source;share/pub_sim_tf/local_setup.sh
-source;share/pub_sim_tf/local_setup.zsh

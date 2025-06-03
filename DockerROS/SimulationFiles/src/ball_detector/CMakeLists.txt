@@ -14,9 +14,11 @@ find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED)   # ➊ add this line
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SetXY.msg"
+  DEPENDENCIES builtin_interfaces 
 )
 # ament_export_dependencies(rosidl_default_runtime)
 

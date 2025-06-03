@@ -7,10 +7,17 @@
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
-    <plugin
+    <!-- <plugin
       filename="gz-sim-physics-system"
       name="gz::sim::systems::Physics">
+    </plugin> -->
+    <plugin
+      filename="ignition-gazebo-physics-system"
+      name="ignition::gazebo::systems::Physics">
+      <update_rate>1000.0</update_rate>
+      <real_time_factor>1.0</real_time_factor>
     </plugin>
+    
     <plugin
       filename="gz-sim-user-commands-system"
       name="gz::sim::systems::UserCommands">
@@ -29,6 +36,21 @@
       name="ignition::gazebo::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
+
+    <plugin
+      filename="ignition-gazebo-apply-link-wrench-system"
+      name="ignition::gazebo::systems::ApplyLinkWrench">
+      <persistent>
+        <entity_name>ping_pong_ball::ping_pong_ball_link</entity_name>
+        <entity_type>link</entity_type>
+        <force>0 0 0</force>
+        <torque>0 0 0</torque>
+        <!-- <duration>0.005</duration>
+        <frame>world</frame>
+        <offset>0 0 0</offset> -->
+      </persistent>
+    </plugin>
+    
     <plugin filename="ignition-gazebo-contact-system"
       name="ignition::gazebo::systems::Contact">
     </plugin>
@@ -331,16 +353,20 @@
       </joint>
 
 
-      <!-- Insert the ping pong ball model -->
-      <include>
-        <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
-        <pose>0 0 0.5 0 0 0</pose>
-      </include>
+    <!-- Insert the ping pong ball model -->
+    <include>
+      <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
+      <!-- <pose>0 0 0.5 0 0 0</pose> -->
+      <pose>0.2 0 0.02 0 0 0</pose>
+    </include>
 
+    
+
+<!-- 
       <joint name="ball_fixed" type="fixed">
         <parent>ground</parent>
         <child>ping_pong_ball::ping_pong_ball_link</child>
-      </joint>
+      </joint> -->
 
     </model>    
 
