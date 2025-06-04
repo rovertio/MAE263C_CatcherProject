@@ -10,7 +10,7 @@ from launch.substitutions import LaunchConfiguration
 from launch.conditions import IfCondition
 
 
-from launch_ros.actions import Node
+from launch_ros.actions import Node, SetParameter
 
 
 def generate_launch_description():
@@ -95,16 +95,27 @@ def generate_launch_description():
         parameters=[{
             'config_file': os.path.join(pkg_project_bringup, 'config', 'ros_bridge.yaml'),
             'qos_overrides./tf_static.publisher.durability': 'transient_local',
+            'use_sim_time': True
         }],
         output='screen'
     )
 
+    pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
-
+    gazebo = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+            os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
+        ),
+            launch_arguments={
+                'gz_args': [world_sdf],
+                'on_exit_shutdown': 'True'
+            }.items()
+    )
 
     # Run the node
     return LaunchDescription([
         # rviz_node,
+        SetParameter(name='use_sim_time', value=True),
         gazebo,
         robot_state_publisher,
         bridge,

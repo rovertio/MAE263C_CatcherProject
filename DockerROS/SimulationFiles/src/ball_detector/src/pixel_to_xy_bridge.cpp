@@ -4,6 +4,7 @@
 #include "geometry_msgs/msg/point.hpp"
 #include "ball_detector/msg/set_xy.hpp"
 
+using namespace std::chrono_literals;
 using SetXY = ball_detector::msg::SetXY;
 
 class PixelBridge : public rclcpp::Node
@@ -17,6 +18,8 @@ public:
 
 		pub_ = create_publisher<ball_detector::msg::SetXY>(
 			"/set_xy", 10);
+
+		// timer_=create_wall_timer(10ms,std::bind(&PixelBridge::cb,this));
 
 	}
 
@@ -33,6 +36,10 @@ private:
 		auto m = SetXY();
 		m.x = dx * SCALE;
 		m.y = dy * SCALE;
+		// message.header.stamp = this->get_clock()->now();
+		// m.stamp = now();
+		m.stamp = this->get_clock()->now();
+
 
 		// Print raw detected values
         RCLCPP_INFO(get_logger(),

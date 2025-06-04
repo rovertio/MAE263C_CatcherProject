@@ -76,10 +76,14 @@
         <limit>
           <lower>-1.5708</lower>
           <upper>1.5708</upper>
-          <effort>2.3</effort>
-          <velocity>5.236</velocity>
+          <!-- <effort>2.3</effort> -->
+          <!-- <velocity>5.236</velocity> -->
+          <effort>10</effort>
+          <velocity>10000</velocity>
         </limit>
         <dynamics>
+          <damping>0.0</damping>      <!-- Explicitly set -->
+          <friction>0.0</friction>    <!-- Explicitly set for static friction -->
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
         </dynamics>
@@ -188,12 +192,16 @@
         <limit>
           <lower>-2.2939099999999999</lower>
           <upper>2.2939099999999999</upper>
-          <effort>2.3</effort>
-          <velocity>5.236</velocity>
+          <!-- <effort>2.3</effort> -->
+          <!-- <velocity>5.236</velocity> -->
+          <effort>10</effort>
+          <velocity>10000</velocity>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
+          <damping>0.0</damping>      <!-- Explicitly set -->
+          <friction>0.0</friction>    <!-- Explicitly set for static friction -->
         </dynamics>
       </axis>
     </joint>
@@ -254,13 +262,11 @@
     
     
     <!-- Plug-in for position control -->
-    <plugin
+    <!-- <plugin
       filename="gz-sim-joint-position-controller-system"
       name="gz::sim::systems::JointPositionController">
-      <!-- <joint_name>joint_pos</joint_name> -->
       <joint_name>shoulder</joint_name>
       <topic>posS</topic>
-      <!-- <initial_position>-0.785398</initial_position> -->
       <initial_position>0</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
@@ -276,7 +282,6 @@
       name="gz::sim::systems::JointPositionController">
       <joint_name>elbow</joint_name>
       <topic>posE</topic>
-      <!-- <initial_position>1.5708</initial_position> -->
       <initial_position>0</initial_position>
       <p_gain>1</p_gain>
       <i_gain>0.1</i_gain>
@@ -285,7 +290,7 @@
       <i_min>-1</i_min>
       <cmd_max>2.2939099999999999</cmd_max>
       <cmd_min>-2.2939099999999999</cmd_min>
-    </plugin>
+    </plugin> -->
 
     <!-- Plug-in for velocity control -->
     <plugin
@@ -293,6 +298,9 @@
       name="gz::sim::systems::JointController">
       <joint_name>shoulder</joint_name>
       <topic>velS</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0</d_gain>
       <initial_velocity>0</initial_velocity>
     </plugin>
 
@@ -301,6 +309,9 @@
       name="gz::sim::systems::JointController">
       <joint_name>elbow</joint_name>
       <topic>velE</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0</d_gain>
       <initial_velocity>0</initial_velocity>
     </plugin>
 

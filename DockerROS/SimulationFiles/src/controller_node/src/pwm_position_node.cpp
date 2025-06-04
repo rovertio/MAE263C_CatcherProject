@@ -10,7 +10,6 @@
 #include <chrono>
 #include <algorithm>
 #include "rclcpp/rclcpp.hpp"
-#include "dynamixel_sdk/dynamixel_sdk.h"
 #include "ball_detector/msg/set_xy.hpp"
 
 #include "std_msgs/msg/string.hpp"
@@ -28,13 +27,13 @@ using SetXY = ball_detector::msg::SetXY;
 constexpr double L1=30,L2=30, BASE_X=-42, BASE_Y=1;
 constexpr double REACH2=(L1+L2)*(L1+L2);
 constexpr double J1_MIN=-80,J1_MAX=-10,J2_MIN=20,J2_MAX=140;
-double P_GAIN1=50;
-double I_GAIN1=1;
-double D_GAIN1=0.01;
+double P_GAIN1=100;
+double I_GAIN1=5;
+double D_GAIN1=1;
 
-double P_GAIN2=50;
-double I_GAIN2=1;
-double D_GAIN2=0.01;
+double P_GAIN2=100;
+double I_GAIN2=5;
+double D_GAIN2=1;
 
 /* ── tiny IK (elbow-down) --------------------------------------------- */
 bool ik(double x,double y,double& j1,double& j2)
@@ -67,18 +66,29 @@ class PWMNode : public rclcpp::Node
 public:
   PWMNode():Node("pwm_position_node")
   {
-    rclcpp::QoS qos(10);
-    auto rmw_qos_profile = qos.get_rmw_qos_profile();
-    subscriber_Cen_.subscribe(this, "set_xy", rmw_qos_profile);
-    subscriber_Sta_.subscribe(this, "joint_state", rmw_qos_profile);
+    // rclcpp::QoS qos(10);
+    // auto rmw_qos_profile = qos.get_rmw_qos_profile();
+    // subscriber_Cen_.subscribe(this, "set_xy", rmw_qos_profile);
+    // subscriber_Sta_.subscribe(this, "joint_state", rmw_qos_profile);
+    // pos_sync_ = std::make_shared<message_filters::TimeSynchronizer<sensor_msgs::msg::JointState, SetXY>>(subscriber_Sta_, subscriber_Cen_, 10);
+    // pos_sync_->registerCallback(std::bind(&PWMNode::cb_xy, this, std::placeholders::_1, std::placeholders::_2));
+    subCen_ = create_subscription<SetXY>(
+				"/set_xy", 10, std::bind(&PWMNode::cb_xy, this, std::placeholders::_1));
+    subSta_ = create_subscription<sensor_msgs::msg::JointState>(
+				"/joint_state", 10, std::bind(&PWMNode::cb_state, this, std::placeholders::_1));
 
-    pos_sync_ = std::make_shared<message_filters::TimeSynchronizer<sensor_msgs::msg::JointState, SetXY>>(subscriber_Sta_, subscriber_Cen_, 10);
-    pos_sync_->registerCallback(std::bind(&PWMNode::cb_xy, this, std::placeholders::_1, std::placeholders::_2));
-
-    pubSh_ = create_publisher<std_msgs::msg::Float64>("velS",10);
-    pubEl_ = create_publisher<std_msgs::msg::Float64>("velE",10);
+    pubSh_ = create_publisher<std_msgs::msg::Float64>("/velS",10);
+    pubEl_ = create_publisher<std_msgs::msg::Float64>("/velE",10);
 
     timer_=create_wall_timer(10ms,std::bind(&PWMNode::loop,this));
+
+    /* Temp */
+    // dbg_js_sub_ = this->create_subscription<sensor_msgs::msg::JointState>(
+    //     "joint_state", 10, std::bind(&PWMNode::dbg_js_cb, this, std::placeholders::_1));
+    // dbg_xy_sub_ = this->create_subscription<SetXY>(
+    //     "set_xy", 10, std::bind(&PWMNode::dbg_xy_cb, this, std::placeholders::_1));
+    /* Temp */
+
     
     RCLCPP_INFO(get_logger(), "PWM node ready (kp=%.1f ki=%.1f kd=%.1f)", P_GAIN1, I_GAIN1, D_GAIN1);
     // RCLCPP_INFO(get_logger(),"PWM PID node: port=%s baud=%d",port_name.c_str(),baud);
@@ -87,8 +97,24 @@ public:
 private:
 
 /* ---- ROS callbacks -------------------------------------------------- */
-  void cb_xy(const sensor_msgs::msg::JointState::ConstSharedPtr& msg_js, 
-              const SetXY::ConstSharedPtr& msg_cen)
+
+  // void dbg_js_cb(const sensor_msgs::msg::JointState::ConstSharedPtr msg) {
+  //     rclcpp::Time js_time(msg->header.stamp.sec, msg->header.stamp.nanosec, RCL_ROS_TIME);
+  //     RCLCPP_ERROR(this->get_logger(), "DBG JS TIME: sec=%d nanosec=%u CLOCK_TYPE=%d",
+  //         msg->header.stamp.sec, msg->header.stamp.nanosec, (int)js_time.get_clock_type());
+  // }
+  // void dbg_xy_cb(const SetXY::ConstSharedPtr msg) {
+  //     rclcpp::Time xy_time(msg->stamp.sec, msg->stamp.nanosec, RCL_ROS_TIME);
+  //     RCLCPP_ERROR(this->get_logger(), "DBG XY TIME: sec=%d nanosec=%u CLOCK_TYPE=%d",
+  //         msg->stamp.sec, msg->stamp.nanosec, (int)xy_time.get_clock_type());
+  // }
+  void cb_state(const sensor_msgs::msg::JointState::ConstSharedPtr& msg_js)
+  {
+    pos_S = msg_js->position[0] * 180/M_PI;
+    pos_E = msg_js->position[1] * 180/M_PI;
+  }
+
+  void cb_xy(const SetXY::ConstSharedPtr& msg_cen)
   {
 
     /* Processing data from centroid */
@@ -97,9 +123,9 @@ private:
     std::lock_guard<std::mutex> lk(mut_);
     if(ok){
       goal_j1_=j1; goal_j2_=j2; goal_update_=true;
+      // pos_S = msg_js->position[0];
+      // pos_E = msg_js->position[1];
       /* Processing data from joint states */
-      pos_S = msg_js->position[0];
-      pos_E = msg_js->position[1];
       RCLCPP_INFO(get_logger(),"XY(%.1f,%.1f) → J(%.1f,%.1f)",msg_cen->x,msg_cen->y,j1,j2);
     }else{
       RCLCPP_WARN(get_logger(),"IK fail for (%.1f,%.1f)",msg_cen->x,msg_cen->y);
@@ -125,14 +151,21 @@ private:
     double e1=g1-cur1, e2=g2-cur2;
     int pwm1=pid1_.compute(e1,DT,PWM_MAX);
     int pwm2=pid2_.compute(e2,DT,PWM_MAX);
+    RCLCPP_INFO(get_logger(),"Error1(%.1f) | Error2(%.1f) | PWM1(%d) | PWM2(%d)",e1, e2, pwm1, pwm2);
+    
 
     auto message_shoulder = std_msgs::msg::Float64();
     auto message_elbow = std_msgs::msg::Float64();
     message_shoulder.data = pwm1;
-    message_shoulder.data = pwm2;
+    message_elbow.data = pwm2;
 
     pubSh_->publish(message_shoulder);
-    pubSh_->publish(message_elbow);
+    pubEl_->publish(message_elbow);
+
+    message_shoulder.data = 0;
+    message_elbow.data = 0;
+    e1 = 0;
+    e2 = 0;
 
     RCLCPP_DEBUG_THROTTLE(get_logger(),*get_clock(),200,
       "J (%.1f→%.1f / %.1f→%.1f)  PWM (%d,%d)",
@@ -141,11 +174,12 @@ private:
 
 /* ---- data members --------------------------------------------------- */
 
-  // rclcpp::Subscription<SetXY>::SharedPtr sub_;
+  rclcpp::Subscription<SetXY>::SharedPtr subCen_;
+  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subSta_;
   
-  message_filters::Subscriber<sensor_msgs::msg::JointState> subscriber_Sta_;
-  message_filters::Subscriber<SetXY> subscriber_Cen_;
-  std::shared_ptr<message_filters::TimeSynchronizer<sensor_msgs::msg::JointState, SetXY>> pos_sync_;
+  // message_filters::Subscriber<sensor_msgs::msg::JointState> subscriber_Sta_;
+  // message_filters::Subscriber<SetXY> subscriber_Cen_;
+  // std::shared_ptr<message_filters::TimeSynchronizer<sensor_msgs::msg::JointState, SetXY>> pos_sync_;
 
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pubSh_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pubEl_;
@@ -153,11 +187,17 @@ private:
   rclcpp::TimerBase::SharedPtr           timer_;
   std::mutex mut_;
 
+  /* Temp */
+  // rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr dbg_js_sub_;
+  // rclcpp::Subscription<SetXY>::SharedPtr dbg_xy_sub_;
+  /* Temp */
+
   /* goals & PID */
   double goal_j1_{0},goal_j2_{0}; bool goal_update_{false};
   double pos_S{0},pos_E{0};
   static constexpr double DT = 0.01;
-  static constexpr double    PWM_MAX = 5.236;
+  static constexpr double    PWM_MAX = 5.236; 
+  // static constexpr double    PWM_MAX = 20; 
   PID pid1_{P_GAIN1,I_GAIN1,D_GAIN1}, pid2_{P_GAIN2,I_GAIN2,D_GAIN2};
 };
 

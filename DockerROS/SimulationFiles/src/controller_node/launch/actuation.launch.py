@@ -20,5 +20,6 @@ def generate_launch_description():
         Node(
             package='controller_node',
             executable='simple_pid',
-            name='simple_pid'),
+            name='simple_pid',
+            parameters=[{'use_sim_time': True}]),
     ])
