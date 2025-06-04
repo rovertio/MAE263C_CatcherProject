@@ -1,116 +1,110 @@
-#!/usr/bin/env python3
-import rclpy
-import numpy as np
-import csv
 import os
+import csv
+import math
+from datetime import datetime
+import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
-from geometry_msgs.msg import PoseStamped, PointStamped
-from rclpy.qos import QoSProfile
-from datetime import datetime
+from geometry_msgs.msg import PointStamped
 
 
-class EvaluatorNode(Node):
+class ErrorEfficiencyLogger(Node):
     def __init__(self):
-        self.run_id = datetime.now().strftime("throw_%Y%m%d_%H%M%S")
+        super().__init__('error_efficiency_logger')
+        self.joint_states = None
+        self.end_effector_position = None
+        self.ball_position = None
+        self.start_time = self.get_clock().now()
+        self.prev_time = self.start_time
 
-        super().__init__('evaluator_node')
+        # Initialize effort calculations
+        self.effort_torque_squared = 0.0
+        self.effort_torque_velocity = 0.0
 
-        # Declare and retrieve the controller name parameter
-        self.declare_parameter('controller_name', 'unknown_controller')
-        self.controller_name = self.get_parameter('controller_name').get_parameter_value().string_value
+        # Folder setup
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        self.controller_type = os.environ.get('CONTROLLER_TYPE', 'default_controller')
+        self.output_folder = os.path.join(os.path.expanduser('~'), 'controller_logs', self.controller_type, timestamp)
+        os.makedirs(self.output_folder, exist_ok=True)
+        self.csv_file_path = os.path.join(self.output_folder, 'log.csv')
 
-        qos = QoSProfile(depth=10)
+        # CSV header
+        with open(self.csv_file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                'time', 'joint_positions', 'joint_velocities', 'joint_efforts',
+                'end_effector_position', 'ball_position', 'position_error',
+                'effort_torque_squared', 'effort_torque_velocity'
+            ])
 
-        self.ee_sub = self.create_subscription(
-            PoseStamped,
-            '/end_effector_pose',
-            self.ee_callback,
-            qos)
+        # Subscriptions
+        self.create_subscription(JointState, '/joint_states', self.joint_state_callback, 10)
+        self.create_subscription(PointStamped, '/end_effector_position', self.ee_position_callback, 10)
+        self.create_subscription(PointStamped, '/ball_position', self.ball_position_callback, 10)
 
-        self.ball_sub = self.create_subscription(
-            PointStamped,
-            '/ball/centroid',
-            self.ball_callback,
-            qos)
+        self.timer = self.create_timer(0.01, self.log_data)  # 100 Hz
 
-        self.joint_sub = self.create_subscription(
-            JointState,
-            '/joint_states',
-            self.joint_callback,
-            qos)
+    def joint_state_callback(self, msg):
+        self.joint_states = msg
 
-        self.last_time = None
-        self.energy = 0.0
-        self.last_effort = None
+    def ee_position_callback(self, msg):
+        self.end_effector_position = msg.point
 
-        self.ee_pos = None
-        self.ball_pos = None
+    def ball_position_callback(self, msg):
+        self.ball_position = msg.point
 
-        self.rows = []
+    def log_data(self):
+        if (self.joint_states is None
+            or not self.joint_states.effort
+            or not self.joint_states.velocity
+            or self.end_effector_position is None
+            or self.ball_position is None):
+            return
+        if len(self.joint_states.effort) != len(self.joint_states.velocity):
+            self.get_logger().warn("effort/velocity length mismatch – skipping sample")
+            return
 
-        self.get_logger().info(f"Evaluator node started for controller: {self.controller_name}")
+        now = self.get_clock().now()
+        elapsed_time = (now - self.start_time).nanoseconds / 1e9
+        dt = (now - self.prev_time).nanoseconds / 1e9
+        self.prev_time = now
 
+        position_error = math.sqrt(
+            (self.end_effector_position.x - self.ball_position.x) ** 2 +
+            (self.end_effector_position.y - self.ball_position.y) ** 2 +
+            (self.end_effector_position.z - self.ball_position.z) ** 2
+        )
 
-    def ee_callback(self, msg):
-        self.ee_pos = np.array([msg.pose.position.x,
-                                msg.pose.position.y,
-                                msg.pose.position.z])
-        self.log_metrics(msg.header.stamp)
+        torque_squared = sum([eff ** 2 for eff in self.joint_states.effort])
+        torque_velocity = sum([
+            eff * vel for eff, vel in zip(self.joint_states.effort, self.joint_states.velocity)
+        ])
 
-    def ball_callback(self, msg):
-        self.ball_pos = np.array([msg.point.x,
-                                  msg.point.y,
-                                  msg.point.z])
+        self.effort_torque_squared += torque_squared * dt
+        self.effort_torque_velocity += torque_velocity * dt
 
-    def joint_callback(self, msg):
-        t = msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9
-        if self.last_time is not None:
-            dt = t - self.last_time
-            if msg.effort:
-                tau = np.array(msg.effort)
-                self.energy += np.sum(tau ** 2) * dt
-        self.last_time = t
-        self.last_effort = msg.effort
-
-    def log_metrics(self, stamp):
-        if self.ee_pos is not None and self.ball_pos is not None:
-            error = np.linalg.norm(self.ee_pos - self.ball_pos)
-            now = self.get_clock().now().to_msg()
-            row = {
-                'time_sec': now.sec + now.nanosec * 1e-9,
-                'error': error,
-                'energy': self.energy
-            }
-            self.rows.append(row)
-            self.get_logger().info(f"t={row['time_sec']:.2f}s | error={error:.4f} | energy={self.energy:.4f}")
-
-    def destroy_node(self):
-        super().destroy_node()
-
-        # Create a folder named after the controller
-        save_dir = os.path.join(os.path.expanduser("~"), f"ros2_eval_logs/{self.controller_name}")
-        os.makedirs(save_dir, exist_ok=True)
-
-        # Save log to that folder
-        filename = f"{self.run_id}.csv"
-        save_path = os.path.join(save_dir, filename)
-
-        with open(save_path, 'w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=['time_sec', 'error', 'energy'])
-            writer.writeheader()
-            writer.writerows(self.rows)
-
-        self.get_logger().info(f"Saved evaluation log to {save_path}")
+        with open(self.csv_file_path, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                elapsed_time,
+                self.joint_states.position,
+                self.joint_states.velocity,
+                self.joint_states.effort,
+                (self.end_effector_position.x, self.end_effector_position.y, self.end_effector_position.z),
+                (self.ball_position.x, self.ball_position.y, self.ball_position.z),
+                position_error,
+                self.effort_torque_squared,
+                self.effort_torque_velocity
+            ])
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = EvaluatorNode()
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        node.destroy_node()
-        rclpy.shutdown()
+    node = ErrorEfficiencyLogger()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()
