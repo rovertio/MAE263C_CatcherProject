@@ -37,9 +37,14 @@ export IGN_GAZEBO_RESOURCE_PATH=src/robot_desc/install/robot_desc/share/
 ```
 ros2 launch robot_desc sim.launch.py
 ```
-- The simulation control scripts are initialized with the launch scripts below: The launch scripts can be adjusted as necessary for selection of scripts and tuning of system
+- The simulation computer vision is utilized with the launch script below:
+  - Implements height and centroid detection. Predicts based on computed velocity
+  - Sets threshold for height within detection
 ```
 ros2 launch ball_detector nodeEx.launch.py
+```
+- The simulation control scripts are initialized with the launch script below: The launch scripts can be adjusted as necessary for selection of scripts and tuning of system
+```
 ros2 launch controller_node actuation.launch.py
 ```
 - The ball motion is manually initiated by publiishing to an ignition topic with the following command
