@@ -34,7 +34,7 @@ constexpr int    ERODE_SZ = 3, DILATE_SZ = 7;
 /* ── height estimation ─────────────────────────────────────────────── */
 constexpr double AREA_REF = 340.0;
 constexpr double H_SCALE  = 120.0;
-constexpr double BASELINE = 2;
+constexpr double BASELINE = 5;
 constexpr double HFOV_DEG = 45.0;
 constexpr double CAMERA_H = 85.0;
 constexpr double FOCAL_PX = (HALF_W/2.0) /

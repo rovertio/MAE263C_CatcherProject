@@ -27,6 +27,7 @@
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/config.json
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/robot.urdf
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/TrueRobot.sdf
+/home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/TrueRobotApproxMass.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/ball.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/camera.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/simset.sdf
