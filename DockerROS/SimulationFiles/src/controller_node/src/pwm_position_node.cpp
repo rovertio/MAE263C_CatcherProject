@@ -27,9 +27,9 @@ using SetXY = ball_detector::msg::SetXY;
 constexpr double L1=30,L2=30, BASE_X=-42, BASE_Y=1;
 constexpr double REACH2=(L1+L2)*(L1+L2);
 constexpr double J1_MIN=-80,J1_MAX=-10,J2_MIN=20,J2_MAX=140;
-double P_GAIN=125;
-double I_GAIN=0.25;
-double D_GAIN=30;
+// double P_GAIN=125;
+// double I_GAIN=0.25;
+// double D_GAIN=30;
 
 
 /* ── tiny IK (elbow-down) --------------------------------------------- */
@@ -74,7 +74,10 @@ public:
     declare_parameter<double>("kp", 50.0);
     declare_parameter<double>("ki",  0.1);
     declare_parameter<double>("kd",   5.0);
-    declare_parameter<double>("max_pwm", 100.0);
+    // declare_parameter<double>("max_pwm", 5.236);
+    // declare_parameter<double>("max_pwm", 100.0); 
+    //    P: 35, I: 2.15, D: 10.0
+    declare_parameter<double>("max_pwm", 1000000.0);
 
     kp_ = get_parameter("kp").as_double();
     ki_ = get_parameter("ki").as_double();

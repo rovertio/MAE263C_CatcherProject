@@ -199,7 +199,7 @@
     </gui>
 
     <!--light-->
-    <light type="directional" name="sun">
+    <light type="directional" name="sim_sun">
       <cast_shadows>false</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
@@ -272,6 +272,7 @@
         <parent>ground</parent>
         <child>workspace</child>
       </joint>
+
 
 
       <link name='left_camera'>
@@ -364,15 +365,65 @@
       <pose>0.2 0 0.02 0 0 0</pose>
     </include>
 
-    
-
+    </model>  
 <!-- 
-      <joint name="ball_fixed" type="fixed">
-        <parent>ground</parent>
-        <child>ping_pong_ball::ping_pong_ball_link</child>
-      </joint> -->
+    <model name="workspace_boundaries_set">
+      <link name="upper_Wall">
+        <collision name='upper_Wall_collision'>
+          <pose>0.25 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.5 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name = 'upper_Wall_visual'>
+          <pose>0.14 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.5 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0.01 0.01 0.01 1</diffuse>
+            <ambient>0.01 0.01 0.01 1</ambient>
+        </material>
+        </visual>
+      </link>
+      <joint name="upper_Wall_fixed" type="fixed">
+        <parent>world</parent>
+        <child>upper_Wall</child>
+      </joint>
 
-    </model>    
+
+      <link name="lower_Wall">
+        <collision name='lower_Wall_collision'>
+          <pose>-0.25 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.5 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name = 'lower_Wall_visual'>
+          <pose>-0.14 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.5 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0.01 0.01 0.01 1</diffuse>
+            <ambient>0.01 0.01 0.01 1</ambient>
+        </material>
+        </visual>
+      </link>
+      <joint name="lower_Wall_fixed" type="fixed">
+        <parent>world</parent>
+        <child>lower_Wall</child>
+      </joint>
+
+    </model>   -->
 
   </world>
 </sdf>
