@@ -1,5 +1,11 @@
 /* =======================================================================
  * robust_joint_control.cpp  —  Robust Joint-Space Inverse-Dynamics Control
+ * ------------------------------------------------------------------------
+ *  Subscribes   :  /set_xy  (controller_msgs/SetXY, cm in camera plane)
+ *  Computes     :  planar 2-DOF Operational Space ID  ➜ pwm signal
+ *  Writes to    :  Dynamixel PWM Registers
+ *  Publishes on :  /robust_joint/joint_plot_data  (controller_msgs/JointPlotData)
+
  * ======================================================================= */
 #include <chrono>
 #include <cmath>
