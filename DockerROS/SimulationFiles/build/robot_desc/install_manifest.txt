@@ -31,6 +31,7 @@
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/ball.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/camera.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//simWorld/simset.sdf
+/home/Catcher/install/robot_desc/share/robot_desc//simWorld/wall.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//config/ros_bridge.yaml
 /home/Catcher/install/robot_desc/share/robot_desc/environment/robot_desc.dsv
 /home/Catcher/install/robot_desc/share/ament_index/resource_index/package_run_dependencies/robot_desc

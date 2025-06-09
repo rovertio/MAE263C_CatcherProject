@@ -199,7 +199,7 @@
     </gui>
 
     <!--light-->
-    <light type="directional" name="sim_sun">
+    <light type="directional" name="sun">
       <cast_shadows>false</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
@@ -349,6 +349,7 @@
       <include>
         <!-- <uri>file://src/robot_desc/robot/simRobot.sdf</uri> -->
         <uri>file://src/robot_desc/TrueRobot/TrueRobot.sdf</uri>
+        <!-- <uri>package://robot_desc/TrueRobot/TrueRobot.sdf</uri> -->
         <pose>0 -0.53926 0 0 0 0</pose>
       </include>
 
@@ -358,14 +359,16 @@
       </joint>
 
 
-    <!-- Insert the ping pong ball model -->
-    <include>
-      <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
-      <!-- <pose>0 0 0.5 0 0 0</pose> -->
-      <pose>0.2 0 0.02 0 0 0</pose>
-    </include>
+      <!-- Insert the ping pong ball model -->
+      <include>
+        <uri>file://src/robot_desc/simWorld/ball.sdf</uri>
+        <!-- <pose>0 0 0.5 0 0 0</pose> -->
+        <pose>0.2 0 0.02 0 0 0</pose>
+      </include>
+    
 
     </model>  
+
 <!-- 
     <model name="workspace_boundaries_set">
       <link name="upper_Wall">

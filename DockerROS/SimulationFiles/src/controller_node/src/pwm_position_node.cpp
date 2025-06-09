@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "rclcpp/rclcpp.hpp"
 #include "ball_detector/msg/set_xy.hpp"
+#include "controller_node/msg/joint_plot_data.hpp"
 
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -21,6 +22,7 @@
 
 using namespace std::chrono_literals;
 using SetXY = ball_detector::msg::SetXY;
+using Plot  = controller_node::msg::JointPlotData;
 
 /* ── hardware constants ------------------------------------------------ */
 
@@ -78,6 +80,7 @@ public:
     // declare_parameter<double>("max_pwm", 100.0); 
     //    P: 35, I: 2.15, D: 10.0
     declare_parameter<double>("max_pwm", 1000000.0);
+    //    P: 75, I: 0.12, D: 0.1
 
     kp_ = get_parameter("kp").as_double();
     ki_ = get_parameter("ki").as_double();
@@ -98,6 +101,7 @@ public:
 
     pubSh_ = create_publisher<std_msgs::msg::Float64>("/velS",10);
     pubEl_ = create_publisher<std_msgs::msg::Float64>("/velE",10);
+    pub_plot_ = create_publisher<Plot>("pwm/joint_plot_data", 10);
 
     timer_=create_wall_timer(10ms,std::bind(&PWMNode::loop,this));
     last_good_cmd_time_ = now();
@@ -159,7 +163,7 @@ private:
 
     if (!goal_update_ || (now() - last_good_cmd_time_).seconds() > 0.1){
       // RCLCPP_INFO(get_logger(),"waiting for new command input...");
-      RCLCPP_INFO(get_logger(),"Pgain(%.1f) | Igain(%.1f) | Dgain(%.1f)",
+      RCLCPP_INFO(get_logger(),"Pgain(%.2f) | Igain(%.2f) | Dgain(%.2f)",
       kp_, ki_, kd_);
 
       auto message_shoulder = std_msgs::msg::Float64();
@@ -194,6 +198,13 @@ private:
       // kp_, ki_, kd_);
       RCLCPP_INFO(get_logger(),"MaxCom(%.1f) | timeStep(%.1f)",
       max_pwm_, DT_);
+
+      Plot p;
+      p.stamp = now();
+      p.q1_deg = cur1;  p.q2_deg = cur2;
+      p.q1_des_deg = g1; p.q2_des_deg = g2;
+      p.e1 = g1 - cur1;  p.e2 = g2 - cur2;
+      pub_plot_->publish(p);
       
   
       auto message_shoulder = std_msgs::msg::Float64();
@@ -225,6 +236,7 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pubSh_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pubEl_;
 
+  rclcpp::Publisher<Plot>::SharedPtr pub_plot_;
   rclcpp::TimerBase::SharedPtr           timer_;
   std::mutex mut_;
   rclcpp::Time last_good_cmd_time_;

@@ -29,5 +29,6 @@
         </inertia>
       </inertial>
     </link>
+    <!-- <static>0</static> -->
   </model>
 </sdf>
