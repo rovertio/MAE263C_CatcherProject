@@ -33,6 +33,7 @@ target_link_libraries(joint_space_idc
 include_directories(
   include
 )
+
 install(TARGETS joint_space_idc
   DESTINATION lib/${PROJECT_NAME})
 
