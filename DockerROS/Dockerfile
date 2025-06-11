@@ -10,22 +10,21 @@ RUN rm -f /etc/apt/sources.list.d/ros2.list && \
 ARG ROS_DISTRO=humble
 ARG GZ_VERSION=fortress
 
-# Create a non-root user
-ARG USERNAME=Catcher
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+# Remove or comment out this block:
+# # Create a non-root user
+# ARG USERNAME=Catcher
+# ARG USER_UID=1000
+# ARG USER_GID=$USER_UID
+# 
+# RUN groupadd --gid $USER_GID $USERNAME \
+#   && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+#   && mkdir /home/$USERNAME/.config && chown $USER_UID:$USER_GID /home/$USERNAME/.config
 
-RUN groupadd --gid $USER_GID $USERNAME \
-  && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
-  && mkdir /home/$USERNAME/.config && chown $USER_UID:$USER_GID /home/$USERNAME/.config
 
-
-# Set up sudo
-RUN apt-get update \
-  && apt-get install -y sudo \
-  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
-  && chmod 0440 /etc/sudoers.d/$USERNAME \
-  && rm -rf /var/lib/apt/lists/*
+# Set up sudo (already installed in most base images, so this can be omitted)
+# RUN apt-get update \
+#   && apt-get install -y sudo \
+#   && rm -rf /var/lib/apt/lists/*
 
 
 # Installing utilities
@@ -34,12 +33,12 @@ RUN apt-get update && \
   apt-get install nano -y && \
   apt-get install vim -y && \
   # Installing OpenCV
-  sudo apt-get install libopencv-dev -y && \
+  apt-get install libopencv-dev -y && \
   # Installing python dependencies
-  sudo apt install python3-numpy -y && \
-  sudo apt install libboost-python-dev -y && \
+  apt-get install python3-numpy -y && \
+  apt-get install libboost-python-dev -y && \
   # Installing cpp compiler (if want to use instead of deault g++)
-  sudo apt install clang -y && \
+  apt-get install clang -y && \
   rm -rf /var/lib/apt/lists/*
 
 
@@ -50,24 +49,26 @@ RUN apt-get update  && \
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
   apt-get update && \
   apt-get install -y gz-$GZ_VERSION ros-$ROS_DISTRO-ros-gz && \
-  sudo apt-get install ros-${ROS_DISTRO}-ros-ign-bridge -y && \
+  apt-get install -y ros-${ROS_DISTRO}-ros-ign-bridge && \
   # Install package for joint control in rviz
-  sudo apt-get install ros-${ROS_DISTRO}-joint-state-publisher -y && \
-  sudo apt-get install ros-${ROS_DISTRO}-joint-state-publisher-gui -y && \
+  apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher && \
+  apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher-gui && \
   # Install cv_bridge
-  sudo apt-get install ros-${ROS_DISTRO}-cv-bridge && \
-  sudo apt-get install ros-${ROS_DISTRO}-vision-opencv && \
+  apt-get install -y ros-${ROS_DISTRO}-cv-bridge && \
+  apt-get install -y ros-${ROS_DISTRO}-vision-opencv && \
   # Install package for dynamixel
-  sudo apt-get install ros-$ROS_DISTRO-dynamixel-sdk -y && \
+  apt-get install -y ros-$ROS_DISTRO-dynamixel-sdk && \
+  # Install ament_cmake for building CMake-based ROS2 packages
+  apt-get install -y ros-${ROS_DISTRO}-ament-cmake && \
   rm -rf /var/lib/apt/lists/* 
 
 
 ## Install files for the creation of URDF files within the workspace from Onshape
 RUN apt-get update && \
   pip install onshape-to-robot && \
-  sudo add-apt-repository ppa:openscad/releases && \
-  sudo apt-get install openscad -y && \
-  sudo apt-get install meshlab -y && \
+  add-apt-repository ppa:openscad/releases && \
+  apt-get install -y openscad && \
+  apt-get install -y meshlab && \
   rm -rf /var/lib/apt/lists/* 
 
 
@@ -75,8 +76,3 @@ RUN apt-get update && \
 # our container's environment set up correctly
 COPY entrypoint.sh /entrypoint.sh
 COPY bashrc /home/${USERNAME}/.bashrc
-
-
-# Set up entrypoint and default command
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
-CMD ["bash"]

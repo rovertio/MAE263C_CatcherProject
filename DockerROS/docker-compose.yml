@@ -9,7 +9,8 @@ services:
       - XAUTHORITY=/tmp/.X11-unix/X0
     network_mode: host
     volumes:
-      - ./SimulationFiles:/home/Catcher
+      - ../ros2_ws:/workspaces/ros2_ws
+      - ./SimulationFiles:/workspaces/simulation_ws
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev:/dev
       # - /dev/ttyUSB0:/dev/ttyUSB0

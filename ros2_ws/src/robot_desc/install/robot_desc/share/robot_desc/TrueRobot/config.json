@@ -1,0 +1,7 @@
+{
+    "documentId": "af0115e61c5582d0fb054981",
+    "outputFormat": "urdf",
+    "packageName": "robot_desc/TrueRobot",
+    "robotName": "project_robot",
+    "assemblyName": "SimAssemTrue"
+  }
