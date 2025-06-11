@@ -7,3 +7,5 @@ float64 x
 float64 y    
 float64 e1
 float64 e2
+float64 pwm1
+float64 pwm2

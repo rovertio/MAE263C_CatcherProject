@@ -1,0 +1,30 @@
+[0.000000] (-) TimerEvent: {}
+[0.000218] (-) JobUnselected: {'identifier': 'adaptive_joint_control'}
+[0.000415] (-) JobUnselected: {'identifier': 'adaptive_operational_control'}
+[0.000564] (-) JobUnselected: {'identifier': 'ball_arm_tracker'}
+[0.000656] (-) JobUnselected: {'identifier': 'ball_centroid_detector'}
+[0.000901] (-) JobUnselected: {'identifier': 'ball_detector'}
+[0.001030] (-) JobUnselected: {'identifier': 'ball_predictor_node'}
+[0.001145] (-) JobUnselected: {'identifier': 'control_common'}
+[0.001382] (-) JobUnselected: {'identifier': 'controller_node'}
+[0.001488] (-) JobUnselected: {'identifier': 'cpp_test'}
+[0.001717] (-) JobUnselected: {'identifier': 'dual_dynamixel_node'}
+[0.001825] (-) JobUnselected: {'identifier': 'evaluator_node'}
+[0.002145] (-) JobUnselected: {'identifier': 'idc_node'}
+[0.002307] (-) JobUnselected: {'identifier': 'inverse_kinematics_node'}
+[0.002408] (-) JobUnselected: {'identifier': 'joint_plotter'}
+[0.002521] (-) JobUnselected: {'identifier': 'joint_positions_node'}
+[0.002616] (-) JobUnselected: {'identifier': 'joint_space_idc'}
+[0.002686] (-) JobUnselected: {'identifier': 'my_cpp_pkg'}
+[0.002777] (-) JobUnselected: {'identifier': 'my_debug_pkg'}
+[0.002880] (-) JobUnselected: {'identifier': 'robot_desc'}
+[0.003019] (-) JobUnselected: {'identifier': 'robust_adaptive_joint_control'}
+[0.003126] (-) JobUnselected: {'identifier': 'robust_adaptive_operational_control'}
+[0.003221] (-) JobUnselected: {'identifier': 'robust_joint_control'}
+[0.003319] (-) JobUnselected: {'identifier': 'robust_operational_control'}
+[0.003408] (-) JobUnselected: {'identifier': 'synthetic_ball_publisher'}
+[0.003490] (-) JobUnselected: {'identifier': 'vision_common'}
+[0.003577] (pwm_position_node) JobQueued: {'identifier': 'pwm_position_node', 'dependencies': OrderedDict([('control_common', '/workspaces/ros2_ws/src/install/control_common'), ('inverse_kinematics_node', '/workspaces/ros2_ws/src/install/inverse_kinematics_node'), ('idc_node', '/workspaces/ros2_ws/src/install/idc_node')])}
+[0.003680] (pwm_position_node) JobStarted: {'identifier': 'pwm_position_node'}
+[0.054583] (pwm_position_node) JobEnded: {'identifier': 'pwm_position_node', 'rc': 1}
+[0.065192] (-) EventReactorShutdown: {}

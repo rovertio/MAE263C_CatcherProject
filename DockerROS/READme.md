@@ -7,7 +7,66 @@ This is assuming utilizatin of a Windows system, where the linux GUIs and progra
 - Install VcXsrv through the site [Download link](https://vcxsrv.com/)
 - Go through the prompted setups for the VcXsrv executor
 
-## Building the container:
+##### USING DOCKER FROM PARENT FOLDER #####
+
+
+## Building the container from MAE263C_CatcherProject Parent Folder
+
+- Build the docker image with a predetermined tag, to reduce complications in image naming:
+```
+docker build -f DockerROS/Dockerfile -t ubuntu-desktop-ros:humble-gazebo-fortress DockerROS
+```
+
+- change the directory to DockerRos, then compose the image:
+```
+cd DockerROS
+docker compose up
+```
+## Build ROS Package
+
+- Opern a new powershell terminal and open a shell in the runnning container:
+```
+docker exec -it dockerros-gaz_con-1 bash
+```
+
+- Change the directory so you're in the right path:
+```
+cd /workspaces/ros2_ws
+# or
+cd /workspaces/simulation_ws ## <- depending on if you're running the simulation or not
+```
+
+- Build the packages:
+```
+colcon build --packages-select robot_desc ball_detector controller_node evaluator_node controll_common controller_msgs pwm_position_node
+```
+
+- Source ROS2 and the workspace:
+```
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+export IGN_GAZEBO_RESOURCE_PATH=src/robot_desc/install/robot_desc/share/
+```
+
+
+
+## Running the code:
+
+- First you need to source the workspace:
+```
+source install/setup.bash
+```
+
+- Then run whichever node you want:
+```
+ros2 run [NODE_NAME]
+```
+
+
+##### USING DOCKER FROM DOCKERROS FOLDER #####
+
+
+## Building the container from separate DockerROS window:
 - Build the docker image: opening the folder with the dockerfile in Visual Studio Code is best to reduce complications in container naming
 ```
 docker build .
