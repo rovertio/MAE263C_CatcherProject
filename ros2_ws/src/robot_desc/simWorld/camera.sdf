@@ -1,0 +1,357 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="world_demo">
+
+  <!-- File for testing implememnting depth camera within the setup as opposed to estimation -->
+
+    <!-- SDF file with model linked to world -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <!-- <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin> -->
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="ignition-gazebo-contact-system"
+      name="ignition::gazebo::systems::Contact">
+    </plugin>
+
+    <gui fullscreen="0">
+      <!-- 3D scene -->
+      <plugin filename="MinimalScene" name="3D View">
+        <ignition-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </ignition-gui>
+
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-1 0 1 0 0.5 0</camera_pose>
+      </plugin>
+
+      <!-- Plugins that add functionality to the scene -->
+      <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+        <ignition-gui>
+          <property key="state" type="string">floating</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="GzSceneManager" name="Scene Manager">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="InteractiveViewControl" name="Interactive view control">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="CameraTracking" name="Camera Tracking">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <!-- World control -->
+      <plugin filename="WorldControl" name="World control">
+        <ignition-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+        <use_event>true</use_event>
+
+      </plugin>
+
+      <!-- World statistics -->
+      <plugin filename="WorldStats" name="World stats">
+        <ignition-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+      </plugin>
+
+      <!-- Displays output of the camera sensor from topics -->
+      <plugin filename="ImageDisplay" name="dep_camera">
+        <topic>/camera/dep_image_raw</topic>
+        <topic_picker>0</topic_picker>
+        <ignition-gui>
+          <title>Camera Feed</title>
+          <property key="state" type="string">floating</property>
+          <property type="double" key="height">320</property>
+          <property type="double" key="width">320</property>
+          <property type="double" key="x">1</property>
+          <property type="double" key="y">1</property>
+          <property type="double" key="z">1</property>
+        </ignition-gui>
+      </plugin>
+
+      <plugin filename="ImageDisplay" name="r_camera">
+        <topic>/camera/right_image_raw</topic>
+        <topic_picker>0</topic_picker>
+        <ignition-gui>
+          <title>Right Camera Feed</title>
+          <property key="state" type="string">floating</property>
+          <property type="double" key="height">320</property>
+          <property type="double" key="width">320</property>
+          <property type="double" key="x">350</property>
+          <property type="double" key="y">1</property>
+          <property type="double" key="z">1</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Inspector -->
+      <plugin filename="ComponentInspector" name="Component inspector">
+        <ignition-gui>
+          <property type="string" key="state">docked</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Entity tree -->
+      <plugin filename="EntityTree" name="Entity tree">
+        <ignition-gui>
+          <property type="string" key="state">docked</property>
+        </ignition-gui>
+      </plugin>
+    </gui>
+
+    <!--light-->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+
+    <!-- Adding simulation elements -->
+    <model name="workspace_setup">
+      <link name="ground">
+        <collision name='ground_collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <plane>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name = 'ground_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <plane>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <diffuse>0.5 0.5 1 1</diffuse>
+            <ambient>0.5 0.5 1 1</ambient>
+        </material>
+        </visual>
+      </link>
+      <joint name="world_fixed" type="fixed">
+        <parent>world</parent>
+        <child>ground</child>
+      </joint>
+
+      <!-- Visualization for workspace boundaries -->
+      <link name="workspace">
+        <collision name='workspace_collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.23 0.23 0.02</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name = 'workspace_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.23 0.23 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>0 0 0 1</diffuse>
+            <ambient>0 0 0 1</ambient>
+        </material>
+        </visual>
+      </link>
+      <joint name="workspace_fixed" type="fixed">
+        <parent>ground</parent>
+        <child>workspace</child>
+      </joint>
+
+      <link name='robo_camera'>
+       <pose>0 0 0.85 0 1.57 0</pose>
+       <inertial>
+         <mass>1e-10</mass>
+       </inertial>
+       <visual name='robo_camera_visual'>
+         <geometry>
+           <box>
+             <size>0.05 0.05 0.05</size>
+           </box>
+         </geometry>
+       </visual>
+       <sensor name="dep_camera" type="depth_camera">
+         <always_on>1</always_on>
+         <visualize>true</visualize>
+         <update_rate>120</update_rate>
+         <topic>/camera/dep_image_raw</topic>
+         <gz_frame_id>camera_rgb_frame</gz_frame_id>
+         <camera>
+           <camera_info_topic>/camera/dep_camera_info</camera_info_topic>
+           <horizontal_fov>0.785</horizontal_fov>
+           <image>
+            <width>320</width>
+            <height>240</height>
+            <format>R_FLOAT32</format>
+           </image>
+           <clip>
+             <near>0.01</near>
+             <far>1.0</far>
+           </clip>
+         </camera>
+       </sensor>
+       <sensor name="camera" type="camera">
+         <always_on>1</always_on>
+         <visualize>true</visualize>
+         <update_rate>120</update_rate>
+         <topic>/camera/right_image_raw</topic>
+         <gz_frame_id>camera_rgb_frame</gz_frame_id>
+         <camera name="intel_realsense_r200">
+           <camera_info_topic>/camera/right_camera_info</camera_info_topic>
+           <image>
+            <width>320</width>
+            <height>240</height>
+           </image>
+         </camera>
+       </sensor>
+      </link>
+      <joint name="robo_camera_fixed" type="fixed">
+        <parent>ground</parent>
+        <child>robo_camera</child>
+      </joint>
+
+
+<!-- 
+      <link name='right_camera'>
+       <pose>0 -0.03 0.85 0 1.57 0</pose>
+       <inertial>
+         <mass>1e-10</mass>
+       </inertial>
+       <visual name='right_camera_visual'>
+         <geometry>
+           <box>
+             <size>0.05 0.05 0.05</size>
+           </box>
+         </geometry>
+       </visual>
+       <sensor name="camera" type="camera">
+         <always_on>1</always_on>
+         <visualize>true</visualize>
+         <update_rate>120</update_rate>
+         <topic>/camera/right_image_raw</topic>
+         <gz_frame_id>camera_rgb_frame</gz_frame_id>
+         <camera name="intel_realsense_r200">
+           <camera_info_topic>/camera/right_camera_info</camera_info_topic>
+           <image>
+            <width>320</width>
+            <height>240</height>
+           </image>
+         </camera>
+       </sensor>
+      </link>
+      <joint name="right_camera_fixed" type="fixed">
+        <parent>ground</parent>
+        <child>right_camera</child>
+      </joint> 
+-->
+
+
+      <!-- Insert the robotic arm model -->
+      <include>
+        <!-- <uri>file://src/robot_desc/robot/simRobot.sdf</uri> -->
+        <uri>file://src/robot_desc/TrueRobot/TrueRobot.sdf</uri>
+        <pose>0 -0.53926 0 0 0 0</pose>
+      </include>
+
+      <joint name="base_fixed" type="fixed">
+        <parent>ground</parent>
+        <child>project_robot::armbasemount</child>
+      </joint>
+
+    </model>    
+
+  </world>
+</sdf>

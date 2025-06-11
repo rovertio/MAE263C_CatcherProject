@@ -30,6 +30,9 @@ target_link_libraries(joint_space_idc
   Eigen3::Eigen
 )
 
+include_directories(
+  include
+)
 install(TARGETS joint_space_idc
   DESTINATION lib/${PROJECT_NAME})
 

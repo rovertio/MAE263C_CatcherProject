@@ -1,0 +1,298 @@
+<?xml version="1.0" ?>
+<sdf version='1.9'>
+  <model name='project_robot'>
+    <link name='armbasemount'>
+      <inertial>
+        <pose>6.251875546689009e-06 0.06186406951293352 0.0428628931354464 0 0 0</pose>
+        <mass>0.29051270000000001</mass>
+        <inertia>
+          <ixx>0.00055875421740281869</ixx>
+          <ixy>-3.4062005332006259e-08</ixy>
+          <ixz>-7.3112193284978159e-08</ixz>
+          <iyy>0.0006971616844175366</iyy>
+          <iyz>-0.00020423169635380809</iyz>
+          <izz>0.00059518919063912654</izz>
+        </inertia>
+      </inertial>
+      <collision name='armbasemount_collision'>
+        <pose>0 0.1156 0.06 1.5708 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/armbasemount.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/armbasemount.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='armbasemount_fixed_joint_lump__dynamixelmotor_withhorn_collision_1'>
+        <pose>6.372530999999999e-34 0.1036 0.07803 8.57655e-33 -1.2326e-32 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='armbasemount_visual'>
+        <pose>0 0.1156 0.06 1.5708 0 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/armbasemount.stl</uri>            
+            <!-- <uri>model://robot_desc/TrueRobot/assets/armbasemount.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+        </material>
+      </visual>
+      <visual name='armbasemount_fixed_joint_lump__dynamixelmotor_withhorn_visual_1'>
+        <pose>6.372530999999999e-34 0.1036 0.07803 8.57655e-33 -1.2326e-32 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient> -->
+        </material>
+      </visual>
+    </link>
+    <joint name='shoulder' type='revolute'>
+      <pose relative_to='armbasemount'>3.845701e-34 0.1036 0.09853000000000001 3.14159 -1.2326e-32 0</pose>
+      <parent>armbasemount</parent>
+      <child>shoulderlink</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1.5708</lower>
+          <upper>1.5708</upper>
+          <!-- <effort>2.3</effort> -->
+          <!-- <velocity>5.236</velocity> -->
+          <effort>1000</effort>
+          <velocity>10000</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0</damping>      <!-- Explicitly set -->
+          <friction>0.0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='shoulderlink'>
+      <pose relative_to='shoulder'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.003645512018805132 -0.1863316300059878 0.01986712454381451 0 0 0</pose>
+        <mass>0.20337669999999999</mass>
+        <inertia>
+          <ixx>0.0022488945478882989</ixx>
+          <ixy>4.1720371291662997e-05</ixy>
+          <ixz>1.6568543822297811e-06</ixz>
+          <iyy>0.0001204273050543394</iyy>
+          <iyz>-8.3976955029445538e-05</iyz>
+          <izz>0.0021781180081586961</izz>
+        </inertia>
+      </inertial>
+      <collision name='shoulderlink_collision'>
+        <pose>0.00351367 -0.169801 4.16334e-17 -3.14159 -2.117582368135751e-22 -1.55128</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/combinedshoulder.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/combinedshoulder.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='shoulderlink_collision_1'>
+        <pose>0.00351367 -0.169801 4.16334e-17 -3.14159 -2.117582368135751e-22 -1.55128</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/bottomshoulderlink.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/bottomshoulderlink.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='shoulderlink_fixed_joint_lump__dynamixelmotor_withhorn_2_collision_2'>
+        <pose>0.00581549619397911 -0.297943249636601 0.015 3.14159 -1.323488980084844e-23 0.01952000000000008</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='shoulderlink_visual'>
+        <pose>0.00351367 -0.169801 4.16334e-17 -3.14159 -2.117582368135751e-22 -1.55128</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/combinedshoulder.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/combinedshoulder.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+        </material>
+      </visual>
+      <visual name='shoulderlink_visual_1'>
+        <pose>0.00351367 -0.169801 4.16334e-17 -3.14159 -2.117582368135751e-22 -1.55128</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/bottomshoulderlink.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/bottomshoulderlink.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.289216 0.47549 0.882353 1</diffuse>
+          <ambient>0.289216 0.47549 0.882353 1</ambient> -->
+        </material>
+      </visual>
+      <visual name='shoulderlink_fixed_joint_lump__dynamixelmotor_withhorn_2_visual_2'>
+        <pose>0.00581549619397911 -0.297943249636601 0.015 3.14159 -1.323488980084844e-23 0.01952000000000008</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/dynamixelmotor_withhorn.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.808824 0.808824 0.808824 1</diffuse>
+          <ambient>0.808824 0.808824 0.808824 1</ambient> -->
+        </material>
+      </visual>
+    </link>
+    <joint name='elbow' type='revolute'>
+      <pose relative_to='shoulderlink'>-1.094615120878888e-06 -0.2979999999979897 -0.0055 3.14159 0 -1.5708</pose>
+      <!-- <pose relative_to='shoulderlink'>0.005815496193980275 -0.297943249636601 -0.0055 3.14159 0 -1.5616931</pose> -->
+      <parent>shoulderlink</parent>
+      <child>hooplink</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.2939099999999999</lower>
+          <upper>2.2939099999999999</upper>
+          <!-- <lower>-2.3142499999999999</lower>
+          <upper>2.2934199999999998</upper> -->
+          <effort>1000</effort>
+          <velocity>10000</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.0</damping>      <!-- Explicitly set -->
+          <friction>0.0</friction> 
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='hooplink'>
+      <pose relative_to='elbow'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.1358200027684566 -2.364220297380264e-05 0.004826469969201467 0 0 0</pose>
+        <mass>0.059303801000000003</mass>
+        <inertia>
+          <ixx>1.682160000336709e-05</ixx>
+          <ixy>2.321110289544231e-07</ixy>
+          <ixz>5.9135702998698312e-06</ixz>
+          <iyy>0.00052000702695840844</iyy>
+          <iyz>-4.6639603221122238e-09</iyz>
+          <izz>0.00053478302695510313</izz>
+        </inertia>
+      </inertial>
+      <collision name='hooplink_collision'>
+        <pose>0.169838 0.1698 0 0 2.18953e-47 1.73472e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/hooplink.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/hooplink.stl</uri> -->
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='hooplink_visual'>
+        <pose>0.169838 0.1698 0 0 2.18953e-47 1.73472e-18</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://robot_desc/TrueRobot/assets/hooplink.stl</uri>
+            <!-- <uri>model://robot_desc/TrueRobot/assets/hooplink.stl</uri> -->
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.03 0.03 0.03 1</diffuse>
+          <ambient>0.03 0.03 0.03 1</ambient>
+          <!-- <diffuse>0.769607 1 1 1</diffuse>
+          <ambient>0.769607 1 1 1</ambient> -->
+        </material>
+      </visual>
+    </link>
+    <frame name='shouldermotor' attached_to='armbasemount'>
+      <pose>0 0.1036 0.10388 0 -0 0</pose>
+    </frame>
+    <frame name='dynamixelmotor_withhorn' attached_to='shouldermotor'/>
+    <frame name='elbowmotor' attached_to='shoulderlink'>
+      <pose>0 -0 -0.003 0 -0 -1.55128</pose>
+    </frame>
+    <frame name='dynamixelmotor_withhorn_2' attached_to='elbowmotor'/>
+    <frame name='EEframe_frame' attached_to='hooplink'>
+      <pose>0.3 -0.0002 0.003 0 0 0</pose>
+    </frame>
+    <frame name='EEframe' attached_to='EEframe_frame'/>
+
+
+
+    <!-- Plug-in for velocity control -->
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>shoulder</joint_name>
+      <topic>velS</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0</d_gain>
+      <initial_velocity>0</initial_velocity>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+      <joint_name>elbow</joint_name>
+      <topic>velE</topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0</d_gain>
+      <initial_velocity>0</initial_velocity>
+    </plugin>
+
+    <!-- Plug in for joint reading -->
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+      <topic>joint_state</topic>
+      <joint_name>shoulder</joint_name>
+      <joint_name>elbow</joint_name>
+      <update_rate>20</update_rate>
+    </plugin>
+
+  </model>
+</sdf>

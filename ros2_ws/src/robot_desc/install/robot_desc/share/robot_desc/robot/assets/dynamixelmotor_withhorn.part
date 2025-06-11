@@ -1,0 +1,13 @@
+{
+    "configuration": "default",
+    "documentId": "af0115e61c5582d0fb054981",
+    "documentMicroversion": "3e1b7f173af8c20f6afd4673",
+    "elementId": "8aeac4e03d57d19a43e429dc",
+    "fullConfiguration": "default",
+    "id": "MwufwM4XSi9jGeOrr",
+    "isStandardContent": false,
+    "name": "DynamixelMotor_withHorn <2>",
+    "partId": "JFD",
+    "suppressed": false,
+    "type": "Part"
+}
