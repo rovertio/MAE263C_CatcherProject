@@ -42,9 +42,9 @@ ament_target_dependencies(
     geometry_msgs 
 )
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION include/${PROJECT_NAME}
-)
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION include/${PROJECT_NAME}
+# )
 
 install(DIRECTORY
   launch

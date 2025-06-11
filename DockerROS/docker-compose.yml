@@ -1,10 +1,11 @@
 services:
   gaz_con:
-    image: dockerros
+    image: ubuntu-desktop-ros:humble-gazebo-fortress
     ipc: host
     cpus: 14      
     environment:
-      - DISPLAY=:0
+      - DISPLAY=172.23.128.1:1
+      - QT_X11_NO_MITSHM=1
       - XAUTHORITY=/tmp/.X11-unix/X0
     network_mode: host
     volumes:

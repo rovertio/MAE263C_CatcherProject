@@ -1,7 +1,12 @@
 ARG ROS_DISTRO=humble
 FROM gezp/ubuntu-desktop-ros:$ROS_DISTRO
 
-# Distro of ROS and gazebo
+# Remove old ROS sources and keys, then add the new key and source
+RUN rm -f /etc/apt/sources.list.d/ros2.list && \
+    rm -f /etc/apt/trusted.gpg.d/ros* && \
+    apt-get update && apt-get install -y curl gnupg2 && \
+    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list
 ARG ROS_DISTRO=humble
 ARG GZ_VERSION=fortress
 
