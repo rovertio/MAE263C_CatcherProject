@@ -1,1 +1,0 @@
-urdf;xacro;rclcpp;ros_gz_bridge;ros_gz_image;ros_gz_sim;sensor_msgs;tf2;rqt_image_view;joint_state_publisher;robot_state_publisher;rviz;ament_lint_auto;ament_lint_common
