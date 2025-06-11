@@ -14,7 +14,7 @@
 #include <cmath>
 
 using SetXY = controller_msgs::msg::SetXY;
-using Plot  = controller_msgs::msg::JointPlotData;
+using Plot = controller_msgs::msg::JointPlotData;
 using std::placeholders::_1;
 
 class PwmPositionNode : public rclcpp::Node
@@ -25,8 +25,8 @@ public:
     declare_parameter<std::string>("port", "/dev/ttyUSB0");
     declare_parameter<int>("baud", 1000000);
     declare_parameter<double>("kp", 50.0);
-    declare_parameter<double>("ki",  0.1);
-    declare_parameter<double>("kd",   5.0);
+    declare_parameter<double>("ki", 0.1);
+    declare_parameter<double>("kd", 5.0);
     declare_parameter<int>("max_pwm", 885);
     declare_parameter<int>("ctrl_rate_hz", 1000);
 
@@ -41,7 +41,8 @@ public:
     if (!port_->openPort() || !port_->setBaudRate(get_parameter("baud").as_int()))
       RCLCPP_FATAL(get_logger(), "Serial open failed");
 
-    for (uint8_t id : control::SERVO_IDS) {
+    for (uint8_t id : control::SERVO_IDS)
+    {
       write8(id, control::ADDR_TORQUE_ENABLE, 0);
       write8(id, control::ADDR_OPERATING_MODE, control::MODE_PWM);
       write8(id, control::ADDR_TORQUE_ENABLE, 1);
@@ -57,12 +58,14 @@ public:
 
   ~PwmPositionNode() override
   {
-    for (uint8_t id : control::SERVO_IDS) write8(id, control::ADDR_TORQUE_ENABLE, 0);
+    for (uint8_t id : control::SERVO_IDS)
+      write8(id, control::ADDR_TORQUE_ENABLE, 0);
     port_->closePort();
   }
 
 private:
-  void write8(uint8_t id, uint16_t addr, uint8_t d) {
+  void write8(uint8_t id, uint16_t addr, uint8_t d)
+  {
     uint8_t e{};
     int rc = packet_->write1ByteTxRx(port_, id, addr, d, &e);
     if (rc != COMM_SUCCESS || e)
@@ -70,47 +73,55 @@ private:
   }
 
   // Use GroupSyncWrite to set both motors' PWMs at once
-  void send_pwms(int pwm1, int pwm2) {
+  void send_pwms(int pwm1, int pwm2)
+  {
     dynamixel::GroupSyncWrite group_writer(port_, packet_, control::ADDR_GOAL_PWM, 2);
-    uint8_t b1[2] = { DXL_LOBYTE(pwm1), DXL_HIBYTE(pwm1) };
-    uint8_t b2[2] = { DXL_LOBYTE(pwm2), DXL_HIBYTE(pwm2) };
+    uint8_t b1[2] = {DXL_LOBYTE(pwm1), DXL_HIBYTE(pwm1)};
+    uint8_t b2[2] = {DXL_LOBYTE(pwm2), DXL_HIBYTE(pwm2)};
     bool ok1 = group_writer.addParam(control::ID1, b1);
     bool ok2 = group_writer.addParam(control::ID2, b2);
-    if (!ok1 || !ok2) {
+    if (!ok1 || !ok2)
+    {
       RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000,
-        "GroupSyncWrite addParam failed! (ok1=%d ok2=%d)", ok1, ok2);
+                            "GroupSyncWrite addParam failed! (ok1=%d ok2=%d)", ok1, ok2);
       return;
     }
     int rc = group_writer.txPacket();
-    if (rc != COMM_SUCCESS) {
+    if (rc != COMM_SUCCESS)
+    {
       RCLCPP_ERROR_THROTTLE(get_logger(), *get_clock(), 2000,
-        "GroupSyncWrite PWM failed: %s", packet_->getTxRxResult(rc));
+                            "GroupSyncWrite PWM failed: %s", packet_->getTxRxResult(rc));
     }
   }
 
   void cb_xy(const SetXY::SharedPtr msg)
   {
-    if (!std::isfinite(msg->x) || !std::isfinite(msg->y)) {
+    if (!std::isfinite(msg->x) || !std::isfinite(msg->y))
+    {
       RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "set_xy contains NaN/Inf — ignoring");
       return;
     }
     double j1, j2;
     RCLCPP_INFO(get_logger(), "PWM HERE->>>>> (kp=%.1f ki=%.1f kd=%.1f)", kp_, ki_, kd_);
-    if (control::ik_xy(msg->x * 0.01, msg->y * 0.01, j1, j2)) {
+    if (control::ik_xy(msg->x * 0.01, msg->y * 0.01, j1, j2))
+    {
       tgt_j1_ = j1 * 180.0 / M_PI;
       tgt_j2_ = j2 * 180.0 / M_PI;
       last_good_cmd_time_ = now();
       has_target_ = true;
-    } else {
+    }
+    else
+    {
       RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "IK failed for (%.1f, %.1f)", msg->x, msg->y);
     }
   }
 
   void control_loop()
   {
-    if (!has_target_ || (now() - last_good_cmd_time_).seconds() > 3.0) return;
+    if (!has_target_ || (now() - last_good_cmd_time_).seconds() > 3.0)
+      return;
     int32_t tick1{}, tick2{};
-    control::read_two_positions(port_, packet_, tick1, tick2);  
+    control::read_two_positions(port_, packet_, tick1, tick2);
     double cur1 = control::tick2deg(0, tick1);
     double cur2 = control::tick2deg(1, tick2);
     RCLCPP_INFO(get_logger(), "PWM gains (kp=%.1f ki=%.1f kd=%.1f)", kp_, ki_, kd_);
@@ -120,17 +131,22 @@ private:
 
     Plot p;
     p.stamp = now();
-    p.q1_deg = cur1;  p.q2_deg = cur2;
-    p.q1_des_deg = tgt_j1_; p.q2_des_deg = tgt_j2_;
-    p.e1 = tgt_j1_ - cur1;  p.e2 = tgt_j2_ - cur2;
+    p.q1_deg = cur1;
+    p.q2_deg = cur2;
+    p.q1_des_deg = tgt_j1_;
+    p.q2_des_deg = tgt_j2_;
+    p.e1 = tgt_j1_ - cur1;
+    p.e2 = tgt_j2_ - cur2;
+    p.pwm1 = pwm1;
+    p.pwm2 = pwm2;
     pub_plot_->publish(p);
   }
 
   rclcpp::Subscription<SetXY>::SharedPtr sub_xy_;
   rclcpp::Publisher<Plot>::SharedPtr pub_plot_;
   rclcpp::TimerBase::SharedPtr timer_;
-  dynamixel::PortHandler* port_{};
-  dynamixel::PacketHandler* packet_{};
+  dynamixel::PortHandler *port_{};
+  dynamixel::PacketHandler *packet_{};
   control::PidState pid1_, pid2_;
   double kp_, ki_, kd_, dt_s_;
   int max_pwm_;
@@ -140,11 +156,10 @@ private:
 };
 
 /* ---- main --------------------------------------------------------- */
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<PwmPositionNode>());
   rclcpp::shutdown();
   return 0;
 }
-
-

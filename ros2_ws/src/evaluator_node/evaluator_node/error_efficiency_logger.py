@@ -34,7 +34,8 @@ class ErrorEfficiencyLogger(Node):
         with open(self.csv_file_path, mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([
-                'time', 'PWM1', 'PWM2', 'PWM Efforts'
+                'time', 'PWM1', 'PWM2', 'PWM Efforts', "Joint Angle Current 1", "Joint Angle Current 2",
+                "Joint Angle Desired 1", "Joint Angle Desired 2"
             ])
 
         # Subscriptions
@@ -59,6 +60,8 @@ class ErrorEfficiencyLogger(Node):
 
     def pwm_callback(self, msg):
         self.joint_pwm = [msg.pwm1,msg.pwm2]
+        self.joint_angles_current = [msg.q1_deg, msg.q2_deg]
+        self.joint_angles_desired = [msg.q1_des_deg, msg.q2_des_deg]
         Message = "Joint PWM: [" + str(self.joint_pwm[0]) + ", " + str(self.joint_pwm[1]) + "]"
         # self.get_logger().info(Message)
 
@@ -143,7 +146,11 @@ class ErrorEfficiencyLogger(Node):
                 elapsed_time, 
                 self.joint_pwm[0],
                 self.joint_pwm[1],
-                self.effort_PWM
+                self.effort_PWM,
+                self.joint_angles_current[0],
+                self.joint_angles_current[1],
+                self.joint_angles_desired[0],
+                self.joint_angles_desired[1]
             ])
 
 
