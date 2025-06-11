@@ -1,0 +1,9 @@
+colcon build --packages-select controller_msgs joint_space_idc robust_joint_control controller_node ball_arm_tracker joint_plotter idc_node
+
+colcon build --packages-select evaluator_node
+
+ros2 run evaluator_node evaluator_node
+
+ros2 run evaluator_node dummy_joint_plot_publisher
+
+ros2 run evaluator_node dummy_joint_plot_publisher plotcsv

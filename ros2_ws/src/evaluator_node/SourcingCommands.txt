@@ -1,0 +1,7 @@
+docker exec -it dockerros-gaz_con-1 bash
+source /opt/ros/humble/setup.bash
+cd /workspaces/ros2_ws
+
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+export IGN_GAZEBO_RESOURCE_PATH=src/robot_desc/install/robot_desc/share/
