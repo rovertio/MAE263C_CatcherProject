@@ -28,7 +28,7 @@ public:
     declare_parameter<double>("ki",  0.1);
     declare_parameter<double>("kd",   5.0);
     declare_parameter<int>("max_pwm", 885);
-    declare_parameter<int>("ctrl_rate_hz", 500);
+    declare_parameter<int>("ctrl_rate_hz", 1000);
 
     kp_ = get_parameter("kp").as_double();
     ki_ = get_parameter("ki").as_double();
@@ -95,6 +95,7 @@ private:
       return;
     }
     double j1, j2;
+    RCLCPP_INFO(get_logger(), "PWM HERE->>>>> (kp=%.1f ki=%.1f kd=%.1f)", kp_, ki_, kd_);
     if (control::ik_xy(msg->x * 0.01, msg->y * 0.01, j1, j2)) {
       tgt_j1_ = j1 * 180.0 / M_PI;
       tgt_j2_ = j2 * 180.0 / M_PI;
@@ -109,10 +110,10 @@ private:
   {
     if (!has_target_ || (now() - last_good_cmd_time_).seconds() > 3.0) return;
     int32_t tick1{}, tick2{};
-    control::read_two_positions(port_, packet_, tick1, tick2);
+    control::read_two_positions(port_, packet_, tick1, tick2);  
     double cur1 = control::tick2deg(0, tick1);
     double cur2 = control::tick2deg(1, tick2);
-
+    RCLCPP_INFO(get_logger(), "PWM gains (kp=%.1f ki=%.1f kd=%.1f)", kp_, ki_, kd_);
     double pwm1 = pid1_.step(tgt_j1_ - cur1, kp_, ki_, kd_, max_pwm_);
     double pwm2 = pid2_.step(tgt_j2_ - cur2, kp_, ki_, kd_, max_pwm_);
     send_pwms(int(pwm1), int(pwm2));

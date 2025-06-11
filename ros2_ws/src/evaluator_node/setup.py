@@ -13,10 +13,10 @@ setup(
     description='Logs error and energy metrics for ping-pong arm project',
     license='MIT',
     entry_points={
-        'console_scripts': [
-            'error_efficiency_logger = evaluator_node.error_efficiency_logger:main',
-            'plot_controller_evaluations = evaluator_node.plot_controller_evaluations:main',  # new
-        ],
-    },
+    'console_scripts': [
+        'evaluator_node = evaluator_node.error_efficiency_logger:main',
+    ],
+},
+
 
 )

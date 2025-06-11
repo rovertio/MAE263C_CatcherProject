@@ -3,9 +3,9 @@
     port: "/dev/ttyUSB0"
     baud: 1000000
 
-    kp: 50.0
-    ki: 0.10
-    kd: 5.0
+    kp: 80.0
+    ki: 10
+    kd: 10
     max_pwm: 880
 
     ctrl_rate_hz: 500
