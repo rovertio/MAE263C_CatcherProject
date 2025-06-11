@@ -18,6 +18,8 @@ class ErrorEfficiencyLogger(Node):
         self.start_time = self.get_clock().now()
         self.prev_time = self.start_time
         self.joint_pwm = [0,0]
+        self.joint_angles_current = [0,0]
+        self.joint_angles_desired =[0,0]
         # Initialize effort calculations
         self.effort_PWM = 0.00
 
