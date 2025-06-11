@@ -34,7 +34,9 @@ docker exec -it dockerros-gaz_con-1 bash
 ```
 source /opt/ros/humble/setup.bash
 cd /workspaces/ros2_ws
+```
 # or
+```
 source /opt/ros/humble/setup.bash
 cd /workspaces/simulation_ws ## <- depending on if you're running the simulation or not
 ```
@@ -62,7 +64,7 @@ source install/setup.bash
 
 - Then run whichever node you want:
 ```
-ros2 run [NODE_NAME]
+ros2 run [NODE_NAME] [EXECUTABLE_NAME]
 ```
 
 

@@ -71,6 +71,7 @@ RUN apt-get update && \
   apt-get install -y meshlab && \
   rm -rf /var/lib/apt/lists/* 
 
+RUN pip install pandas matplotlib &&\ pip install "numpy<2"
 
 # Copy the entrypoint and bashrc scripts so we have 
 # our container's environment set up correctly

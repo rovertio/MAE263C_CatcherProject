@@ -139,6 +139,11 @@ private:
     p.e2 = tgt_j2_ - cur2;
     p.pwm1 = pwm1;
     p.pwm2 = pwm2;
+    p.measured_q1 = cur1;
+    p.measured_q2 = cur2;
+    p.desired_q1 = tgt_j1_;
+    p.desired_q2 = tgt_j2_;
+    p.controller_name = "pwm_position_node";
     pub_plot_->publish(p);
   }
 

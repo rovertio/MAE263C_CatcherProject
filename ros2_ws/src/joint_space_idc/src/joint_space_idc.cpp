@@ -210,6 +210,14 @@ private:
     p.e2          = p.q2_des_deg - qdeg[1];
     p.x           = xy[0];
     p.y           = xy[1];
+    // Add for logger:
+    p.measured_q1 = qdeg[0];
+    p.measured_q2 = qdeg[1];
+    p.desired_q1  = p.q1_des_deg;
+    p.desired_q2  = p.q2_des_deg;
+    p.pwm1 = 0.0;
+    p.pwm2 = 0.0;
+    p.controller_name = "joint_space_idc";
     pub_plot_->publish(p);
     auto t4 = ch::steady_clock::now();
 

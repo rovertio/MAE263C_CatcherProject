@@ -15,6 +15,8 @@ setup(
     entry_points={
     'console_scripts': [
         'evaluator_node = evaluator_node.error_efficiency_logger:main',
+        'dummy_joint_plot_publisher = evaluator_node.dummy_joint_plot_publisher:main',
+        'plotcsv = evaluator_node.plot_csv_data:main',
     ],
 },
 

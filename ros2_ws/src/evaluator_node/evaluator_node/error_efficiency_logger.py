@@ -17,155 +17,111 @@ class ErrorEfficiencyLogger(Node):
         self.ball_position = None
         self.start_time = self.get_clock().now()
         self.prev_time = self.start_time
-        self.joint_pwm = [0,0]
-        self.joint_angles_current = [0,0]
-        self.joint_angles_desired =[0,0]
-        # Initialize effort calculations
+        # new members to track data updates and whether data has been received
+        self.last_update = self.start_time
+        self.has_data = False
+        self.joint_pwm = [0, 0]
+        self.joint_angles_current = [0, 0]
+        self.joint_angles_desired = [0, 0]
+        self.controller_name = None
         self.effort_PWM = 0.00
 
-        # Folder setup
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        self.controller_type = os.environ.get('CONTROLLER_TYPE', 'default_controller')
-        self.output_folder = os.path.join(os.path.expanduser('~'), 'controller_logs', self.controller_type, timestamp)
+        # Folder setup: use an absolute path that's volume-mounted.
+        # For example, if your workspace is at "/workspaces/ros2_ws", then:
+        base_dir = os.path.join("/workspaces/ros2_ws", "src", "evaluator_node")
+        # If no controller name yet, default to "default_controller"
+        controller = "default_controller" if self.controller_name is None else self.controller_name
+        self.output_folder = os.path.join(base_dir, "Data Set", controller)
         os.makedirs(self.output_folder, exist_ok=True)
-        self.csv_file_path = os.path.join(self.output_folder, 'log.csv')
-        self.get_logger().info(self.csv_file_path)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        self.csv_file_path = os.path.join(self.output_folder, f'{controller}_DataSet[{timestamp}].csv')
+        self.get_logger().info(f"CSV file will be saved to: {self.csv_file_path}")
 
+        # Initialize the CSV file with headers
+        try:
+            with open(self.csv_file_path, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([
+                    'time', 'PWM1', 'PWM2', 'PWM Efforts', "Joint Angle Current 1", "Joint Angle Current 2",
+                    "Joint Angle Desired 1", "Joint Angle Desired 2", "Controller Name"
+                ])
+        except Exception as e:
+            self.get_logger().error(f"Failed to create CSV file: {e}")
 
-        # CSV header
-        with open(self.csv_file_path, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow([
-                'time', 'PWM1', 'PWM2', 'PWM Efforts', "Joint Angle Current 1", "Joint Angle Current 2",
-                "Joint Angle Desired 1", "Joint Angle Desired 2"
-            ])
+        self.create_subscription(jp, "pwm/joint_plot_data", self.pwm_callback, 10)
+        self.create_subscription(jp, "idc_joint/joint_plot_data", self.pwm_callback, 10)
+        self.create_subscription(jp, "idc/joint_plot_data", self.pwm_callback, 10)
+        self.create_subscription(jp, "robust_joint/joint_plot_data", self.pwm_callback, 10)
 
-        # Subscriptions
-        # self.joint_sub = self.create_subscription(JointState,'/joint_states',self.joint_state_callback,10)
-        self.get_logger().info('🔧 Subscribed to /joint_states')
-
-        # self.create_subscription(PointStamped, '/ball_position', self.ball_callback, 10)
-        
-        
-        self.create_subscription(jp, "pwm/joint_plot_data", self.pwm_callback,10)
-        
-        
         self.timer = self.create_timer(0.01, self.log_data)  # 100 Hz
 
-    # def joint_state_callback(self, msg):
-    #     self.latest_joint_msg = msg
-    #     self.try_log_data()
-
-    # def ball_callback(self, msg):
-    #     self.latest_ball_msg = msg
-    #     self.try_log_data()
-
     def pwm_callback(self, msg):
-        self.joint_pwm = [msg.pwm1,msg.pwm2]
-        self.joint_angles_current = [msg.q1_deg, msg.q2_deg]
-        self.joint_angles_desired = [msg.q1_des_deg, msg.q2_des_deg]
-        Message = "Joint PWM: [" + str(self.joint_pwm[0]) + ", " + str(self.joint_pwm[1]) + "]"
-        # self.get_logger().info(Message)
-
-
-
-    # def try_log_data(self):
-    #     if self.latest_joint_msg and self.latest_ball_msg and self.latest_pwm_msg:
-    #     # Extract timestamp (you can improve this based on sync logic)
-    #         stamp = self.latest_joint_msg.header.stamp
-
-    #         joint_pos = self.latest_joint_msg.position
-    #         joint_vel = self.latest_joint_msg.velocity
-    #         effort = self.latest_joint_msg.effort
-
-    #         ball_x = self.latest_ball_msg.x
-    #         ball_y = self.latest_ball_msg.y
-
-    #         pwm = self.latest_pwm_msg.data
-
-    #     # Dummy placeholder: you should replace with real effort calculations
-    #         effort_torque_squared = sum([t**2 for t in effort]) if effort else 0.0
-    #         effort_pwm_squared = sum([p**2 for p in pwm]) if pwm else 0.0
-
-    #         self.writer.writerow([
-    #             stamp.sec + stamp.nanosec * 1e-9,
-    #             joint_pos,
-    #             joint_vel,
-    #             effort,
-    #             ball_x,
-    #             ball_y,
-    #             pwm,
-    #             effort_torque_squared,
-    #             effort_pwm_squared
-    #     ])
-
-    #         self.get_logger().info("✅ Logged one row of synchronized data.")
-
-    #     # Reset after logging
-    #         self.latest_joint_msg = None
-    #         self.latest_ball_msg = None
-    #     self.latest_pwm_msg = None
-
-
+        if self.controller_name is None and hasattr(msg, "controller_name"):
+            self.controller_name = msg.controller_name if msg.controller_name else "unknown_controller"
+            self.get_logger().info(f"Controller name set to: {self.controller_name}")
+        self.joint_pwm = [getattr(msg, "pwm1", 0.0), getattr(msg, "pwm2", 0.0)]
+        self.joint_angles_current = [getattr(msg, "measured_q1", 0.0), getattr(msg, "measured_q2", 0.0)]
+        self.joint_angles_desired = [getattr(msg, "desired_q1", 0.0), getattr(msg, "desired_q2", 0.0)]
+        self.has_data = True
+        self.last_update = self.get_clock().now()
 
     def log_data(self):
-        # if (self.joint_states is None
-        #     or not self.joint_states.effort
-        #     or not self.joint_states.velocity
-        #     or self.end_effector_position is None
-        #     or self.ball_position is None):
-        #     return
-        # if len(self.joint_states.effort) != len(self.joint_states.velocity):
-        #     self.get_logger().warn("effort/velocity length mismatch – skipping sample")
-        #     return
+        if not self.has_data:
+            return
 
         now = self.get_clock().now()
         elapsed_time = (now - self.start_time).nanoseconds / 1e9
         dt = (now - self.prev_time).nanoseconds / 1e9
         self.prev_time = now
 
-        # position_error = math.sqrt(
-        #     (self.end_effector_position.x - self.ball_position.x) ** 2 +
-        #     (self.end_effector_position.y - self.ball_position.y) ** 2 
-        # )
+        # Format time values to 4 decimal places for output
+        elapsed_time_fmt = f"{elapsed_time:.4f}"
+        dt_fmt = f"{dt:.4f}"
 
-        # torque_squared = sum([eff ** 2 for eff in self.joint_states.effort])
-        # torque_velocity = sum([
-        #     eff * vel for eff, vel in zip(self.joint_states.effort, self.joint_states.velocity)
-        # ])
+        if (now - self.last_update).nanoseconds / 1e9 > 1.0:
+            self.get_logger().info("No updated data received in over 1 second. Finalizing CSV file.")
+            self.get_logger().info(f"CSV file saved at: {os.path.abspath(self.csv_file_path)}")
+            self.timer.cancel()
+            return
 
-        # self.effort_torque_squared += torque_squared * dt
-        # self.effort_torque_velocity += torque_velocity * dt
+        self.effort_PWM += (abs(self.joint_pwm[0])**2 + abs(self.joint_pwm[1])**2) * dt
 
-        self.effort_PWM += (abs(self.joint_pwm[0])**2 + abs(self.joint_pwm[1])**2)*dt
-
-        Message = "Effort: " + str(self.effort_PWM)
+        Message = f"Effort: {round(self.effort_PWM, 3)}"
         self.get_logger().info(Message)
+        Message2 = (
+            f"\n{round(self.joint_angles_current[0], 2)} {round(self.joint_angles_current[1], 2)} "
+            f"{round(self.joint_angles_desired[0], 2)} {round(self.joint_angles_desired[1], 2)} "
+            f"t={elapsed_time_fmt}"
+        )
+        self.get_logger().info(Message2)
 
-        with open(self.csv_file_path, mode='a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow([
-                elapsed_time, 
-                self.joint_pwm[0],
-                self.joint_pwm[1],
-                self.effort_PWM,
-                self.joint_angles_current[0],
-                self.joint_angles_current[1],
-                self.joint_angles_desired[0],
-                self.joint_angles_desired[1]
-            ])
-
-
-
+        try:
+            with open(self.csv_file_path, mode='a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([
+                    elapsed_time_fmt,
+                    self.joint_pwm[0],
+                    self.joint_pwm[1],
+                    self.effort_PWM,
+                    self.joint_angles_current[0],
+                    self.joint_angles_current[1],
+                    self.joint_angles_desired[0],
+                    self.joint_angles_desired[1],
+                    self.controller_name
+                ])
+        except Exception as e:
+            self.get_logger().error(f"Failed to write to CSV file: {e}")
 
 def main():
     rclpy.init()
     node = ErrorEfficiencyLogger()
-    rclpy.spin(node)
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        node.get_logger().info("KeyboardInterrupt received. Shutting down.")
     node.destroy_node()
     rclpy.shutdown()
-    
-
+    node.get_logger().info("Node has been shut down successfully.")
 
 if __name__ == '__main__':
     main()

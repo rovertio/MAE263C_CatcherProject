@@ -184,7 +184,16 @@ private:
 
     /* 4 ▸ publish */
     Plot p; p.stamp=now(); p.q1_deg=qdeg[0]; p.q2_deg=qdeg[1];
-    p.x = x[0]; p.y = x[1]; pub_plot_->publish(p);
+    p.x = x[0]; p.y = x[1];
+    // Add for logger:
+    p.measured_q1 = qdeg[0];
+    p.measured_q2 = qdeg[1];
+    p.desired_q1  = qdeg[0]; // No explicit desired q in operational space, so use current
+    p.desired_q2  = qdeg[1];
+    p.pwm1 = 0.0;
+    p.pwm2 = 0.0;
+    p.controller_name = "inverse_dynamics_node";
+    pub_plot_->publish(p);
     auto t4 = ch::steady_clock::now();
 
 #ifdef PROFILING
