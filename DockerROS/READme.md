@@ -14,13 +14,14 @@ This is assuming utilizatin of a Windows system, where the linux GUIs and progra
 
 - Build the docker image with a predetermined tag, to reduce complications in image naming:
 ```
-docker build -f DockerROS/Dockerfile -t ubuntu-desktop-ros:humble-gazebo-fortress DockerROS
+ docker compose -f DockerROS/docker-compose.yml build
 ```
 
-- change the directory to DockerRos, then compose the image:
+
+
+- compose the image:
 ```
-cd DockerROS
-docker compose up
+ docker compose -f DockerROS/docker-compose.yml up 
 ```
 ## Build ROS Package
 
@@ -31,14 +32,16 @@ docker exec -it dockerros-gaz_con-1 bash
 
 - Change the directory so you're in the right path:
 ```
+source /opt/ros/humble/setup.bash
 cd /workspaces/ros2_ws
 # or
+source /opt/ros/humble/setup.bash
 cd /workspaces/simulation_ws ## <- depending on if you're running the simulation or not
 ```
 
 - Build the packages:
 ```
-colcon build --packages-select robot_desc ball_detector controller_node evaluator_node controll_common controller_msgs pwm_position_node
+colcon build
 ```
 
 - Source ROS2 and the workspace:
