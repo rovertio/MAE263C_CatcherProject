@@ -1,1 +1,8 @@
+Outer files:
+kp1_joint = 230.0
+kd1_task = 2.0
+kp2_task = 190.0
+kd2_task = 7.2
+rho = 0.20
+epsilon = 0.01
 
