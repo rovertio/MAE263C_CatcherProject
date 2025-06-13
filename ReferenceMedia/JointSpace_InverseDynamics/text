@@ -1,1 +1,5 @@
-
+Outer files:
+kp1_task = 200.0
+kd1_task = 0.43
+kp2_task = 140.0
+kd2_task = 3.0
