@@ -1,1 +1,5 @@
+Outer files:
+kp = 125.0
+ki = 0.20
+kd = 80.0
 
