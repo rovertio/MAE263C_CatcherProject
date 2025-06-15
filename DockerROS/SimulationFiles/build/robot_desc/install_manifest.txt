@@ -11,6 +11,7 @@
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/dynamixelmotor_withhorn.stl
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.part
 /home/Catcher/install/robot_desc/share/robot_desc//robot/assets/hooplink.stl
+/home/Catcher/install/robot_desc/share/robot_desc//robot/config.json
 /home/Catcher/install/robot_desc/share/robot_desc//robot/robot.urdf
 /home/Catcher/install/robot_desc/share/robot_desc//robot/simRobot.sdf
 /home/Catcher/install/robot_desc/share/robot_desc//TrueRobot/assets/armbasemount.part
